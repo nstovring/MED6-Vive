@@ -1,0 +1,170 @@
+fileFormatVersion: 2
+guid: 507641ce51ca01c4280d7e2922001571
+timeCreated: 1487075812
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Grist
+    100004: Grist1
+    100006: Grist10
+    100008: Grist11
+    100010: Grist12
+    100012: Grist13
+    100014: Grist14
+    100016: Grist15
+    100018: Grist16
+    100020: Grist2
+    100022: Grist3
+    100024: Grist4
+    100026: Grist5
+    100028: Grist6
+    100030: Grist7
+    100032: Grist8
+    100034: Grist9
+    100036: Lameller
+    100038: Lampshape
+    400000: //RootNode
+    400002: Grist
+    400004: Grist1
+    400006: Grist10
+    400008: Grist11
+    400010: Grist12
+    400012: Grist13
+    400014: Grist14
+    400016: Grist15
+    400018: Grist16
+    400020: Grist2
+    400022: Grist3
+    400024: Grist4
+    400026: Grist5
+    400028: Grist6
+    400030: Grist7
+    400032: Grist8
+    400034: Grist9
+    400036: Lameller
+    400038: Lampshape
+    2300000: Grist
+    2300002: Grist1
+    2300004: Grist10
+    2300006: Grist11
+    2300008: Grist12
+    2300010: Grist13
+    2300012: Grist14
+    2300014: Grist15
+    2300016: Grist16
+    2300018: Grist2
+    2300020: Grist3
+    2300022: Grist4
+    2300024: Grist5
+    2300026: Grist6
+    2300028: Grist7
+    2300030: Grist8
+    2300032: Grist9
+    2300034: Lampshape
+    3300000: Grist
+    3300002: Grist1
+    3300004: Grist10
+    3300006: Grist11
+    3300008: Grist12
+    3300010: Grist13
+    3300012: Grist14
+    3300014: Grist15
+    3300016: Grist16
+    3300018: Grist2
+    3300020: Grist3
+    3300022: Grist4
+    3300024: Grist5
+    3300026: Grist6
+    3300028: Grist7
+    3300030: Grist8
+    3300032: Grist9
+    3300034: Lampshape
+    4300000: Grist16
+    4300002: Grist15
+    4300004: Grist14
+    4300006: Grist13
+    4300008: Grist12
+    4300010: Grist11
+    4300012: Grist10
+    4300014: Grist9
+    4300016: Grist8
+    4300018: Grist7
+    4300020: Grist6
+    4300022: Grist5
+    4300024: Grist4
+    4300026: Grist3
+    4300028: Grist2
+    4300030: Grist1
+    4300032: Grist
+    4300034: Lampshape
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 50
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
