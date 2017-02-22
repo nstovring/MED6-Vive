@@ -9,6 +9,8 @@ public class TestAnimation : MonoBehaviour
     private float VSpeed;
     public float HSpeed;
 
+    public Transform walkTarget;
+
     // Use this for initialization
     void Start ()
 	{
@@ -19,6 +21,11 @@ public class TestAnimation : MonoBehaviour
 
     private bool sitting = false;
     private bool samba = false;
+
+    //public IEnumerator WalkToTarget()
+    //{
+    //    while(Vector3)
+    //}
 
     // Update is called once per frame
     void Update ()
