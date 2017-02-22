@@ -9,21 +9,26 @@ public class Vibrator : MonoBehaviour {
     // Use this for initialization
     void Start () {
         trackedObj = GetComponent<SteamVR_TrackedObject>();
-        controllerMan = GetComponent<SteamVR_ControllerManager>();
-        controllerCollider = controllerMan.left.GetComponent<Collider>();
-
     }
 
     // Update is called once per frame
     void Update () {
         
 	}
-
+    public int mainFreq = 500;
+    public int timeFreq = 10;
     void OnTriggerStay(Collider other) {
         if(other.transform.tag == "Tablet")
         {
+            ushort time = (ushort)(int) (mainFreq * Mathf.Sin(Time.time * timeFreq));
             SteamVR_Controller.Input((int)trackedObj.index).TriggerHapticPulse(500);
 
         }
+    }
+
+    public void vibrate(ushort time)
+    {
+        trackedObj = GetComponent<SteamVR_TrackedObject>();
+        SteamVR_Controller.Input((int)trackedObj.index).TriggerHapticPulse(time);
     }
 }

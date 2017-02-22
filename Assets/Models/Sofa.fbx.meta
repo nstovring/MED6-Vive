@@ -45,6 +45,7 @@ ModelImporter:
     2300018: interior:obj_05_041
     2300020: interior:obj_05_042
     2300022: interior:obj_05_043
+    2300024: //RootNode
     3300000: interior:Box002_MeshPart0
     3300002: interior:Box002_MeshPart1
     3300004: interior:Box002_MeshPart2
@@ -57,6 +58,7 @@ ModelImporter:
     3300018: interior:obj_05_041
     3300020: interior:obj_05_042
     3300022: interior:obj_05_043
+    3300024: //RootNode
     4300000: interior:Box002_MeshPart0
     4300002: interior:Box002_MeshPart1
     4300004: interior:Box002_MeshPart2
@@ -69,6 +71,7 @@ ModelImporter:
     4300018: interior:obj_05_043
     4300020: interior:obj_05_029
     4300022: interior:cuscini03
+    4300024: polySurface8
     9500000: //RootNode
   materials:
     importMaterials: 1
