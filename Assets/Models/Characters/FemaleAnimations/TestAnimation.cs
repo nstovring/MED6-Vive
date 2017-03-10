@@ -86,11 +86,22 @@ public class TestAnimation : MonoBehaviour
     void Update ()
 	{
         myAnimator.SetBool("GrabTablet", false);
-        VSpeed = Input.GetAxis("Vertical");
-        HSpeed = Input.GetAxis("Horizontal");
+        if(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+        {
+            HSpeed = Input.GetAxis("Horizontal");
+        }
+        
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S))
+        {
+            VSpeed = Input.GetAxis("Vertical");
+        }
+       
         myAnimator.SetFloat("VSpeed",VSpeed);
         myAnimator.SetFloat("HSpeed", HSpeed);
 
+
+        VSpeed = Mathf.Lerp(VSpeed, 0,0.1f);
+        HSpeed = Mathf.Lerp(HSpeed, 0, 0.1f);
 	    if (Input.GetKeyUp(KeyCode.Space))
 	    {
 	        sitting = !sitting;
