@@ -15,8 +15,10 @@ public class TestAnimation : MonoBehaviour
     public Transform handRoot;
 	public List<Transform> tablets;
 
-    public SteamVR_ControllerManager controllerMan;
+	public SteamVR_ControllerManager controllerMan;
+
 	/**
+
 	private SteamVR_TrackedObject trackedObj;
 
 	private SteamVR_Controller.Device controller {
@@ -28,22 +30,23 @@ public class TestAnimation : MonoBehaviour
 	private Valve.VR.EVRButtonId clickedButton = Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger;
 
 	public bool clickedDown = false;
-	*/
+*/
 
 	private Material[] materials;
 	private int currentMat = 0;
 	private Transform ipadScreen;
 
-	/*
+
 	void Awake()
 	{
-		trackedObj = GetComponent<SteamVR_TrackedObject>();
-	}*/
+		//trackedObj = GetComponent<SteamVR_TrackedObject>();
+		//trackedObj = GetComponent();
+		//Debug.Log ("Controller found: " + trackedObj);
+	}
 
     // Use this for initialization
     void Start ()
 	{
-
 		//iPad = GameObject.Find("iPad");
 
 		//Instantiate iPad screen color
@@ -127,6 +130,12 @@ public class TestAnimation : MonoBehaviour
     // Update is called once per frame
     void Update ()
 	{
+		/**
+		if (controller == null) {
+			Debug.Log ("Controller not initialized");
+			return;
+		}*/
+
         myAnimator.SetBool("GrabTablet", false);
         if(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
         {
@@ -178,9 +187,8 @@ public class TestAnimation : MonoBehaviour
 			}
 		}
 
-
 		//Clicking iPad
-		/*
+		/**
 		clickedDown = controller.GetPressDown(clickedButton);
 
 		if (clickedDown) {
@@ -192,7 +200,19 @@ public class TestAnimation : MonoBehaviour
 			//rend.enabled = true;
 			//update:
 			//rend.sharedMaterial = materials[index];
-		}
-		*/
+
+			if (currentMat == 0) {
+				Debug.Log ("First material");
+				ipadScreen.GetComponent<Renderer> ().sharedMaterial = materials [1];
+				//ipadScreen.GetComponent<Renderer> ().sharedMaterial.color = Color.blue;
+				currentMat = 1;
+			} else {
+				Debug.Log ("Second material");
+				ipadScreen.GetComponent<Renderer> ().sharedMaterial = materials [0];
+				//ipadScreen.GetComponent<Renderer> ().sharedMaterial.color = Color.white;
+				currentMat = 0;
+			}
+		}*/
+
     }
 }
