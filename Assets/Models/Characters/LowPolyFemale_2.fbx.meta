@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 57053103318111845bf09c56aa9eb56f
-timeCreated: 1487072396
+guid: 4032286b3912fca44a03b6003a6f800e
+timeCreated: 1489645946
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -9,7 +9,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: pCylinder3
+    4300000: FemaleBody
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -35,7 +35,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 0.3
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
