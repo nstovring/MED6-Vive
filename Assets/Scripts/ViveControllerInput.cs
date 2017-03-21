@@ -14,6 +14,7 @@ public class ViveControllerInput : MonoBehaviour {
     private GameObject collidingObject;
     private GameObject objectInHand;
 
+	public GameObject animatedCharacter;
 
     void Awake()
     {
@@ -62,6 +63,16 @@ public class ViveControllerInput : MonoBehaviour {
         {
             Debug.Log(gameObject.name + " Grip Release");
         }
+
+		//Test - pressing touch? Try 'touchpad' also instead of 'trigger'
+		if (Controller.GetTouchDown (SteamVR_Controller.ButtonMask.Trigger)) {
+			//Move forward
+			Vector2 value = Controller.GetAxis();
+
+			if (value != Vector2.zero) { //If moving
+				
+			}
+		}
     }//End Update
 
     //Picking up objects code
