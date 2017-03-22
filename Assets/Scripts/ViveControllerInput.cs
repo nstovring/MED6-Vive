@@ -25,16 +25,16 @@ public class ViveControllerInput : MonoBehaviour {
         //Input methods
         if (Controller.GetAxis() != Vector2.zero)
         {
-            Debug.Log(gameObject.name + Controller.GetAxis());
+            //Debug.Log(gameObject.name + Controller.GetAxis());
         }
 
         if (Controller.GetHairTriggerDown())
         {
-            Debug.Log(gameObject.name + " Trigger Press");
+            //Debug.Log(gameObject.name + " Trigger Press");
         }
         if (Controller.GetHairTrigger())
         {
-            Debug.Log(gameObject.name + " Trigger Press");
+            //Debug.Log(gameObject.name + " Trigger Press");
         }
 
         if (Controller.GetHairTriggerUp())
@@ -63,15 +63,8 @@ public class ViveControllerInput : MonoBehaviour {
         {
             Debug.Log(gameObject.name + " Grip Release");
         }
-
-		//Test - pressing touch? Try 'touchpad' also instead of 'trigger'
-		if (Controller.GetTouchDown (SteamVR_Controller.ButtonMask.Trigger)) {
-			//Move forward
-			Vector2 value = Controller.GetAxis();
-
-			if (value != Vector2.zero) { //If moving
-				
-			}
+		if (Controller.GetPressDown (SteamVR_Controller.ButtonMask.Touchpad)) {
+			Debug.Log ("Touch pressed");
 		}
     }//End Update
 
