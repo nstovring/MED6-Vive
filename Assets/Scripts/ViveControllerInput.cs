@@ -21,6 +21,9 @@ public class ViveControllerInput : MonoBehaviour {
 	public GameObject blueButton;
 	public GameObject screen;
 
+	public int mainFreq = 500;
+	public int timeFreq = 10;
+
     void Awake()
     {
         trackedObj = GetComponent<SteamVR_TrackedObject>();
@@ -28,7 +31,6 @@ public class ViveControllerInput : MonoBehaviour {
 
     void Update () {
         //Input methods
-
 
 
         if (Controller.GetAxis() != Vector2.zero)
@@ -77,7 +79,6 @@ public class ViveControllerInput : MonoBehaviour {
 			Debug.Log ("Touch pressed");
 		}
 		if (Controller.GetTouchDown (SteamVR_Controller.ButtonMask.Trigger)) {
-			Debug.Log ("Trigger pressed " + collidingObject.name);
 
 			if (collidingObject == yellowButton) {
 				Debug.Log ("Yellow button pressed");
@@ -89,6 +90,7 @@ public class ViveControllerInput : MonoBehaviour {
 				} else {
 					Debug.Log ("Wrong color chosen");
 					screen.GetComponent <Renderer> ().material.color = new Color (1, 0, 0); 
+					vibrate (500);
 				}
 				screen.GetComponent<ScreenColor>().playing = false;
 			} 
@@ -102,6 +104,7 @@ public class ViveControllerInput : MonoBehaviour {
 				} else {
 					Debug.Log ("Wrong color chosen");
 					screen.GetComponent <Renderer> ().material.color = new Color (1,0,0); 
+					vibrate (500);
 				}
 				screen.GetComponent<ScreenColor>().playing = false;
 			}
@@ -115,12 +118,18 @@ public class ViveControllerInput : MonoBehaviour {
 				} else {
 					Debug.Log ("Wrong color chosen");
 					screen.GetComponent <Renderer> ().material.color = new Color (1,0,0); 
+					vibrate (500);
 				}
 				screen.GetComponent<ScreenColor>().playing = false;
 			}
 
 		}
     }//End Update
+
+	public void vibrate(ushort time)
+	{
+		SteamVR_Controller.Input((int)trackedObj.index).TriggerHapticPulse(time);
+	}
 
     //Picking up objects code
     private void SetCollidingObject(Collider col)

@@ -13,11 +13,11 @@ public class ScreenColor : MonoBehaviour {
 		//print (deltaTime);
 
 		if (playing == true && deltaTime >= 1) {
-			Debug.Log ("Printing " + deltaTime);
+			//Debug.Log ("Printing " + deltaTime);
 			Color = Random.Range (0, 3);
 			SwitchColor (Color);
 		} else if (deltaTime >= 2) {
-			Debug.Log ("Printing " + deltaTime);
+			//Debug.Log ("Printing " + deltaTime);
 			Color = Random.Range (0, 3);
 			SwitchColor (Color);
 			playing = true;

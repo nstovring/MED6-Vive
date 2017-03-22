@@ -18,12 +18,14 @@ public class Vibrator : MonoBehaviour {
     public int mainFreq = 500;
     public int timeFreq = 10;
     void OnTriggerStay(Collider other) {
+		/**
         if(other.transform.tag == "Tablet")
         {
-            ushort time = (ushort)(int) (mainFreq * Mathf.Sin(Time.time * timeFreq));
+			Debug.Log ("Ipad touched");
+            //ushort time = (ushort)(int) (mainFreq * Mathf.Sin(Time.time * timeFreq));
             SteamVR_Controller.Input((int)trackedObj.index).TriggerHapticPulse(500);
 
-        }
+        }*/
     }
 
     public void vibrate(ushort time)
