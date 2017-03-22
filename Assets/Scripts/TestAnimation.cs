@@ -142,10 +142,10 @@ public class TestAnimation : MonoBehaviour
             HSpeed = Input.GetAxis("Horizontal");
         }
         
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S))
+        /**if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S))
         {
             VSpeed = Input.GetAxis("Vertical");
-        }
+        }*/
        
         myAnimator.SetFloat("VSpeed",VSpeed);
         myAnimator.SetFloat("HSpeed", HSpeed);
