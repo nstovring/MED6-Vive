@@ -16,6 +16,11 @@ public class ViveControllerInput : MonoBehaviour {
 
 	public GameObject animatedCharacter;
 
+	public GameObject yellowButton;
+	public GameObject purpleButton;
+	public GameObject blueButton;
+	public GameObject screen;
+
     void Awake()
     {
         trackedObj = GetComponent<SteamVR_TrackedObject>();
@@ -23,6 +28,9 @@ public class ViveControllerInput : MonoBehaviour {
 
     void Update () {
         //Input methods
+
+
+
         if (Controller.GetAxis() != Vector2.zero)
         {
             //Debug.Log(gameObject.name + Controller.GetAxis());
@@ -45,7 +53,7 @@ public class ViveControllerInput : MonoBehaviour {
                 ReleaseObject();
             }
 
-            Debug.Log(gameObject.name + " Trigger Release");
+            //Debug.Log(gameObject.name + " Trigger Release");
         }
 
         if (Controller.GetPressDown(SteamVR_Controller.ButtonMask.Grip))
@@ -55,6 +63,8 @@ public class ViveControllerInput : MonoBehaviour {
             {
                 GrabObject();
             }
+
+
 
             Debug.Log(gameObject.name + " Grip Press");
         }
@@ -66,22 +76,68 @@ public class ViveControllerInput : MonoBehaviour {
 		if (Controller.GetPressDown (SteamVR_Controller.ButtonMask.Touchpad)) {
 			Debug.Log ("Touch pressed");
 		}
+		if (Controller.GetTouchDown (SteamVR_Controller.ButtonMask.Trigger)) {
+			Debug.Log ("Trigger pressed " + collidingObject.name);
+
+			if (collidingObject == yellowButton) {
+				Debug.Log ("Yellow button pressed");
+
+				//If color is correct
+				if (screen.GetComponent<Renderer> ().material.color == new Color (1, 1, 0)) {
+					Debug.Log ("Correct color chosen");
+					screen.GetComponent <Renderer> ().material.color = new Color (0, 1, 0); 
+				} else {
+					Debug.Log ("Wrong color chosen");
+					screen.GetComponent <Renderer> ().material.color = new Color (1, 0, 0); 
+				}
+				screen.GetComponent<ScreenColor>().playing = false;
+			} 
+			else if (collidingObject == purpleButton) {
+				Debug.Log("Purple button pressed");
+
+				if (screen.GetComponent<Renderer> ().material.color == new Color (1, 0, 1)) {
+					Debug.Log ("Correct color chosen");
+					screen.GetComponent <Renderer> ().material.color = new Color (0,1,0); 
+
+				} else {
+					Debug.Log ("Wrong color chosen");
+					screen.GetComponent <Renderer> ().material.color = new Color (1,0,0); 
+				}
+				screen.GetComponent<ScreenColor>().playing = false;
+			}
+			else if (collidingObject == blueButton) {
+				Debug.Log("Blue button pressed");
+
+				if (screen.GetComponent<Renderer> ().material.color == new Color (0, 0, 1)) {
+					Debug.Log ("Correct color chosen");
+					screen.GetComponent <Renderer> ().material.color = new Color (0,1,0); 
+
+				} else {
+					Debug.Log ("Wrong color chosen");
+					screen.GetComponent <Renderer> ().material.color = new Color (1,0,0); 
+				}
+				screen.GetComponent<ScreenColor>().playing = false;
+			}
+
+		}
     }//End Update
 
     //Picking up objects code
     private void SetCollidingObject(Collider col)
     {
+		/**
         if (collidingObject || !col.GetComponent<Rigidbody>())
         {
             return;
-        }
+        }*/
         collidingObject = col.gameObject;
+		//Debug.Log ("Collided object is now set: " + collidingObject.name);
     }
     public void OnTriggerEnter(Collider other)
     {
+		//Debug.Log ("Colliding object: " + other.name);
         SetCollidingObject(other);
     }
-
     public void OnTriggerStay(Collider other)
     {
         SetCollidingObject(other);
@@ -89,11 +145,12 @@ public class ViveControllerInput : MonoBehaviour {
 
     public void OnTriggerExit(Collider other)
     {
+		//Debug.Log ("Exiting object");
         if (!collidingObject)
         {
             return;
         }
-
+		//Debug.Log ("Collided object is now set to null");
         collidingObject = null;
     }
     private void GrabObject()
