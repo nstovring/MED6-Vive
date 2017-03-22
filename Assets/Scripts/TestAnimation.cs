@@ -9,7 +9,7 @@ public class TestAnimation : MonoBehaviour
 	//public GameObject iPadScreen;
 
     private Animator myAnimator;
-    private float VSpeed;
+    public float VSpeed;
     public float HSpeed;
 
     public Transform handRoot;

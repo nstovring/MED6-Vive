@@ -19,8 +19,30 @@ public class MenuScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (Input.GetKeyDown(KeyCode.Alpha1)){
+			Debug.Log ("1 pressed");
+			myFade.FadeOut(2, false);
+			Debug.Log ("Fading");
+			StartCoroutine(waitAndLoad (2, "ClassRoom"));
+		}
+		else if (Input.GetKeyDown(KeyCode.Alpha2)){
+			Debug.Log("Scene 2 pressed");
+			myFade.FadeOut(2, false);
+			StartCoroutine(waitAndLoad (2, "Scene2"));
+		}
+		else if (Input.GetKeyDown(KeyCode.Alpha3)){
+			Debug.Log("Scene 3 pressed");
+			myFade.FadeOut(2, false);
+			StartCoroutine(waitAndLoad (2, "Scene3"));
+		}
 
+	}
 
+	void OnGUI() {
+		//Debug.Log ("Button down. Alpha 1 to string: " + KeyCode.Alpha1.ToString());
+		if (Event.current.Equals (Event.KeyboardEvent (KeyCode.Alpha1.ToString()))) {
+			//Debug.Log ("Button 1 down");
+		}
 	}
 
 	//Click a menu item
