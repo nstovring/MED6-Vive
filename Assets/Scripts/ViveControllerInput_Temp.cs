@@ -60,14 +60,14 @@ public class ViveControllerInput_Temp : MonoBehaviour {
         }
 
         if (Controller.GetPressDown(SteamVR_Controller.ButtonMask.Grip))
-			verticalSpeed.GetComponent <TestAnimationScene1> ().VSpeed = Input.GetAxis("Vertical");
         {
+			/**
             //grab object
             if (collidingObject)
             {
                 GrabObject();
             }
-            Debug.Log(gameObject.name + " Grip Press");
+            Debug.Log(gameObject.name + " Grip Press");*/
         }
 
         if (Controller.GetPressUp(SteamVR_Controller.ButtonMask.Grip))
@@ -76,8 +76,11 @@ public class ViveControllerInput_Temp : MonoBehaviour {
         }
 		if (Controller.GetPressDown (SteamVR_Controller.ButtonMask.Touchpad)) {
 			Debug.Log ("Touch pressed");
+			verticalSpeed.GetComponent <TestAnimationScene1> ().VSpeed = Input.GetAxis("Vertical");
 		}
 		if (Controller.GetTouchDown (SteamVR_Controller.ButtonMask.Trigger)) {
+			Debug.Log ("Collider detected: " + collidingObject.name);
+			
 			if (collidingObject == iPad) {
 				Debug.Log ("iPad grabbed");
 				//Animation first, then attach tablet
@@ -106,7 +109,7 @@ public class ViveControllerInput_Temp : MonoBehaviour {
     }
     public void OnTriggerEnter(Collider other)
     {
-		//Debug.Log ("Colliding object: " + other.name);
+		Debug.Log ("Colliding object: " + other.name);
         SetCollidingObject(other);
     }
     public void OnTriggerStay(Collider other)
@@ -116,7 +119,7 @@ public class ViveControllerInput_Temp : MonoBehaviour {
 
     public void OnTriggerExit(Collider other)
     {
-		//Debug.Log ("Exiting object");
+		Debug.Log ("Exiting object");
         if (!collidingObject)
         {
             return;
