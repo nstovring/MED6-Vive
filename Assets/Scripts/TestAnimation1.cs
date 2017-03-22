@@ -11,7 +11,7 @@ public class TestAnimation1 : MonoBehaviour
 	//public GameObject iPadScreen;
 
     private Animator myAnimator;
-    private float VSpeed;
+    public float VSpeed;
     public float HSpeed;
 
     public Transform handRoot;
@@ -68,26 +68,11 @@ public class TestAnimation1 : MonoBehaviour
 	    myAnimator = GetComponent<Animator>();
 		Debug.Log("MyAnimator result: " + myAnimator);
 	    myAnimator.applyRootMotion = true;
-        if (controllerTest)
-        {
-            tablets[0].gameObject.SetActive(false);
-            //tablets[0].gameObject.GetComponent<Collider>().enabled = false;
-            //tablets[0].gameObject.GetComponent<Renderer>().enabled = false;
-            //Destroy(tablets[0]);//.gameObject.GetComponent<Renderer>().enabled = false;
-
-
-        } else {
-            tablets[1].gameObject.SetActive(false);
-
-            //tablets[1].gameObject.GetComponent<Collider>().enabled = true;
-            //tablets[1].gameObject.GetComponent<Renderer>().enabled = true;
-            //Destroy(tablets[1]);
-        }
     }
 
     private bool sitting = false;
     private bool samba = false;
-    public bool controllerTest = true;
+    public bool controllerTest = false;
 
     Vector3 tabPos = new Vector3(0.024f, 0.523f, 0.071f);
     Vector3 tabRot = new Vector3(80, -115, -287);
@@ -150,10 +135,11 @@ public class TestAnimation1 : MonoBehaviour
             HSpeed = Input.GetAxis("Horizontal");
         }
         
+		/**
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S))
         {
             VSpeed = Input.GetAxis("Vertical");
-        }
+        }*/
        
         myAnimator.SetFloat("VSpeed",VSpeed);
         myAnimator.SetFloat("HSpeed", HSpeed);
@@ -182,7 +168,7 @@ public class TestAnimation1 : MonoBehaviour
 		//Load menu
 		if (Input.GetKeyUp (KeyCode.M)) {
 			Debug.Log ("Fading and changing scene");
-			//myFade.FadeOut(2, false);
+			myFade.FadeOut(2, false);
 			StartCoroutine(waitAndLoad (2, "Menu"));
 			//SceneManager.LoadScene("Menu");
 		}

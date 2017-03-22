@@ -23,7 +23,7 @@ public class MenuScript : MonoBehaviour {
 			Debug.Log ("1 pressed");
 			myFade.FadeOut(2, false);
 			Debug.Log ("Fading");
-			StartCoroutine(waitAndLoad (2, "ClassRoom"));
+			StartCoroutine(waitAndLoad (2, "Scene1"));
 		}
 		else if (Input.GetKeyDown(KeyCode.Alpha2)){
 			Debug.Log("Scene 2 pressed");
