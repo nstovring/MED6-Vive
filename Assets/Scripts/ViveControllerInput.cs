@@ -6,6 +6,7 @@ public class ViveControllerInput : MonoBehaviour {
     //Steam VR Variables
     private SteamVR_TrackedObject trackedObj;
     private SteamVR_Controller.Device Controller
+
     {
         get { return SteamVR_Controller.Input((int)trackedObj.index); }
     }
@@ -20,6 +21,7 @@ public class ViveControllerInput : MonoBehaviour {
 	public GameObject purpleButton;
 	public GameObject blueButton;
 	public GameObject screen;
+	public GameObject verticalSpeed; 
 
 	public int mainFreq = 500;
 	public int timeFreq = 10;
@@ -59,7 +61,11 @@ public class ViveControllerInput : MonoBehaviour {
         }
 
         if (Controller.GetPressDown(SteamVR_Controller.ButtonMask.Grip))
+			verticalSpeed.GetComponent <TestAnimation> ().VSpeed = Input.GetAxis("Vertical");
+		
         {
+
+
             //grab object
             if (collidingObject)
             {
