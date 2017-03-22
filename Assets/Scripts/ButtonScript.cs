@@ -28,8 +28,11 @@ public class ButtonScript : MonoBehaviour {
 			//If color is correct
 			if (screen.GetComponent<Renderer> ().material.color == new Color (1, 1, 0)) {
 				Debug.Log ("Correct color chosen");
+				screen.GetComponent <Renderer> ().material.color = new Color (0,1,0); 
 			} else {
 				Debug.Log ("Wrong color chosen");
+				screen.GetComponent <Renderer> ().material.color = new Color (1,0,0); 
+
 			}
 		}
 		else if (objectClicked.name == "PurpleButton") {
@@ -37,8 +40,11 @@ public class ButtonScript : MonoBehaviour {
 
 			if (screen.GetComponent<Renderer> ().material.color == new Color (1, 0, 1)) {
 				Debug.Log ("Correct color chosen");
+				screen.GetComponent <Renderer> ().material.color = new Color (0,1,0); 
+
 			} else {
 				Debug.Log ("Wrong color chosen");
+				screen.GetComponent <Renderer> ().material.color = new Color (1,0,0); 
 			}
 		}
 		else if (objectClicked.name == "BlueButton") {
@@ -46,8 +52,11 @@ public class ButtonScript : MonoBehaviour {
 
 			if (screen.GetComponent<Renderer> ().material.color == new Color (0, 0, 1)) {
 				Debug.Log ("Correct color chosen");
+				screen.GetComponent <Renderer> ().material.color = new Color (0,1,0); 
+
 			} else {
 				Debug.Log ("Wrong color chosen");
+				screen.GetComponent <Renderer> ().material.color = new Color (1,0,0); 
 			}
 		}
 	}
