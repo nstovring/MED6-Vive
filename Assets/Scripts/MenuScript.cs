@@ -24,6 +24,7 @@ public class MenuScript : MonoBehaviour {
 			myFade.FadeOut(2, false);
 			Debug.Log ("Fading");
 			StartCoroutine(waitAndLoad (2, "Scene1"));
+			//Load waiting scene and send new scene to it
 		}
 		else if (Input.GetKeyDown(KeyCode.Alpha2)){
 			Debug.Log("Scene 2 pressed");
