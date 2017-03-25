@@ -93,11 +93,9 @@ public class ViveControllerInput : MonoBehaviour {
 				if (screen.GetComponent<Renderer> ().material.color == new Color (1, 1, 0)) {
 					Debug.Log ("Correct color chosen");
 					screen.GetComponent <Renderer> ().material.color = new Color (0, 1, 0);
-					yield return GetComponent <Sound> ().ipadSounds [0];  
 				} else {
 					Debug.Log ("Wrong color chosen");
 					screen.GetComponent <Renderer> ().material.color = new Color (1, 0, 0); 
-					yield return GetComponent <Sound> ().ipadSounds [1]; 
 					vibrate (500);
 				}
 				screen.GetComponent<ScreenColor>().playing = false;
@@ -108,13 +106,11 @@ public class ViveControllerInput : MonoBehaviour {
 				if (screen.GetComponent<Renderer> ().material.color == new Color (1, 0, 1)) {
 					Debug.Log ("Correct color chosen");
 					screen.GetComponent <Renderer> ().material.color = new Color (0,1,0);
-					yield return GetComponent <Sound> ().ipadSounds [0];  
 
 
 				} else {
 					Debug.Log ("Wrong color chosen");
 					screen.GetComponent <Renderer> ().material.color = new Color (1,0,0); 
-					yield return GetComponent <Sound> ().ipadSounds [1]; 
 					vibrate (500);
 				}
 				screen.GetComponent<ScreenColor>().playing = false;
@@ -125,13 +121,11 @@ public class ViveControllerInput : MonoBehaviour {
 				if (screen.GetComponent<Renderer> ().material.color == new Color (0, 0, 1)) {
 					Debug.Log ("Correct color chosen");
 					screen.GetComponent <Renderer> ().material.color = new Color (0,1,0); 
-					yield return GetComponent <Sound> ().ipadSounds [0];  
 
 
 				} else {
 					Debug.Log ("Wrong color chosen");
 					screen.GetComponent <Renderer> ().material.color = new Color (1,0,0); 
-					yield return GetComponent <Sound> ().ipadSounds [1]; 
 					vibrate (500);
 				}
 				screen.GetComponent<ScreenColor>().playing = false;
