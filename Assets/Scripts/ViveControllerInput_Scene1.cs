@@ -21,7 +21,7 @@ public class ViveControllerInput_Scene1 : MonoBehaviour {
 	public GameObject purpleButton;
 	public GameObject blueButton;
 	public GameObject screen;
-	public GameObject verticalSpeed; 
+	public GameObject character; 
 
 	public GameObject iPad;
 	public GameObject sound;
@@ -78,7 +78,11 @@ public class ViveControllerInput_Scene1 : MonoBehaviour {
         }
 		if (Controller.GetPressDown (SteamVR_Controller.ButtonMask.Touchpad)) {
 			Debug.Log ("Touch pressed");
-			verticalSpeed.GetComponent <TestAnimationScene1> ().VSpeed = Input.GetAxis("Vertical");
+			character.GetComponent <TestAnimationScene1> ().VSpeed = Input.GetAxis("Vertical");
+		}
+		if (Controller.GetPressUp (SteamVR_Controller.ButtonMask.Touchpad)) {
+			Debug.Log ("Touch released");
+			//character.GetComponent <TestAnimationScene1> ().VSpeed = Input.GetAxis("Vertical");
 		}
 		if (Controller.GetTouchDown (SteamVR_Controller.ButtonMask.Trigger)) {
 			Debug.Log ("Collider detected: " + collidingObject.name);

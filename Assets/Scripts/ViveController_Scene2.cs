@@ -76,7 +76,7 @@ public class ViveController_Scene2 : MonoBehaviour {
 
 
 
-            Debug.Log(gameObject.name + " Grip Press");
+            //Debug.Log(gameObject.name + " Grip Press");
         }
 
         if (Controller.GetPressUp(SteamVR_Controller.ButtonMask.Grip))

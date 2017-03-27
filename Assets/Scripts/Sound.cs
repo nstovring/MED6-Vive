@@ -8,7 +8,7 @@ public class Sound : MonoBehaviour {
 	public AudioClip[] narrationQuestion = new AudioClip[1];
 	public AudioClip [] ipadSounds = new AudioClip[2];
 	public GameObject narrationSounds;
-	public GameObject ambientJingle;
+	public AudioSource ambientJingle;
 	public bool playOnAwake = false; 
 
 	void Update () {
@@ -22,10 +22,10 @@ public class Sound : MonoBehaviour {
 
 		//narration sounds response
 		if (Input.GetKeyDown (KeyCode.A)) {
+			Debug.Log ("a Pressed");
 			AudioSource audio = narrationSounds.GetComponent<AudioSource> ();
 			audio.clip = narrationResponse [0];
 			audio.Play ();
-			Debug.Log ("a Pressed");
 		}
 		if (Input.GetKeyDown (KeyCode.B)) {
 			AudioSource audio = narrationSounds.GetComponent<AudioSource> ();
