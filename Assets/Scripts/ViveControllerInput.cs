@@ -22,6 +22,8 @@ public class ViveControllerInput : MonoBehaviour {
 	public GameObject blueButton;
 	public GameObject screen;
 	public GameObject verticalSpeed; 
+	public GameObject sounds; 
+
 
 	public int mainFreq = 500;
 	public int timeFreq = 10;
@@ -93,6 +95,8 @@ public class ViveControllerInput : MonoBehaviour {
 				if (screen.GetComponent<Renderer> ().material.color == new Color (1, 1, 0)) {
 					Debug.Log ("Correct color chosen");
 					screen.GetComponent <Renderer> ().material.color = new Color (0, 1, 0);
+					//sounds.GetComponent<Sound> ().ipadSounds [0]; 
+
 				} else {
 					Debug.Log ("Wrong color chosen");
 					screen.GetComponent <Renderer> ().material.color = new Color (1, 0, 0); 
