@@ -134,6 +134,7 @@ public class ViveControllerInput_Scene1 : MonoBehaviour {
 
 		if (other.gameObject.tag == "outline") {
 			savedMaterial = other.GetComponent<Renderer> ().material;
+			Debug.Log ("Saving material: " + savedMaterial);
 			other.GetComponent<Renderer> ().material = outlinedMaterial;
 		}
     }
@@ -144,7 +145,13 @@ public class ViveControllerInput_Scene1 : MonoBehaviour {
 
     public void OnTriggerExit(Collider other)
     {
-		Debug.Log ("Exiting object");
+		Debug.Log ("Exiting object: " + other);
+
+		if (other.gameObject.tag == "outline") {
+			Debug.Log ("Giving back old mat");
+			other.GetComponent<Renderer> ().material = savedMaterial;
+		}
+
         if (!collidingObject)
         {
             return;
@@ -152,9 +159,7 @@ public class ViveControllerInput_Scene1 : MonoBehaviour {
 		//Debug.Log ("Collided object is now set to null");
         collidingObject = null;
 
-		if (other.gameObject.tag == "outline") {
-			other.GetComponent<Renderer> ().material = savedMaterial;
-		}
+
     }
     private void GrabObject()
     {
