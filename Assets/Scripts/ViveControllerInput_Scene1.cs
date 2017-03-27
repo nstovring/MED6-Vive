@@ -28,6 +28,9 @@ public class ViveControllerInput_Scene1 : MonoBehaviour {
 
 	private bool moving = false;
 
+	public Material outlinedMaterial;
+	private Material savedMaterial;
+
 
     void Awake()
     {
@@ -128,6 +131,11 @@ public class ViveControllerInput_Scene1 : MonoBehaviour {
     {
 		Debug.Log ("Colliding object: " + other.name);
         SetCollidingObject(other);
+
+		if (other.gameObject.tag == "outline") {
+			savedMaterial = other.GetComponent<Renderer> ().material;
+			other.GetComponent<Renderer> ().material = outlinedMaterial;
+		}
     }
     public void OnTriggerStay(Collider other)
     {
@@ -143,6 +151,10 @@ public class ViveControllerInput_Scene1 : MonoBehaviour {
         }
 		//Debug.Log ("Collided object is now set to null");
         collidingObject = null;
+
+		if (other.gameObject.tag == "outline") {
+			other.GetComponent<Renderer> ().material = savedMaterial;
+		}
     }
     private void GrabObject()
     {
