@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 00766b45e12d19047964e07aed0015c5
-timeCreated: 1490182286
+guid: afd66bbe3c63b0b469aa15a30d62bf86
+timeCreated: 1490470519
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: //RootNode
+    100000: FemaleBody
     100002: mixamorig:Head
     100004: mixamorig:HeadTop_End
     100006: mixamorig:Hips
@@ -47,7 +47,8 @@ ModelImporter:
     100078: mixamorig:Spine
     100080: mixamorig:Spine1
     100082: mixamorig:Spine2
-    400000: //RootNode
+    100084: //RootNode
+    400000: FemaleBody
     400002: mixamorig:Head
     400004: mixamorig:HeadTop_End
     400006: mixamorig:Hips
@@ -89,8 +90,11 @@ ModelImporter:
     400078: mixamorig:Spine
     400080: mixamorig:Spine1
     400082: mixamorig:Spine2
-    7400000: sitting
+    400084: //RootNode
+    4300000: FemaleBody
+    7400000: Take 001
     9500000: //RootNode
+    13700000: FemaleBody
   materials:
     importMaterials: 1
     materialName: 0
@@ -113,10 +117,10 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: sitting
-      takeName: mixamo.com
-      firstFrame: 0
-      lastFrame: 35
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 20
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -124,7 +128,7 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
-      loopBlend: 1
+      loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
@@ -138,6 +142,8 @@ ModelImporter:
       events: []
       transformMask:
       - path: 
+        weight: 1
+      - path: FemaleBody
         weight: 1
       - path: mixamorig:Hips
         weight: 1
