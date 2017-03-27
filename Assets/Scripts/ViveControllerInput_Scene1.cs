@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ViveControllerInput_Temp : MonoBehaviour {
+public class ViveControllerInput_Scene1 : MonoBehaviour {
     //Steam VR Variables
     private SteamVR_TrackedObject trackedObj;
     private SteamVR_Controller.Device Controller
@@ -24,6 +24,8 @@ public class ViveControllerInput_Temp : MonoBehaviour {
 	public GameObject verticalSpeed; 
 
 	public GameObject iPad;
+	public GameObject sound;
+
 
     void Awake()
     {

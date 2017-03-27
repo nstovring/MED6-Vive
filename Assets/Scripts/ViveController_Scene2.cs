@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ViveControllerInput : MonoBehaviour {
+public class ViveController_Scene2 : MonoBehaviour {
     //Steam VR Variables
     private SteamVR_TrackedObject trackedObj;
     private SteamVR_Controller.Device Controller
