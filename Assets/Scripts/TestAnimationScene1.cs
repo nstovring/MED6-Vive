@@ -25,6 +25,9 @@ public class TestAnimationScene1 : MonoBehaviour
 	private int currentMat = 0;
 	private Transform ipadScreen;
 
+	public Material iPadMat;
+	public Material blendMat;
+
 
 	void Awake()
 	{
@@ -155,6 +158,24 @@ public class TestAnimationScene1 : MonoBehaviour
 			Debug.Log ("Fading and changing scene");
 			myFade.FadeOut(2, false);
 			StartCoroutine(waitAndLoad (2, "Menu"));
+		}
+		//Restart/reload scene
+		if (Input.GetKeyUp (KeyCode.R)) {
+			Debug.Log ("Fading and restarting scene");
+			myFade.FadeOut(1, false);
+			StartCoroutine(waitAndLoad (1, "Scene1"));
+		}
+		if (Input.GetKeyUp (KeyCode.T)) {
+			//DynamicGI.SetEmissive (iPad.GetComponent<Renderer> (), new Color(255,255,255));
+				//iPad.GetComponent<Renderer>().material.color + new Color(0.5f, 0.5f, 0.5f));
+			iPad.GetComponent<Renderer> ().material = iPadMat;
+			Debug.Log ("Object color: " + iPad.GetComponent<Renderer> ().material);
+		}
+		if (Input.GetKeyUp (KeyCode.Y)) {
+			//DynamicGI.SetEmissive (iPad.GetComponent<Renderer> (), new Color(255,255,255));
+			//iPad.GetComponent<Renderer>().material.color + new Color(0.5f, 0.5f, 0.5f));
+			iPad.GetComponent<Renderer> ().material = blendMat;
+			Debug.Log ("Object color: " + iPad.GetComponent<Renderer> ().material);
 		}
 
 		/**

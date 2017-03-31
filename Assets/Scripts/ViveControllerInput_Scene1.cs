@@ -31,6 +31,9 @@ public class ViveControllerInput_Scene1 : MonoBehaviour {
 	public Material outlinedMaterial;
 	private Material savedMaterial;
 
+	public List<Material> blendMaterials;
+	public List<Material> objectMaterials;
+
 
     void Awake()
     {
@@ -133,10 +136,29 @@ public class ViveControllerInput_Scene1 : MonoBehaviour {
         SetCollidingObject(other);
 
 		if (other.gameObject.tag == "outline") {
-			savedMaterial = other.GetComponent<Renderer> ().material;
+			if (other.gameObject.name == "Tablet Palm") {
+				other.GetComponent<Renderer> ().material = blendMaterials[0];
+			} else if (other.gameObject.name == "girl") {
+				other.GetComponent<Renderer> ().material = blendMaterials[1];
+			} else if (other.gameObject.name == "BlueButton") {
+				other.GetComponent<Renderer> ().material = blendMaterials[2];
+			} else if (other.gameObject.name == "YellowButton") {
+				other.GetComponent<Renderer> ().material = blendMaterials[3];
+			} else if (other.gameObject.name == "PurpleButton") {
+				other.GetComponent<Renderer> ().material = blendMaterials[4];
+			}
+		} 
+		Debug.Log ("Object material: " + other.GetComponent<Renderer> ().material);
+
+
+		/**
+		if (other.gameObject.tag == "outline") {
+			DynamicGI.SetEmissive (other.GetComponent<Renderer> (), 
+				other.GetComponent<Renderer>().material.color * 1.5f);
+			//savedMaterial = other.GetComponent<Renderer> ().material;
 			//Debug.Log ("Saving material: " + savedMaterial);
-			other.GetComponent<Renderer> ().material = outlinedMaterial;
-		}
+			//other.GetComponent<Renderer> ().material = outlinedMaterial;
+		}*/
     }
     public void OnTriggerStay(Collider other)
     {
@@ -149,7 +171,21 @@ public class ViveControllerInput_Scene1 : MonoBehaviour {
 
 		if (other.gameObject.tag == "outline") {
 			//Debug.Log ("Giving back old mat");
-			other.GetComponent<Renderer> ().material = savedMaterial;
+			//other.GetComponent<Renderer> ().material = savedMaterial;
+			if (other.gameObject.tag == "outline") {
+				if (other.gameObject.tag == "Tablet Palm") {
+					other.GetComponent<Renderer> ().material = objectMaterials[0];
+				} else if (other.gameObject.name == "girl") {
+					other.GetComponent<Renderer> ().material = objectMaterials[1];
+				} else if (other.gameObject.name == "BlueButton") {
+					other.GetComponent<Renderer> ().material = objectMaterials[2];
+				} else if (other.gameObject.name == "YellowButton") {
+					other.GetComponent<Renderer> ().material = objectMaterials[3];
+				} else if (other.gameObject.name == "PurpleButton") {
+					other.GetComponent<Renderer> ().material = objectMaterials[4];
+				}
+			} 
+			Debug.Log ("Object material: " + other.GetComponent<Renderer> ().material);
 		}
 
         if (!collidingObject)
