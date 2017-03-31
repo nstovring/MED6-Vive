@@ -33,13 +33,13 @@ public class Sound : MonoBehaviour {
 		}
 
 		//narration Response question
-		if (Input.GetKeyDown (KeyCode.B)) {
+		if (Input.GetKeyDown (KeyCode.D)) {
 			Debug.Log ("B Pressed");
 			audio.clip = narrationResponse [0];
 			audio.Play();
 		}
 
-		if (Input.GetKeyDown (KeyCode.C)) {
+		if (Input.GetKeyDown (KeyCode.E)) {
 			Debug.Log ("D Pressed");
 			audio.clip = narrationResponse [1];
 			audio.Play();
