@@ -132,12 +132,13 @@ public class ViveControllerInput_Scene1 : MonoBehaviour {
     }
     public void OnTriggerEnter(Collider other)
     {
-		Debug.Log ("Colliding object: " + other.name);
+		//Debug.Log ("Colliding object: " + other.name);
         SetCollidingObject(other);
 
 		if (other.gameObject.tag == "outline") {
 			if (other.gameObject.name == "Tablet Palm") {
 				other.GetComponent<Renderer> ().material = blendMaterials[0];
+				Debug.Log ("Changing mat on tablet palm object: " + other.GetComponent<Renderer> ().material);
 			} else if (other.gameObject.name == "girl") {
 				other.GetComponent<Renderer> ().material = blendMaterials[1];
 			} else if (other.gameObject.name == "BlueButton") {
@@ -148,7 +149,7 @@ public class ViveControllerInput_Scene1 : MonoBehaviour {
 				other.GetComponent<Renderer> ().material = blendMaterials[4];
 			}
 		} 
-		Debug.Log ("Object material: " + other.GetComponent<Renderer> ().material);
+		//Debug.Log ("Object material: " + other.GetComponent<Renderer> ().material);
 
 
 		/**
@@ -173,8 +174,9 @@ public class ViveControllerInput_Scene1 : MonoBehaviour {
 			//Debug.Log ("Giving back old mat");
 			//other.GetComponent<Renderer> ().material = savedMaterial;
 			if (other.gameObject.tag == "outline") {
-				if (other.gameObject.tag == "Tablet Palm") {
+				if (other.gameObject.name == "Tablet Palm") {
 					other.GetComponent<Renderer> ().material = objectMaterials[0];
+					Debug.Log ("Changing mat on tablet palm object: " + other.GetComponent<Renderer> ().material);
 				} else if (other.gameObject.name == "girl") {
 					other.GetComponent<Renderer> ().material = objectMaterials[1];
 				} else if (other.gameObject.name == "BlueButton") {
