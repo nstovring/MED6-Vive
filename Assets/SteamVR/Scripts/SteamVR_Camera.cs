@@ -73,7 +73,7 @@ public class SteamVR_Camera : MonoBehaviour
 			// Keep the head around, but parent to the camera now since it moves with the hmd
 			// but existing content may still have references to this object.
 			head.parent = t;
-			head.localPosition = Vector3.zero;
+			//head.localPosition = Vector3.zero;
 			head.localRotation = Quaternion.identity;
 			head.localScale = Vector3.one;
 			head.gameObject.SetActive(false);
@@ -173,7 +173,7 @@ public class SteamVR_Camera : MonoBehaviour
 		if (_origin == null)
 		{
 			_origin = new GameObject(name + originSuffix).transform;
-			_origin.localPosition = transform.localPosition;
+			//_origin.localPosition = transform.localPosition;
 			_origin.localRotation = transform.localRotation;
 			_origin.localScale = transform.localScale;
 		}
@@ -182,7 +182,7 @@ public class SteamVR_Camera : MonoBehaviour
 		{
 			_head = new GameObject(name + headSuffix, typeof(SteamVR_TrackedObject)).transform;
 			head.parent = _origin;
-			head.position = transform.position;
+			//head.position = transform.position;
 			head.rotation = transform.rotation;
 			head.localScale = Vector3.one;
 			head.tag = tag;
@@ -191,7 +191,7 @@ public class SteamVR_Camera : MonoBehaviour
 		if (transform.parent != head)
 		{
 			transform.parent = head;
-			transform.localPosition = Vector3.zero;
+			//transform.localPosition = Vector3.zero;
 			transform.localRotation = Quaternion.identity;
 			transform.localScale = Vector3.one;
 
@@ -211,7 +211,7 @@ public class SteamVR_Camera : MonoBehaviour
 				DestroyImmediate(audioListener);
 				_ears = new GameObject(name + earsSuffix, typeof(SteamVR_Ears)).transform;
 				ears.parent = _head;
-				ears.localPosition = Vector3.zero;
+				//ears.localPosition = Vector3.zero;
 				ears.localRotation = Quaternion.identity;
 				ears.localScale = Vector3.one;
 			}
