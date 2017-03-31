@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
+[RequireComponent(typeof(AudioSource))]
 public class Sound : MonoBehaviour {
 	public List<AudioClip>ambientSounds;
 	public List<AudioClip>narrationResponse;
@@ -9,43 +10,49 @@ public class Sound : MonoBehaviour {
 	private AudioSource audio; 
 	public bool playOnAwake; 
 
-	void start () {
-		audio = GetComponent<AudioSource> ();
+	void Start () {
+		//audio = Camera.main.GetComponent<AudioSource>();
+		audio = GetComponent<AudioSource>();
+			
+		Debug.Log ("Audio clip: " + audio.clip);
+		//audio = GetComponent<AudioSource> ();
 	}
 
-	public void update () {
+	void Update () {
 		//narration question question
 		if (Input.GetKeyDown (KeyCode.A)) {
-			Debug.Log ("C Pressed");
+			Debug.Log ("A Pressed");
 			audio.clip = narrationQuestion [0];
+			//Debug.Log ("Audio clip to be inserted: " + narrationQuestion [0].name);
+			//Debug.Log ("Audio clip: " + audio.clip);
 			audio.Play();
 		}
-		if (Input.GetKeyDown (KeyCode.B)) {
+		else if (Input.GetKeyDown (KeyCode.B)) {
 			Debug.Log ("B Pressed");
 			audio.clip = narrationResponse [0];
 			audio.Play();
 		}
 
-		if (Input.GetKeyDown (KeyCode.C)) {
-			Debug.Log ("D Pressed");
+		else if (Input.GetKeyDown (KeyCode.C)) {
+			Debug.Log ("C Pressed");
 			audio.clip = narrationResponse [1];
 			audio.Play();
 		}
 
 		//narration Response question
-		if (Input.GetKeyDown (KeyCode.D)) {
-			Debug.Log ("B Pressed");
+		else if (Input.GetKeyDown (KeyCode.D)) {
+			Debug.Log ("D Pressed");
 			audio.clip = narrationResponse [0];
 			audio.Play();
 		}
 
-		if (Input.GetKeyDown (KeyCode.E)) {
-			Debug.Log ("D Pressed");
+		else if (Input.GetKeyDown (KeyCode.E)) {
+			Debug.Log ("E Pressed");
 			audio.clip = narrationResponse [1];
 			audio.Play();
 		}
-		audio.clip = ambientSounds [0]; 
-		audio.playOnAwake = true; 
+		//audio.clip = ambientSounds [0]; 
+		audio.playOnAwake = true;
 	}
 }
 
