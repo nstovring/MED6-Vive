@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 [RequireComponent(typeof(AudioSource))]
 public class Sound : MonoBehaviour {
@@ -16,6 +17,8 @@ public class Sound : MonoBehaviour {
 			
 		Debug.Log ("Audio clip: " + audio.clip);
 		//audio = GetComponent<AudioSource> ();
+
+		StartCoroutine (playAmbient());
 	}
 
 	void Update () {
@@ -53,6 +56,15 @@ public class Sound : MonoBehaviour {
 		}
 		//audio.clip = ambientSounds [0]; 
 		audio.playOnAwake = true;
+	}
+
+	IEnumerator playAmbient() {
+		Debug.Log ("Playing ambient background sounds");
+		audio.loop = true;
+		audio.clip = ambientSounds [0]; 
+		audio.Play ();
+		yield return new WaitForSeconds(0);
+		//return;
 	}
 }
 
