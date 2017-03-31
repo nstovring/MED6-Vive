@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 80df46611de4f574c9af684bde66fa47
-timeCreated: 1490182287
+guid: 33e2817caa2bafa4d874e516ee75f0a7
+timeCreated: 1490551171
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: //RootNode
+    100000: FemaleBody
     100002: mixamorig:Head
     100004: mixamorig:HeadTop_End
     100006: mixamorig:Hips
@@ -47,7 +47,10 @@ ModelImporter:
     100078: mixamorig:Spine
     100080: mixamorig:Spine1
     100082: mixamorig:Spine2
-    400000: //RootNode
+    100084: //RootNode
+    100086: polySurface3
+    100088: polySurface7
+    400000: FemaleBody
     400002: mixamorig:Head
     400004: mixamorig:HeadTop_End
     400006: mixamorig:Hips
@@ -89,8 +92,19 @@ ModelImporter:
     400078: mixamorig:Spine
     400080: mixamorig:Spine1
     400082: mixamorig:Spine2
-    7400000: button_pushing
+    400084: //RootNode
+    400086: polySurface3
+    400088: polySurface7
+    2300000: polySurface3
+    2300002: polySurface7
+    3300000: polySurface3
+    3300002: polySurface7
+    4300000: polySurface3
+    4300002: polySurface7
+    4300004: FemaleBody
+    7400000: Take 001
     9500000: //RootNode
+    13700000: FemaleBody
   materials:
     importMaterials: 1
     materialName: 0
@@ -113,17 +127,17 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: button_pushing
-      takeName: mixamo.com
-      firstFrame: 0
-      lastFrame: 97
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 120
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -138,6 +152,8 @@ ModelImporter:
       events: []
       transformMask:
       - path: 
+        weight: 1
+      - path: FemaleBody
         weight: 1
       - path: mixamorig:Hips
         weight: 1
@@ -220,6 +236,10 @@ ModelImporter:
       - path: mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandThumb1/mixamorig:RightHandThumb2/mixamorig:RightHandThumb3
         weight: 1
       - path: mixamorig:Hips/mixamorig:Spine/mixamorig:Spine1/mixamorig:Spine2/mixamorig:RightShoulder/mixamorig:RightArm/mixamorig:RightForeArm/mixamorig:RightHand/mixamorig:RightHandThumb1/mixamorig:RightHandThumb2/mixamorig:RightHandThumb3/mixamorig:RightHandThumb4
+        weight: 1
+      - path: polySurface3
+        weight: 1
+      - path: polySurface7
         weight: 1
       maskType: 3
       maskSource: {instanceID: 0}

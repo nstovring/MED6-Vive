@@ -8,7 +8,7 @@ public class GirlControls : MonoBehaviour {
 	//Goes back and get the controller, which is attatched to the girl
 	static Animator anim;
 
-	public Transform upperBody;
+	//public Transform upperBody;
 
 	// Use this for initialization
 	void Start () {

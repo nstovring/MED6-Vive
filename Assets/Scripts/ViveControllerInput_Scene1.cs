@@ -26,6 +26,11 @@ public class ViveControllerInput_Scene1 : MonoBehaviour {
 	public GameObject iPad;
 	public GameObject sound;
 
+	private bool moving = false;
+
+	public Material outlinedMaterial;
+	private Material savedMaterial;
+
 
     void Awake()
     {
@@ -34,6 +39,12 @@ public class ViveControllerInput_Scene1 : MonoBehaviour {
 
     void Update () {
         //Input methods
+
+		if (moving) {
+			//character.GetComponent <TestAnimationScene1> ().VSpeed = Input.GetAxis("Vertical");
+			//Debug.Log ("vertical speed: " + Input.GetAxis ("Vertical"));
+			character.GetComponent <TestAnimationScene1> ().VSpeed = 1;
+		}
 
 
         if (Controller.GetAxis() != Vector2.zero)
@@ -77,15 +88,18 @@ public class ViveControllerInput_Scene1 : MonoBehaviour {
             Debug.Log(gameObject.name + " Grip Release");
         }
 		if (Controller.GetPressDown (SteamVR_Controller.ButtonMask.Touchpad)) {
-			Debug.Log ("Touch pressed");
-			character.GetComponent <TestAnimationScene1> ().VSpeed = Input.GetAxis("Vertical");
+			Debug.Log ("Touch pressed. Rotating and moving character");
+			//Set camera rotation to move direction
+			character.GetComponent <TestAnimationScene1> ().rotateCharacter();
+			moving = true;
 		}
 		if (Controller.GetPressUp (SteamVR_Controller.ButtonMask.Touchpad)) {
-			Debug.Log ("Touch released");
+			//Debug.Log ("Touch released");
+			moving = false;
 			//character.GetComponent <TestAnimationScene1> ().VSpeed = Input.GetAxis("Vertical");
 		}
 		if (Controller.GetTouchDown (SteamVR_Controller.ButtonMask.Trigger)) {
-			Debug.Log ("Collider detected: " + collidingObject.name);
+			//Debug.Log ("Collider detected: " + collidingObject.name);
 			
 			if (collidingObject == iPad) {
 				Debug.Log ("iPad grabbed");
@@ -117,6 +131,12 @@ public class ViveControllerInput_Scene1 : MonoBehaviour {
     {
 		Debug.Log ("Colliding object: " + other.name);
         SetCollidingObject(other);
+
+		if (other.gameObject.tag == "outline") {
+			savedMaterial = other.GetComponent<Renderer> ().material;
+			//Debug.Log ("Saving material: " + savedMaterial);
+			other.GetComponent<Renderer> ().material = outlinedMaterial;
+		}
     }
     public void OnTriggerStay(Collider other)
     {
@@ -125,13 +145,21 @@ public class ViveControllerInput_Scene1 : MonoBehaviour {
 
     public void OnTriggerExit(Collider other)
     {
-		Debug.Log ("Exiting object");
+		//Debug.Log ("Exiting object: " + other);
+
+		if (other.gameObject.tag == "outline") {
+			//Debug.Log ("Giving back old mat");
+			other.GetComponent<Renderer> ().material = savedMaterial;
+		}
+
         if (!collidingObject)
         {
             return;
         }
 		//Debug.Log ("Collided object is now set to null");
         collidingObject = null;
+
+
     }
     private void GrabObject()
     {

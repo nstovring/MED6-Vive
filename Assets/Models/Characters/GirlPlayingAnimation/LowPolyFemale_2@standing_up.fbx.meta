@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 06b3bb302c64e4e23ba2cf66e7409494
-timeCreated: 1490360465
+guid: 3e8ba4c0afe70874280ca0f750e6c607
+timeCreated: 1490597169
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: FemaleBody
+    100000: //RootNode
     100002: mixamorig:Head
     100004: mixamorig:HeadTop_End
     100006: mixamorig:Hips
@@ -47,8 +47,7 @@ ModelImporter:
     100078: mixamorig:Spine
     100080: mixamorig:Spine1
     100082: mixamorig:Spine2
-    100084: //RootNode
-    400000: FemaleBody
+    400000: //RootNode
     400002: mixamorig:Head
     400004: mixamorig:HeadTop_End
     400006: mixamorig:Hips
@@ -90,11 +89,8 @@ ModelImporter:
     400078: mixamorig:Spine
     400080: mixamorig:Spine1
     400082: mixamorig:Spine2
-    400084: //RootNode
-    4300000: FemaleBody
-    7400000: Take 001
+    7400000: mixamo.com
     9500000: //RootNode
-    13700000: FemaleBody
   materials:
     importMaterials: 1
     materialName: 0

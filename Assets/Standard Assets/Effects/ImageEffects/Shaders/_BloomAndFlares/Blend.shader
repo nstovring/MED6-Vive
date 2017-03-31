@@ -74,7 +74,7 @@ Shader "Hidden/Blend" {
 	ENDCG 
 	
 Subshader {
-	  ZTest Always Cull Off ZWrite Off
+	  //ZTest Always Cull Off ZWrite Off
 
  // 0: nicer & softer "screen" blend mode	  		  	
  Pass {    

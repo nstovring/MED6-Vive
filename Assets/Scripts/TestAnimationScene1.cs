@@ -107,15 +107,29 @@ public class TestAnimationScene1 : MonoBehaviour
 		yield return new WaitForSeconds(0.01f);
     }
 
+	//Make the character rotate along with the camera
+	public void rotateCharacter(){
+		var cameraRotation = Camera.main.transform.rotation;
+		cameraRotation.x = 0;
+		cameraRotation.z = 0;
+		this.transform.rotation = cameraRotation;
+	}
+
     // Update is called once per frame
     void Update ()
 	{
 
         myAnimator.SetBool("GrabTablet", false);
+		/**
         if(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
         {
             HSpeed = Input.GetAxis("Horizontal");
-        }
+			//this.transform.Rotate
+			//rotateCharacter();
+			//Debug.Log ("Horizontal speed: " + Input.GetAxis ("Horizontal"));
+        }*/
+
+		//Debug.Log ("Vertical speed: " + VSpeed);
        
         myAnimator.SetFloat("VSpeed",VSpeed);
         myAnimator.SetFloat("HSpeed", HSpeed);
@@ -123,11 +137,13 @@ public class TestAnimationScene1 : MonoBehaviour
 
         VSpeed = Mathf.Lerp(VSpeed, 0,0.1f);
         HSpeed = Mathf.Lerp(HSpeed, 0, 0.1f);
+
+		/**
 	    if (Input.GetKeyUp(KeyCode.Space))
 	    {
 	        sitting = !sitting;
 	        myAnimator.SetBool("Sitting", sitting);
-	    }
+	    }*/
 
         if (Input.GetKeyUp(KeyCode.G))
         {
@@ -141,6 +157,7 @@ public class TestAnimationScene1 : MonoBehaviour
 			StartCoroutine(waitAndLoad (2, "Menu"));
 		}
 
+		/**
 		if (Input.GetKeyUp(KeyCode.T))
 		{
 			Debug.Log ("Changing material on tablet");
@@ -155,7 +172,7 @@ public class TestAnimationScene1 : MonoBehaviour
 				ipadScreen.GetComponent<Renderer> ().sharedMaterial = materials [0];
 				currentMat = 0;
 			}
-		}
+		}*/
 
 		//Clicking iPad
 		/**
