@@ -22,7 +22,7 @@ public class ViveController_Scene2 : MonoBehaviour {
 	public GameObject blueButton;
 	public GameObject screen;
 	public GameObject verticalSpeed; 
-	public GameObject sounds; 
+	public AudioSource sounds; 
 
 
 	public int mainFreq = 500;
