@@ -150,9 +150,9 @@ namespace Leap.Unity {
     /// <summary>
     /// Provides the position of a Leap Anchor at a given Leap Time.  Cannot extrapolate.
     /// </summary>
-    public bool TryGetWarpedTransform(WarpedAnchor anchor, out Vector3 rewoundPosition, out Quaternion rewoundRotation, long leapTime) {
+    public bool TryGetWarpedTransform(WarpedAnchor anchor, out Quaternion rewoundRotation, long leapTime) {
       if (_headTransform == null) {
-        rewoundPosition = Vector3.one;
+        //rewoundPosition = Vector3.one;
         rewoundRotation = Quaternion.identity;
         return false;
       }
@@ -172,10 +172,10 @@ namespace Leap.Unity {
         case WarpedAnchor.CENTER:
           break;
         case WarpedAnchor.LEFT:
-          rewoundPosition += rewoundRotation * Vector3.left * deviceInfo.baseline * 0.5f;
+          //rewoundPosition += rewoundRotation * Vector3.left * deviceInfo.baseline * 0.5f;
           break;
         case WarpedAnchor.RIGHT:
-          rewoundPosition += rewoundRotation * Vector3.right * deviceInfo.baseline * 0.5F;
+          //rewoundPosition += rewoundRotation * Vector3.right * deviceInfo.baseline * 0.5F;
           break;
         default:
           throw new Exception("Unexpected Rewind Type " + anchor);
@@ -184,13 +184,13 @@ namespace Leap.Unity {
       return true;
     }
 
-    public bool TryGetWarpedTransform(WarpedAnchor anchor, out Vector3 rewoundPosition, out Quaternion rewoundRotation) {
+    public bool TryGetWarpedTransform(WarpedAnchor anchor, out Quaternion rewoundRotation) {
       long timestamp = provider.imageTimeStamp;
-      if (TryGetWarpedTransform(anchor, out rewoundPosition, out rewoundRotation, timestamp)) {
-        return true;
-      }
+      //if (TryGetWarpedTransform(anchor, out rewoundPosition, out rewoundRotation, timestamp)) {
+      //  return true;
+      //}
 
-      rewoundPosition = Vector3.zero;
+      //rewoundPosition = Vector3.zero;
       rewoundRotation = Quaternion.identity;
       return false;
     }

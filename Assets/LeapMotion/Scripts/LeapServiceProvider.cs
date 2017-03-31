@@ -352,7 +352,7 @@ namespace Leap.Unity {
       LeapTransform leapTransform;
       if (_temporalWarping != null) {
         if (resampleTemporalWarping) {
-          _temporalWarping.TryGetWarpedTransform(LeapVRTemporalWarping.WarpedAnchor.CENTER, out warpedPosition, out warpedRotation, source.Timestamp);
+         // _temporalWarping.TryGetWarpedTransform(LeapVRTemporalWarping.WarpedAnchor.CENTER, out warpedPosition, out warpedRotation, source.Timestamp);
           warpedRotation = warpedRotation * transform.localRotation;
         }
 
