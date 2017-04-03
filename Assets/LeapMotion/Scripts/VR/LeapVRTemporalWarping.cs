@@ -30,7 +30,7 @@ namespace Leap.Unity {
 
     protected struct TransformData {
       public long leapTime; // microseconds
-      //public Vector3 localPosition; //meters
+      public Vector3 localPosition; //meters
       public Quaternion localRotation; //magic
 
       public static TransformData Lerp(TransformData from, TransformData to, long time) {
@@ -40,7 +40,7 @@ namespace Leap.Unity {
         float fraction = (float)(time - from.leapTime) / (float)(to.leapTime - from.leapTime);
         return new TransformData() {
           leapTime = time,
-          //localPosition = Vector3.Lerp(from.localPosition, to.localPosition, fraction),
+          localPosition = Vector3.Lerp(from.localPosition, to.localPosition, fraction),
           localRotation = Quaternion.Slerp(from.localRotation, to.localRotation, fraction)
         };
       }
@@ -162,10 +162,10 @@ namespace Leap.Unity {
       // Rewind position and rotation
       if (_trackingAnchor == null) {
         rewoundRotation = past.localRotation;
-        //rewoundPosition = past.localPosition + rewoundRotation * Vector3.forward * deviceInfo.focalPlaneOffset;
+        rewoundPosition = past.localPosition + rewoundRotation * Vector3.forward * deviceInfo.focalPlaneOffset;
       } else {
         rewoundRotation = _trackingAnchor.rotation * past.localRotation;
-        //rewoundPosition = _trackingAnchor.TransformPoint(past.localPosition) + rewoundRotation * Vector3.forward * deviceInfo.focalPlaneOffset;
+        rewoundPosition = _trackingAnchor.TransformPoint(past.localPosition) + rewoundRotation * Vector3.forward * deviceInfo.focalPlaneOffset;
       }
 
       switch (anchor) {
@@ -285,7 +285,7 @@ namespace Leap.Unity {
 
     protected void Update() {
       if (_shouldSetLocalPosition) {
-        //transform.localPosition = transform.forward * deviceInfo.focalPlaneOffset;
+        transform.localPosition = transform.forward * deviceInfo.focalPlaneOffset;
         _shouldSetLocalPosition = false;
       }
 
@@ -333,7 +333,7 @@ namespace Leap.Unity {
       long leapNow = provider.GetLeapController().Now();
       _history.Add(new TransformData() {
         leapTime = leapNow,
-        //localPosition = currLocalPosition,
+        localPosition = currLocalPosition,
         localRotation = currLocalRotation
       });
 
@@ -369,10 +369,10 @@ namespace Leap.Unity {
       Shader.SetGlobalMatrix("_LeapGlobalWarpedOffset", imageMatWarp);
 
       TransformData past = transformAtTime(rewindTime);
-      //Vector3 pastCenterPos = _trackingAnchor.TransformPoint(past.localPosition);
+      Vector3 pastCenterPos = _trackingAnchor.TransformPoint(past.localPosition);
       Quaternion pastCenterRot = _trackingAnchor.rotation * past.localRotation;
 
-      //transform.position = Vector3.Lerp(currCenterPos, pastCenterPos, tweenPositionalWarping);
+      transform.position = Vector3.Lerp(currCenterPos, pastCenterPos, tweenPositionalWarping);
       transform.rotation = Quaternion.Slerp(currCenterRot, pastCenterRot, tweenRotationalWarping);
 
       transform.position += transform.forward * deviceInfo.focalPlaneOffset;
@@ -386,7 +386,7 @@ namespace Leap.Unity {
       if (_history.Count == 0) {
         return new TransformData() {
           leapTime = 0,
-          //localPosition = Vector3.zero,
+          localPosition = Vector3.zero,
           localRotation = Quaternion.identity
         };
       }
