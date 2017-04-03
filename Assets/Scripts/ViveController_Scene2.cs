@@ -152,11 +152,11 @@ public class ViveController_Scene2 : MonoBehaviour {
             return;
         }*/
         collidingObject = col.gameObject;
-		//Debug.Log ("Collided object is now set: " + collidingObject.name);
+		Debug.Log ("Collided object is now set: " + collidingObject.name);
     }
     public void OnTriggerEnter(Collider other)
     {
-		//Debug.Log ("Colliding object: " + other.name);
+		Debug.Log ("Colliding object: " + other.name);
         SetCollidingObject(other);
     }
     public void OnTriggerStay(Collider other)
@@ -166,7 +166,7 @@ public class ViveController_Scene2 : MonoBehaviour {
 
     public void OnTriggerExit(Collider other)
     {
-		//Debug.Log ("Exiting object");
+		Debug.Log ("Exiting object");
         if (!collidingObject)
         {
             return;
