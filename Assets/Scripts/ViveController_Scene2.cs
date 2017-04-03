@@ -56,7 +56,7 @@ public class ViveController_Scene2 : MonoBehaviour {
             //release object
             if (objectInHand)
             {
-                ReleaseObject();
+                //ReleaseObject();
             }
 
             //Debug.Log(gameObject.name + " Trigger Release");
@@ -71,7 +71,7 @@ public class ViveController_Scene2 : MonoBehaviour {
             //grab object
             if (collidingObject)
             {
-                GrabObject();
+                //GrabObject();
             }
 
 
@@ -87,7 +87,7 @@ public class ViveController_Scene2 : MonoBehaviour {
 			Debug.Log ("Touch pressed");
 		}
 		if (Controller.GetTouchDown (SteamVR_Controller.ButtonMask.Trigger)) {
-
+			Debug.Log ("pressing button");
 			if (collidingObject == yellowButton) {
 				Debug.Log ("Yellow button pressed");
 
@@ -95,11 +95,12 @@ public class ViveController_Scene2 : MonoBehaviour {
 				if (screen.GetComponent<Renderer> ().material.color == new Color (1, 1, 0)) {
 					Debug.Log ("Correct color chosen");
 					screen.GetComponent <Renderer> ().material.color = new Color (0, 1, 0);
-					//sounds.GetComponent<Sound> ().ipadSounds [0]; 
+					AudioClip audio = GetComponent<Sound> ().ipadSounds[0];
 
 				} else {
 					Debug.Log ("Wrong color chosen");
 					screen.GetComponent <Renderer> ().material.color = new Color (1, 0, 0); 
+					AudioClip audio = GetComponent<Sound> ().ipadSounds[1];
 					vibrate (500);
 				}
 				screen.GetComponent<ScreenColor>().playing = false;
@@ -110,11 +111,13 @@ public class ViveController_Scene2 : MonoBehaviour {
 				if (screen.GetComponent<Renderer> ().material.color == new Color (1, 0, 1)) {
 					Debug.Log ("Correct color chosen");
 					screen.GetComponent <Renderer> ().material.color = new Color (0,1,0);
+					AudioClip audio = GetComponent<Sound> ().ipadSounds[0];
 
 
 				} else {
 					Debug.Log ("Wrong color chosen");
 					screen.GetComponent <Renderer> ().material.color = new Color (1,0,0); 
+					AudioClip audio = GetComponent<Sound> ().ipadSounds[1];
 					vibrate (500);
 				}
 				screen.GetComponent<ScreenColor>().playing = false;
@@ -124,12 +127,15 @@ public class ViveController_Scene2 : MonoBehaviour {
 
 				if (screen.GetComponent<Renderer> ().material.color == new Color (0, 0, 1)) {
 					Debug.Log ("Correct color chosen");
-					screen.GetComponent <Renderer> ().material.color = new Color (0,1,0); 
+					screen.GetComponent <Renderer> ().material.color = new Color (0,1,0); 					
+					AudioClip audio = GetComponent<Sound> ().ipadSounds[0];
+
 
 
 				} else {
 					Debug.Log ("Wrong color chosen");
-					screen.GetComponent <Renderer> ().material.color = new Color (1,0,0); 
+					screen.GetComponent <Renderer> ().material.color = new Color (1,0,0);
+					AudioClip audio = GetComponent<Sound> ().ipadSounds[1];
 					vibrate (500);
 				}
 				screen.GetComponent<ScreenColor>().playing = false;

@@ -8,7 +8,7 @@ public class Sound : MonoBehaviour {
 	public List<AudioClip>narrationResponse;
 	public List<AudioClip>narrationQuestion;
 	public List<AudioClip>ipadSounds;
-	private AudioSource audio; 
+	public AudioSource audio; 
 	public bool playOnAwake; 
 
 	void Start () {
@@ -39,8 +39,7 @@ public class Sound : MonoBehaviour {
 		else if (Input.GetKeyDown (KeyCode.C)) {
 			Debug.Log ("C Pressed");
 			audio.clip = narrationResponse [1];
-			audio.Play();
-		}
+			audio.Play();	}
 
 		//narration Response question
 		else if (Input.GetKeyDown (KeyCode.D)) {
