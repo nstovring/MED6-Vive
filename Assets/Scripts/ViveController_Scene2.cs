@@ -23,7 +23,10 @@ public class ViveController_Scene2 : MonoBehaviour {
 	public GameObject screen;
 	public GameObject verticalSpeed; 
 	public AudioSource sounds; 
+	Sound soundScript;
 
+	public List<Material> blendMaterials;
+	public List<Material> objectMaterials;
 
 	public int mainFreq = 500;
 	public int timeFreq = 10;
@@ -31,10 +34,20 @@ public class ViveController_Scene2 : MonoBehaviour {
     void Awake()
     {
         trackedObj = GetComponent<SteamVR_TrackedObject>();
+
+		soundScript = animatedCharacter.GetComponent<Sound> ();
     }
 
     void Update () {
         //Input methods
+
+		if (Input.GetKeyDown (KeyCode.P)) {
+			Debug.Log ("Playing iPad sound");
+			//Sound soundScript = animatedCharacter.GetComponent<Sound> ();
+			soundScript.playAudio(soundScript.ipadSounds[0]);
+		}
+
+
 
 
         if (Controller.GetAxis() != Vector2.zero)
@@ -95,12 +108,13 @@ public class ViveController_Scene2 : MonoBehaviour {
 				if (screen.GetComponent<Renderer> ().material.color == new Color (1, 1, 0)) {
 					Debug.Log ("Correct color chosen");
 					screen.GetComponent <Renderer> ().material.color = new Color (0, 1, 0);
-					AudioClip audio = GetComponent<Sound> ().ipadSounds[0];
-
+					//AudioClip audio = GetComponent<Sound> ().ipadSounds[0];
+					soundScript.playAudio(soundScript.ipadSounds[0]);
 				} else {
 					Debug.Log ("Wrong color chosen");
 					screen.GetComponent <Renderer> ().material.color = new Color (1, 0, 0); 
-					AudioClip audio = GetComponent<Sound> ().ipadSounds[1];
+					//AudioClip audio = GetComponent<Sound> ().ipadSounds[1];
+					soundScript.playAudio(soundScript.ipadSounds[1]);
 					vibrate (500);
 				}
 				screen.GetComponent<ScreenColor>().playing = false;
@@ -111,13 +125,13 @@ public class ViveController_Scene2 : MonoBehaviour {
 				if (screen.GetComponent<Renderer> ().material.color == new Color (1, 0, 1)) {
 					Debug.Log ("Correct color chosen");
 					screen.GetComponent <Renderer> ().material.color = new Color (0,1,0);
-					AudioClip audio = GetComponent<Sound> ().ipadSounds[0];
-
-
+					//AudioClip audio = GetComponent<Sound> ().ipadSounds[0];
+					soundScript.playAudio(soundScript.ipadSounds[0]);
 				} else {
 					Debug.Log ("Wrong color chosen");
 					screen.GetComponent <Renderer> ().material.color = new Color (1,0,0); 
-					AudioClip audio = GetComponent<Sound> ().ipadSounds[1];
+					//AudioClip audio = GetComponent<Sound> ().ipadSounds[1];
+					soundScript.playAudio(soundScript.ipadSounds[1]);
 					vibrate (500);
 				}
 				screen.GetComponent<ScreenColor>().playing = false;
@@ -128,14 +142,13 @@ public class ViveController_Scene2 : MonoBehaviour {
 				if (screen.GetComponent<Renderer> ().material.color == new Color (0, 0, 1)) {
 					Debug.Log ("Correct color chosen");
 					screen.GetComponent <Renderer> ().material.color = new Color (0,1,0); 					
-					AudioClip audio = GetComponent<Sound> ().ipadSounds[0];
-
-
-
+					//AudioClip audio = GetComponent<Sound> ().ipadSounds[0];
+					soundScript.playAudio(soundScript.ipadSounds[0]);
 				} else {
 					Debug.Log ("Wrong color chosen");
 					screen.GetComponent <Renderer> ().material.color = new Color (1,0,0);
-					AudioClip audio = GetComponent<Sound> ().ipadSounds[1];
+					//AudioClip audio = GetComponent<Sound> ().ipadSounds[1];
+					soundScript.playAudio(soundScript.ipadSounds[1]);
 					vibrate (500);
 				}
 				screen.GetComponent<ScreenColor>().playing = false;
@@ -164,6 +177,16 @@ public class ViveController_Scene2 : MonoBehaviour {
     {
 		Debug.Log ("Colliding object: " + other.name);
         SetCollidingObject(other);
+
+		if (other.gameObject.tag == "outline") {
+			if (other.gameObject.name == "BlueButton") {
+				other.GetComponent<Renderer> ().material = blendMaterials[0];
+			} else if (other.gameObject.name == "YellowButton") {
+				other.GetComponent<Renderer> ().material = blendMaterials[1];
+			} else if (other.gameObject.name == "PurpleButton") {
+				other.GetComponent<Renderer> ().material = blendMaterials[2];
+			}
+		} 
     }
     public void OnTriggerStay(Collider other)
     {
@@ -173,6 +196,22 @@ public class ViveController_Scene2 : MonoBehaviour {
     public void OnTriggerExit(Collider other)
     {
 		Debug.Log ("Exiting object");
+
+		if (other.gameObject.tag == "outline") {
+			//Debug.Log ("Giving back old mat");
+			//other.GetComponent<Renderer> ().material = savedMaterial;
+			if (other.gameObject.tag == "outline") {
+				if (other.gameObject.name == "BlueButton") {
+					other.GetComponent<Renderer> ().material = objectMaterials[0];
+				} else if (other.gameObject.name == "YellowButton") {
+					other.GetComponent<Renderer> ().material = objectMaterials[1];
+				} else if (other.gameObject.name == "PurpleButton") {
+					other.GetComponent<Renderer> ().material = objectMaterials[2];
+				}
+			} 
+			Debug.Log ("Object material: " + other.GetComponent<Renderer> ().material);
+		}
+
         if (!collidingObject)
         {
             return;

@@ -190,6 +190,11 @@ public class TestAnimation1 : MonoBehaviour
 				currentMat = 0;
 			}
 		}
+		if (Input.GetKeyUp (KeyCode.S)) {
+			Debug.Log ("Starting/stopping iPad game");
+			ipadScreen.GetComponent<ScreenColor> ().stopPlaying = !ipadScreen.GetComponent<ScreenColor> ().stopPlaying;
+		}
+
 
 		//Clicking iPad
 		/**

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ViveControllerInput_Scene1 : MonoBehaviour {
+public class ViveController_Scene3 : MonoBehaviour {
     //Steam VR Variables
     private SteamVR_TrackedObject trackedObj;
     private SteamVR_Controller.Device Controller
@@ -21,19 +21,14 @@ public class ViveControllerInput_Scene1 : MonoBehaviour {
 	public GameObject purpleButton;
 	public GameObject blueButton;
 	public GameObject screen;
-	public GameObject character; 
-
-	public GameObject iPad;
-	public GameObject sound;
-
-	private bool moving = false;
-
-	public Material outlinedMaterial;
-	private Material savedMaterial;
+	public GameObject verticalSpeed; 
+	public AudioSource sounds; 
 
 	public List<Material> blendMaterials;
 	public List<Material> objectMaterials;
 
+	public int mainFreq = 500;
+	public int timeFreq = 10;
 
     void Awake()
     {
@@ -42,12 +37,6 @@ public class ViveControllerInput_Scene1 : MonoBehaviour {
 
     void Update () {
         //Input methods
-
-		if (moving) {
-			//character.GetComponent <TestAnimationScene1> ().VSpeed = Input.GetAxis("Vertical");
-			//Debug.Log ("vertical speed: " + Input.GetAxis ("Vertical"));
-			character.GetComponent <TestAnimationScene1> ().VSpeed = 1;
-		}
 
 
         if (Controller.GetAxis() != Vector2.zero)
@@ -69,21 +58,27 @@ public class ViveControllerInput_Scene1 : MonoBehaviour {
             //release object
             if (objectInHand)
             {
-                ReleaseObject();
+                //ReleaseObject();
             }
 
             //Debug.Log(gameObject.name + " Trigger Release");
         }
 
         if (Controller.GetPressDown(SteamVR_Controller.ButtonMask.Grip))
+			verticalSpeed.GetComponent <TestAnimation1> ().VSpeed = Input.GetAxis("Vertical");
+		
         {
-			/**
+
+
             //grab object
             if (collidingObject)
             {
-                GrabObject();
+                //GrabObject();
             }
-            Debug.Log(gameObject.name + " Grip Press");*/
+
+
+
+            //Debug.Log(gameObject.name + " Grip Press");
         }
 
         if (Controller.GetPressUp(SteamVR_Controller.ButtonMask.Grip))
@@ -91,24 +86,61 @@ public class ViveControllerInput_Scene1 : MonoBehaviour {
             Debug.Log(gameObject.name + " Grip Release");
         }
 		if (Controller.GetPressDown (SteamVR_Controller.ButtonMask.Touchpad)) {
-			Debug.Log ("Touch pressed. Rotating and moving character");
-			//Set camera rotation to move direction
-			//character.GetComponent <TestAnimationScene1> ().rotateCharacter();
-			//moving = true;
-		}
-		if (Controller.GetPressUp (SteamVR_Controller.ButtonMask.Touchpad)) {
-			//Debug.Log ("Touch released");
-			//moving = false;
-			//character.GetComponent <TestAnimationScene1> ().VSpeed = Input.GetAxis("Vertical");
+			Debug.Log ("Touch pressed");
 		}
 		if (Controller.GetTouchDown (SteamVR_Controller.ButtonMask.Trigger)) {
-			//Debug.Log ("Collider detected: " + collidingObject.name);
-			
-			if (collidingObject == iPad) {
-				Debug.Log ("iPad grabbed");
-				//Animation first, then attach tablet
-				animatedCharacter.GetComponent<TestAnimationScene1>().StartGrabTablet();
-				GrabObject ();
+			Debug.Log ("pressing button");
+			if (collidingObject == yellowButton) {
+				Debug.Log ("Yellow button pressed");
+
+				//If color is correct
+				if (screen.GetComponent<Renderer> ().material.color == new Color (1, 1, 0)) {
+					Debug.Log ("Correct color chosen");
+					screen.GetComponent <Renderer> ().material.color = new Color (0, 1, 0);
+					AudioClip audio = GetComponent<Sound> ().ipadSounds[0];
+
+				} else {
+					Debug.Log ("Wrong color chosen");
+					screen.GetComponent <Renderer> ().material.color = new Color (1, 0, 0); 
+					AudioClip audio = GetComponent<Sound> ().ipadSounds[1];
+					vibrate (500);
+				}
+				screen.GetComponent<ScreenColor>().playing = false;
+			} 
+			else if (collidingObject == purpleButton) {
+				Debug.Log("Purple button pressed");
+
+				if (screen.GetComponent<Renderer> ().material.color == new Color (1, 0, 1)) {
+					Debug.Log ("Correct color chosen");
+					screen.GetComponent <Renderer> ().material.color = new Color (0,1,0);
+					AudioClip audio = GetComponent<Sound> ().ipadSounds[0];
+
+
+				} else {
+					Debug.Log ("Wrong color chosen");
+					screen.GetComponent <Renderer> ().material.color = new Color (1,0,0); 
+					AudioClip audio = GetComponent<Sound> ().ipadSounds[1];
+					vibrate (500);
+				}
+				screen.GetComponent<ScreenColor>().playing = false;
+			}
+			else if (collidingObject == blueButton) {
+				Debug.Log("Blue button pressed");
+
+				if (screen.GetComponent<Renderer> ().material.color == new Color (0, 0, 1)) {
+					Debug.Log ("Correct color chosen");
+					screen.GetComponent <Renderer> ().material.color = new Color (0,1,0); 					
+					AudioClip audio = GetComponent<Sound> ().ipadSounds[0];
+
+
+
+				} else {
+					Debug.Log ("Wrong color chosen");
+					screen.GetComponent <Renderer> ().material.color = new Color (1,0,0);
+					AudioClip audio = GetComponent<Sound> ().ipadSounds[1];
+					vibrate (500);
+				}
+				screen.GetComponent<ScreenColor>().playing = false;
 			}
 
 		}
@@ -128,20 +160,19 @@ public class ViveControllerInput_Scene1 : MonoBehaviour {
             return;
         }*/
         collidingObject = col.gameObject;
-		//Debug.Log ("Collided object is now set: " + collidingObject.name);
+		Debug.Log ("Collided object is now set: " + collidingObject.name);
     }
     public void OnTriggerEnter(Collider other)
     {
-		//Debug.Log ("Colliding object: " + other.name);
+		Debug.Log ("Colliding object: " + other.name);
         SetCollidingObject(other);
 
+		//TODO: set tags + check names + insert new and old materials
 		if (other.gameObject.tag == "outline") {
-			if (other.gameObject.name == "Tablet Palm") {
+			if (other.gameObject.name == "girl") {
 				other.GetComponent<Renderer> ().material = blendMaterials[0];
-				Debug.Log ("Changing mat on tablet palm object: " + other.GetComponent<Renderer> ().material);
 			}
 		} 
-		//Debug.Log ("Object material: " + other.GetComponent<Renderer> ().material);
     }
     public void OnTriggerStay(Collider other)
     {
@@ -150,15 +181,14 @@ public class ViveControllerInput_Scene1 : MonoBehaviour {
 
     public void OnTriggerExit(Collider other)
     {
-		//Debug.Log ("Exiting object: " + other);
+		Debug.Log ("Exiting object");
 
 		if (other.gameObject.tag == "outline") {
 			//Debug.Log ("Giving back old mat");
 			//other.GetComponent<Renderer> ().material = savedMaterial;
 			if (other.gameObject.tag == "outline") {
-				if (other.gameObject.name == "Tablet Palm") {
+				if (other.gameObject.name == "girl") {
 					other.GetComponent<Renderer> ().material = objectMaterials[0];
-					Debug.Log ("Changing mat on tablet palm object: " + other.GetComponent<Renderer> ().material);
 				}
 			} 
 			Debug.Log ("Object material: " + other.GetComponent<Renderer> ().material);
@@ -170,8 +200,6 @@ public class ViveControllerInput_Scene1 : MonoBehaviour {
         }
 		//Debug.Log ("Collided object is now set to null");
         collidingObject = null;
-
-
     }
     private void GrabObject()
     {

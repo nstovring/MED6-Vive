@@ -15,10 +15,14 @@ public class Sound : MonoBehaviour {
 		//audio = Camera.main.GetComponent<AudioSource>();
 		audio = GetComponent<AudioSource>();
 			
-		Debug.Log ("Audio clip: " + audio.clip);
 		//audio = GetComponent<AudioSource> ();
 
 		StartCoroutine (playAmbient());
+	}
+
+	public void playAudio(AudioClip clip) {
+		audio.clip = clip;
+		audio.Play();
 	}
 
 	void Update () {
@@ -57,11 +61,13 @@ public class Sound : MonoBehaviour {
 		audio.playOnAwake = true;
 	}
 
+	//Background sound in another thread
 	IEnumerator playAmbient() {
 		Debug.Log ("Playing ambient background sounds");
-		audio.loop = true;
-		audio.clip = ambientSounds [0]; 
-		audio.Play ();
+		AudioSource cameraAudio = Camera.main.GetComponent<AudioSource>();
+		cameraAudio.loop = true;
+		cameraAudio.clip = ambientSounds [0]; 
+		cameraAudio.Play ();
 		yield return new WaitForSeconds(0);
 		//return;
 	}
