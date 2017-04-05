@@ -67,7 +67,7 @@ public class TestAnimationScene1 : MonoBehaviour
     private IEnumerator GrabTablet()
     {
 		Debug.Log ("Grabbing tablet");
-        myAnimator.SetBool("GrabTablet", true);
+        //myAnimator.SetBool("GrabTablet", true);
         yield return new WaitForSeconds(1.5f);
 		/**
         if (controllerTest == true)
@@ -89,8 +89,12 @@ public class TestAnimationScene1 : MonoBehaviour
         else*/
 		if(true)
         {
+			//Setting the parent of the talet to be the hand root
+			//TODO: set to be controller instead of hand root
+			//tablets[0].parent = controller...
             tablets[0].parent = handRoot;
             tablets[0].transform.localPosition = tabPos;
+			//tablets[0].transform.localPosition = iPad.transform.position;
             Quaternion newRot = Quaternion.Euler(tabRot);
             tablets[0].transform.localRotation = newRot;
         }
