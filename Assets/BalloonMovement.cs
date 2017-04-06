@@ -9,7 +9,7 @@ public class BalloonMovement : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+		//new WaitForSeconds (Random.value);
 	}
 	
 	// Update is called once per frame
