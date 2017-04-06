@@ -4,7 +4,7 @@ using UnityEngine;
 using VRStandardAssets.Utils;
 using UnityEngine.SceneManagement;
 
-public class TestAnimation1 : MonoBehaviour
+public class TestAnimationScene2 : MonoBehaviour
 {
 	//iPad reference
 	public GameObject iPad;
@@ -130,10 +130,11 @@ public class TestAnimation1 : MonoBehaviour
 		}*/
 
         myAnimator.SetBool("GrabTablet", false);
+		/**
         if(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
         {
             HSpeed = Input.GetAxis("Horizontal");
-        }
+        }*/
         
 		/**
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S))

@@ -65,7 +65,6 @@ public class ViveController_Scene3 : MonoBehaviour {
         }
 
         if (Controller.GetPressDown(SteamVR_Controller.ButtonMask.Grip))
-			verticalSpeed.GetComponent <TestAnimation1> ().VSpeed = Input.GetAxis("Vertical");
 		
         {
 

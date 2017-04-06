@@ -23,7 +23,7 @@ public class ViveController_Scene2 : MonoBehaviour {
 	public GameObject screen;
 	public GameObject verticalSpeed; 
 	public AudioSource sounds; 
-	Sound soundScript;
+	private Sound soundScript;
 
 	public List<Material> blendMaterials;
 	public List<Material> objectMaterials;
@@ -76,7 +76,7 @@ public class ViveController_Scene2 : MonoBehaviour {
         }
 
         if (Controller.GetPressDown(SteamVR_Controller.ButtonMask.Grip))
-			verticalSpeed.GetComponent <TestAnimation1> ().VSpeed = Input.GetAxis("Vertical");
+			verticalSpeed.GetComponent <TestAnimationScene2> ().VSpeed = Input.GetAxis("Vertical");
 		
         {
 

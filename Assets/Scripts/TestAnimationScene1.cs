@@ -28,10 +28,12 @@ public class TestAnimationScene1 : MonoBehaviour
 	public Material iPadMat;
 	public Material blendMat;
 
+	private Sound soundScript;
+
 
 	void Awake()
 	{
-		
+		soundScript = this.GetComponent<Sound> ();
 	}
 
     // Use this for initialization
@@ -68,7 +70,7 @@ public class TestAnimationScene1 : MonoBehaviour
     {
 		Debug.Log ("Grabbing tablet");
         //myAnimator.SetBool("GrabTablet", true);
-        yield return new WaitForSeconds(1.5f);
+        //yield return new WaitForSeconds(1.5f);
 		/**
         if (controllerTest == true)
         {
@@ -99,6 +101,12 @@ public class TestAnimationScene1 : MonoBehaviour
             Quaternion newRot = Quaternion.Euler(tabRot);
             tablets[0].transform.localRotation = newRot;
         }
+		yield return new WaitForSeconds(1.5f);
+		//Girl looks up
+		soundScript.playAudio(soundScript.ipadSounds[1]);
+		//TODO: "ej lad være"-lyd
+
+
         //foreach (Transform tablet in tablets) {
         //    tablet.parent = handRoot;
         //    tablet.transform.localPosition = tabPos;
