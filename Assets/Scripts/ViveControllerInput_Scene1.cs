@@ -107,7 +107,7 @@ public class ViveControllerInput_Scene1 : MonoBehaviour {
 			if (collidingObject == iPad) {
 				Debug.Log ("iPad grabbed");
 				//Animation first, then attach tablet
-				animatedCharacter.GetComponent<TestAnimationScene1>().StartGrabTablet();
+				animatedCharacter.GetComponent<TestAnimationScene1>().StartGrabTablet(this.transform);
 				GrabObject ();
 			}
 

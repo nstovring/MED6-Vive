@@ -60,11 +60,11 @@ public class TestAnimationScene1 : MonoBehaviour
     Vector3 tabPos = new Vector3(0.024f, 0.523f, 0.071f);
     Vector3 tabRot = new Vector3(80, -115, -287);
 
-	public void StartGrabTablet() {
-		StartCoroutine(GrabTablet());
+	public void StartGrabTablet(Transform root) {
+		StartCoroutine(GrabTablet(root));
 	}
 
-    private IEnumerator GrabTablet()
+	private IEnumerator GrabTablet(Transform root)
     {
 		Debug.Log ("Grabbing tablet");
         //myAnimator.SetBool("GrabTablet", true);
@@ -91,9 +91,10 @@ public class TestAnimationScene1 : MonoBehaviour
         {
 			//Setting the parent of the talet to be the hand root
 			//TODO: set to be controller instead of hand root
-			//tablets[0].parent = controller...
-            tablets[0].parent = handRoot;
-            tablets[0].transform.localPosition = tabPos;
+            //tablets[0].parent = handRoot;     
+			tablets[0].parent = root;
+			//tablets[0].transform.localPosition = tabPos;
+			tablets[0].transform.position = root.position;
 			//tablets[0].transform.localPosition = iPad.transform.position;
             Quaternion newRot = Quaternion.Euler(tabRot);
             tablets[0].transform.localRotation = newRot;
@@ -154,7 +155,7 @@ public class TestAnimationScene1 : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.G))
         {
-            StartCoroutine(GrabTablet());
+			StartCoroutine(GrabTablet(handRoot));
         }
 
 		//Load menu
