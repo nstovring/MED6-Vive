@@ -10,6 +10,7 @@ public class Sound : MonoBehaviour {
 	public List<AudioClip>ipadSounds;
 	public AudioSource audio; 
 	public bool playOnAwake; 
+	public float volume; 
 
 	void Start () {
 		//audio = Camera.main.GetComponent<AudioSource>();
@@ -74,6 +75,7 @@ public class Sound : MonoBehaviour {
 		cameraAudio.loop = true;
 		cameraAudio.clip = ambientSounds [0]; 
 		cameraAudio.Play ();
+		cameraAudio.volume = 0.1f; 
 		yield return new WaitForSeconds(0);
 		//return;
 	}
