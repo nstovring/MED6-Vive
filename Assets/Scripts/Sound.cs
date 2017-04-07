@@ -63,7 +63,7 @@ public class Sound : MonoBehaviour {
 
 	//Background sound in another thread
 	IEnumerator playAmbient() {
-		Debug.Log ("Playing ambient background sounds");
+		//Debug.Log ("Playing ambient background sounds");
 		AudioSource cameraAudio = Camera.main.GetComponent<AudioSource>();
 		cameraAudio.loop = true;
 		cameraAudio.clip = ambientSounds [0]; 

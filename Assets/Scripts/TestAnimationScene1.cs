@@ -46,12 +46,12 @@ public class TestAnimationScene1 : MonoBehaviour
 		ipadScreen.GetComponent<Renderer> ().sharedMaterial.color = Color.white;
 
 		materials = new Material[2];
-		Debug.Log ("Array materials length: " + materials.Length);
+		//Debug.Log ("Array materials length: " + materials.Length);
 		materials [0] = (Material)Resources.Load ("White", typeof(Material)) as Material;
 		materials [1] = (Material)Resources.Load ("Test", typeof(Material))  as Material;
 
 	    myAnimator = GetComponent<Animator>();
-		Debug.Log("MyAnimator result: " + myAnimator);
+		//Debug.Log("MyAnimator result: " + myAnimator);
 	    myAnimator.applyRootMotion = true;
     }
 
