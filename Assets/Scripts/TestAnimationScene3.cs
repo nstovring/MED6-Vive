@@ -94,10 +94,12 @@ public class TestAnimationScene3 : MonoBehaviour
 		else if (Input.GetKeyUp (KeyCode.Alpha1)) {
 			Debug.Log ("Yes response");
 			soundScript.playAudio(soundScript.narrationResponse[0]); //Play sound
+			StartCoroutine (faceAnimations (10)); //Animate face
 		}
 		else if (Input.GetKeyUp (KeyCode.Alpha2)) {
 			Debug.Log ("No response");
 			soundScript.playAudio(soundScript.narrationResponse[1]); //Play sound
+			StartCoroutine (faceAnimations (10)); //Animate face
 		}
 
     }
