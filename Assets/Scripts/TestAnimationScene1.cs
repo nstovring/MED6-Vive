@@ -30,6 +30,8 @@ public class TestAnimationScene1 : MonoBehaviour
 
 	private Sound soundScript;
 
+	public Vector3 offset = new Vector3(-0.2f, 0.05f, 0f);
+
 
 	void Awake()
 	{
@@ -46,12 +48,12 @@ public class TestAnimationScene1 : MonoBehaviour
 		ipadScreen.GetComponent<Renderer> ().sharedMaterial.color = Color.white;
 
 		materials = new Material[2];
-		Debug.Log ("Array materials length: " + materials.Length);
+		//Debug.Log ("Array materials length: " + materials.Length);
 		materials [0] = (Material)Resources.Load ("White", typeof(Material)) as Material;
 		materials [1] = (Material)Resources.Load ("Test", typeof(Material))  as Material;
 
 	    myAnimator = GetComponent<Animator>();
-		Debug.Log("MyAnimator result: " + myAnimator);
+		//Debug.Log("MyAnimator result: " + myAnimator);
 	    myAnimator.applyRootMotion = true;
     }
 
@@ -96,10 +98,11 @@ public class TestAnimationScene1 : MonoBehaviour
             //tablets[0].parent = handRoot;     
 			tablets[0].parent = root;
 			//tablets[0].transform.localPosition = tabPos;
-			tablets[0].transform.position = root.position;
+			tablets[0].transform.position = root.position + offset;
 			//tablets[0].transform.localPosition = iPad.transform.position;
-            Quaternion newRot = Quaternion.Euler(tabRot);
-            tablets[0].transform.localRotation = newRot;
+            //Quaternion newRot = Quaternion.Euler(tabRot);
+			//Quaternion newRot = Quaternion.Euler(root.rotation);
+			tablets[0].transform.localRotation = root.rotation;
         }
 		yield return new WaitForSeconds(1.5f);
 		//Girl looks up
