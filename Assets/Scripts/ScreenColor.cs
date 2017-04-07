@@ -31,15 +31,15 @@ public class ScreenColor : MonoBehaviour {
 
 		switch (color) {
 		case 0:
-		gameObject.GetComponent<Renderer> ().material.color = new Color(1,0,1,1);
+		gameObject.GetComponent<Renderer> ().material.color = new Color(1,0,1,1); //Purple
 		break;
 		
 		case 1:
-		gameObject.GetComponent<Renderer> ().material.color = new Color(0,0,1,0);
+		gameObject.GetComponent<Renderer> ().material.color = new Color(0,0,1,1); //Blue
 		break;
 
 		case 2:
-		gameObject.GetComponent<Renderer> ().material.color = new Color(1, 1, 0, 1);
+		gameObject.GetComponent<Renderer> ().material.color = new Color(1, 1, 0, 1); //Yellow
 		break;
 
 		default:
