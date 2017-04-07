@@ -26,7 +26,7 @@ public class Sound : MonoBehaviour {
 		audio.Play();
 	}
 
-	public void playCharacterResponse(){
+	public void playCharacterResponseS3(){
 		Debug.Log ("Playing character response");
 		playAudio(narrationResponse [0]);
 	}

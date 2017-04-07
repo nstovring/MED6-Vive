@@ -10,8 +10,6 @@ public class BalloonMovement : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		new WaitForSeconds (5);
-		Debug.Log ("Test");
 	}
 	
 	// Update is called once per frame
@@ -23,19 +21,19 @@ public class BalloonMovement : MonoBehaviour {
 		} else {
 			if (movingUp) {
 				//Debug.Log ("Object transform before movement: " + this.gameObject.transform.position);
-				this.gameObject.transform.position += new Vector3 (0f, 0.005f, 0f);
+				this.gameObject.transform.position += new Vector3 (0f, 0.0025f, 0f);
 				counter++;
 				//Debug.Log ("Object transform after movement: " + this.gameObject.transform.position);
-				if (counter == 50) {
+				if (counter == 100) {
 					movingUp = !movingUp;
 					counter = 0;
 				}
 			} else {
 				//Debug.Log ("Object transform before movement: " + this.gameObject.transform.position);
-				this.gameObject.transform.position += new Vector3 (0f, -0.005f, 0f);
+				this.gameObject.transform.position += new Vector3 (0f, -0.0025f, 0f);
 				counter++;
 				//Debug.Log ("Object transform after movement: " + this.gameObject.transform.position);
-				if (counter == 50) {
+				if (counter == 100) {
 					movingUp = !movingUp;
 					counter = 0;
 				}

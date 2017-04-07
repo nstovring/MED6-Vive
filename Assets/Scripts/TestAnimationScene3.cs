@@ -29,6 +29,8 @@ public class TestAnimationScene3 : MonoBehaviour
 
 	private Sound soundScript;
 
+	public List<Material> diffuseMaps;
+
 
 	void Awake()
 	{
@@ -54,6 +56,15 @@ public class TestAnimationScene3 : MonoBehaviour
 	    myAnimator.applyRootMotion = true;
     }
 
+	public IEnumerator faceAnimations(int numberOfAnimations) {
+		while (numberOfAnimations > 0) {
+			//Change between the two facial maps
+			this.GetComponent<Renderer> ().material = diffuseMaps [0 % 2];
+			yield return new WaitForSeconds (0.2);
+			numberOfAnimations--;
+		}
+	}
+
     // Update is called once per frame
     void Update ()
 	{
@@ -74,10 +85,19 @@ public class TestAnimationScene3 : MonoBehaviour
 			StartCoroutine(waitAndLoad (2, "Menu"));
 		}
 		//Restart/reload scene
-		if (Input.GetKeyUp (KeyCode.R)) {
+		else if (Input.GetKeyUp (KeyCode.R)) {
 			Debug.Log ("Fading and restarting scene");
 			myFade.FadeOut(1, false);
 			StartCoroutine(waitAndLoad (1, "Scene1"));
+		}
+		//For teacher
+		else if (Input.GetKeyUp (KeyCode.Alpha1)) {
+			Debug.Log ("Yes response");
+			soundScript.playAudio(soundScript.narrationResponse[0]); //Play sound
+		}
+		else if (Input.GetKeyUp (KeyCode.Alpha2)) {
+			Debug.Log ("No response");
+			soundScript.playAudio(soundScript.narrationResponse[1]); //Play sound
 		}
 
     }

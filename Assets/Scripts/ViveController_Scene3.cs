@@ -77,8 +77,8 @@ public class ViveController_Scene3 : MonoBehaviour {
 
 			if (collidingObject == classmate) {
 				Debug.Log ("Classmate clicked");
-				//TODO: Play sound and animation
-				animatedCharacter.GetComponent<Sound>().playCharacterResponse();
+				//TODO: animation
+				//animatedCharacter.GetComponent<Sound>().playCharacterResponse();
 			}
 		}
     }//End Update

@@ -32,6 +32,8 @@ public class TestAnimationScene1 : MonoBehaviour
 
 	public Vector3 offset = new Vector3(-0.2f, 0.05f, 0f);
 
+	public List<Material> diffuseMaps;
+
 
 	void Awake()
 	{
@@ -63,6 +65,15 @@ public class TestAnimationScene1 : MonoBehaviour
 
     Vector3 tabPos = new Vector3(0.024f, 0.523f, 0.071f);
     Vector3 tabRot = new Vector3(80, -115, -287);
+
+	public IEnumerator faceAnimations(int numberOfAnimations) {
+		while (numberOfAnimations > 0) {
+			//Change between the two facial maps
+			this.GetComponent<Renderer> ().material = diffuseMaps [0 % 2];
+			yield return new WaitForSeconds (0.2);
+			numberOfAnimations--;
+		}
+	}
 
 	public void StartGrabTablet(Transform root) {
 		StartCoroutine(GrabTablet(root));
@@ -104,11 +115,10 @@ public class TestAnimationScene1 : MonoBehaviour
 			//Quaternion newRot = Quaternion.Euler(root.rotation);
 			tablets[0].transform.localRotation = root.rotation;
         }
-		yield return new WaitForSeconds(1.5f);
-		//Girl looks up
-		soundScript.playAudio(soundScript.ipadSounds[1]);
-		//TODO: "ej lad være"-lyd
-
+		yield return new WaitForSeconds(1);
+		//Girl looks up and says "stop it"
+		soundScript.playAudio(soundScript.narrationResponse[2]); //Play sound
+		StartCoroutine (faceAnimations (10)); //Animate face
 
         //foreach (Transform tablet in tablets) {
         //    tablet.parent = handRoot;
