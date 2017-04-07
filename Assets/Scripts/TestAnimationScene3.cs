@@ -14,7 +14,6 @@ public class TestAnimationScene3 : MonoBehaviour
     public float VSpeed;
     public float HSpeed;
 
-    public Transform handRoot;
 	public List<Transform> tablets;
 
 	public SteamVR_ControllerManager controllerMan;

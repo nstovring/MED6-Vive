@@ -62,16 +62,6 @@ public class ViveController_Scene3 : MonoBehaviour {
         if (Controller.GetPressDown(SteamVR_Controller.ButtonMask.Grip))
 		
         {
-
-
-            //grab object
-            if (collidingObject)
-            {
-                //GrabObject();
-            }
-
-
-
             //Debug.Log(gameObject.name + " Grip Press");
         }
 
