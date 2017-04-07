@@ -7,7 +7,7 @@ public class ScreenColor : MonoBehaviour {
 	private float currentTime; 
 	private float deltaTime; 
 	public bool playing; //pause or no pause
-	public bool stopPlaying = false;
+	public bool stopPlaying = true;
 
 	void Update() {
 		deltaTime = Time.unscaledTime - currentTime; 
