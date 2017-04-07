@@ -14,15 +14,10 @@ public class ViveController_Scene3 : MonoBehaviour {
     //Picking up object variables
     private GameObject collidingObject;
     private GameObject objectInHand;
-
+	public GameObject classmate;
 	public GameObject animatedCharacter;
 
-	public GameObject yellowButton;
-	public GameObject purpleButton;
-	public GameObject blueButton;
-	public GameObject screen;
 	public GameObject verticalSpeed; 
-	public AudioSource sounds; 
 
 	public List<Material> blendMaterials;
 	public List<Material> objectMaterials;
@@ -88,54 +83,13 @@ public class ViveController_Scene3 : MonoBehaviour {
 			Debug.Log ("Touch pressed");
 		}
 		if (Controller.GetTouchDown (SteamVR_Controller.ButtonMask.Trigger)) {
-			Debug.Log ("pressing button");
-			if (collidingObject == yellowButton) {
-				Debug.Log ("Yellow button pressed");
+			Debug.Log ("pressing trigger");
 
-				//If color is correct
-				if (screen.GetComponent<Renderer> ().material.color == new Color (1, 1, 0)) {
-					Debug.Log ("Correct color chosen");
-					screen.GetComponent <Renderer> ().material.color = new Color (0, 1, 0);
-
-				} else {
-					Debug.Log ("Wrong color chosen");
-					screen.GetComponent <Renderer> ().material.color = new Color (1, 0, 0); 
-					vibrate (500);
-				}
-				screen.GetComponent<ScreenColor>().playing = false;
-			} 
-			else if (collidingObject == purpleButton) {
-				Debug.Log("Purple button pressed");
-
-				if (screen.GetComponent<Renderer> ().material.color == new Color (1, 0, 1)) {
-					Debug.Log ("Correct color chosen");
-					screen.GetComponent <Renderer> ().material.color = new Color (0,1,0);
-
-
-				} else {
-					Debug.Log ("Wrong color chosen");
-					screen.GetComponent <Renderer> ().material.color = new Color (1,0,0); 
-					vibrate (500);
-				}
-				screen.GetComponent<ScreenColor>().playing = false;
+			if (collidingObject == classmate) {
+				Debug.Log ("Classmate clicked");
+				//TODO: Play sound and animation
+				animatedCharacter.GetComponent<Sound>().playCharacterResponse();
 			}
-			else if (collidingObject == blueButton) {
-				Debug.Log("Blue button pressed");
-
-				if (screen.GetComponent<Renderer> ().material.color == new Color (0, 0, 1)) {
-					Debug.Log ("Correct color chosen");
-					screen.GetComponent <Renderer> ().material.color = new Color (0,1,0); 					
-
-
-
-				} else {
-					Debug.Log ("Wrong color chosen");
-					screen.GetComponent <Renderer> ().material.color = new Color (1,0,0);
-					vibrate (500);
-				}
-				screen.GetComponent<ScreenColor>().playing = false;
-			}
-
 		}
     }//End Update
 
@@ -162,9 +116,7 @@ public class ViveController_Scene3 : MonoBehaviour {
 
 		//TODO: set tags + check names + insert new and old materials
 		if (other.gameObject.tag == "outline") {
-			if (other.gameObject.name == "girl") {
-				other.GetComponent<Renderer> ().material = blendMaterials[0];
-			}
+			other.GetComponent<Renderer> ().material = blendMaterials[0];
 		} 
     }
     public void OnTriggerStay(Collider other)
@@ -180,9 +132,7 @@ public class ViveController_Scene3 : MonoBehaviour {
 			//Debug.Log ("Giving back old mat");
 			//other.GetComponent<Renderer> ().material = savedMaterial;
 			if (other.gameObject.tag == "outline") {
-				if (other.gameObject.name == "girl") {
-					other.GetComponent<Renderer> ().material = objectMaterials[0];
-				}
+				other.GetComponent<Renderer> ().material = objectMaterials[0];
 			} 
 			Debug.Log ("Object material: " + other.GetComponent<Renderer> ().material);
 		}

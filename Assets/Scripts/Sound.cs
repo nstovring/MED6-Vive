@@ -25,6 +25,11 @@ public class Sound : MonoBehaviour {
 		audio.Play();
 	}
 
+	public void playCharacterResponse(){
+		Debug.Log ("Playing character response");
+		playAudio(narrationResponse [0]);
+	}
+
 	void Update () {
 		//narration question question
 		if (Input.GetKeyDown (KeyCode.A)) {
@@ -43,7 +48,8 @@ public class Sound : MonoBehaviour {
 		else if (Input.GetKeyDown (KeyCode.C)) {
 			Debug.Log ("C Pressed");
 			audio.clip = narrationResponse [1];
-			audio.Play();	}
+			audio.Play();	
+		}
 
 		//narration Response question
 		else if (Input.GetKeyDown (KeyCode.D)) {
