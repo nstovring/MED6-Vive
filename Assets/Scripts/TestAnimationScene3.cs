@@ -60,7 +60,7 @@ public class TestAnimationScene3 : MonoBehaviour
 		while (numberOfAnimations > 0) {
 			//Change between the two facial maps
 			this.GetComponent<Renderer> ().material = diffuseMaps [0 % 2];
-			yield return new WaitForSeconds (0.2);
+			yield return new WaitForSeconds (0.2f);
 			numberOfAnimations--;
 		}
 	}

@@ -78,7 +78,7 @@ public class ViveController_Scene3 : MonoBehaviour {
 			if (collidingObject == classmate) {
 				Debug.Log ("Classmate clicked");
 				//TODO: animation + ask for permission
-				Sound soundScript = animatedCharacter.GetComponent<Sound>;
+				Sound soundScript = animatedCharacter.GetComponent<Sound>();
 				soundScript.playAudio (soundScript.narrationQuestion [0]);
 				//animatedCharacter.GetComponent<Sound>().playCharacterResponse();
 			}
