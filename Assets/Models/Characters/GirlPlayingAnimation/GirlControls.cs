@@ -37,5 +37,17 @@ public class GirlControls : MonoBehaviour {
 
 			anim.SetTrigger("isButtonPressingM");
 		}
+
+		if (Input.GetKey(KeyCode.V)) {
+
+
+			anim.SetTrigger("isButtonPressingL");
+		}
+
+		if (Input.GetKey(KeyCode.L)) {
+
+
+			anim.SetTrigger("lookingUp");
+		}
 	}
 }
