@@ -8,7 +8,7 @@ public class GirlControls : MonoBehaviour {
 	//Goes back and get the controller, which is attatched to the girl
 	static Animator anim;
 
-	//public Transform upperBody;
+
 
 	// Use this for initialization
 	void Start () {
@@ -17,14 +17,18 @@ public class GirlControls : MonoBehaviour {
 		//Is used to set the trigger
 		anim = GetComponent<Animator> ();
 
-		//Animation ["button_pushing"].layer = 5;
-		//Animation ["button_pushing"].AddMixingTransform (upperBody);
 
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		
+
+		if (Input.GetKey(KeyCode.Z)) {
+
+
+			anim.SetTrigger("isButtonPressingR");
+		}
 
 		if (Input.GetKey(KeyCode.X)) {
 
@@ -35,19 +39,14 @@ public class GirlControls : MonoBehaviour {
 		if (Input.GetKey(KeyCode.C)) {
 
 
-			anim.SetTrigger("isButtonPressingM");
+			anim.SetTrigger("isButtonPressingR");
 		}
 
 		if (Input.GetKey(KeyCode.V)) {
 
 
-			anim.SetTrigger("isButtonPressingL");
+			anim.SetTrigger("isButtonPressingR");
 		}
 
-		if (Input.GetKey(KeyCode.L)) {
-
-
-			anim.SetTrigger("lookingUp");
-		}
 	}
 }
