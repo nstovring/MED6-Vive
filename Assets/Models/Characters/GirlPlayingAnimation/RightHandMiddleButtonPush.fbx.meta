@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: bf4d7b113d2fc7542aefe0566e658e1b
-timeCreated: 1491568714
+guid: 535727b5c89838a4092f84b9e4891f5d
+timeCreated: 1491755948
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -10,8 +10,8 @@ ModelImporter:
     100004: FemaleBody 1
     100006: FemaleBody1
     100008: FemaleHair
-    100010: //RootNode
-    100012: mixamorig:Head
+    100010: mixamorig:Head
+    100012: mixamorig:HeadTop_End
     100014: mixamorig:Hips
     100016: mixamorig:LeftArm
     100018: mixamorig:LeftFoot
@@ -60,28 +60,28 @@ ModelImporter:
     100104: polySurface3
     100106: polySurface4
     100108: polySurface5
-    100110: polySurface6
-    100112: transform1
-    100114: transform10
-    100116: transform11
-    100118: transform12
-    100120: transform13
-    100122: transform2
-    100124: transform3
-    100126: transform4
-    100128: transform5
-    100130: transform6
-    100132: transform7
-    100134: transform8
-    100136: transform9
-    100138: polySurface7
+    100110: polySurface7
+    100112: //RootNode
+    100114: transform1
+    100116: transform10
+    100118: transform11
+    100120: transform12
+    100122: transform13
+    100124: transform2
+    100126: transform3
+    100128: transform4
+    100130: transform5
+    100132: transform6
+    100134: transform7
+    100136: transform8
+    100138: transform9
     400000: _UNKNOWN_REF_NODE_fosterParent1
     400002: FemaleBody
     400004: FemaleBody 1
     400006: FemaleBody1
     400008: FemaleHair
-    400010: //RootNode
-    400012: mixamorig:Head
+    400010: mixamorig:Head
+    400012: mixamorig:HeadTop_End
     400014: mixamorig:Hips
     400016: mixamorig:LeftArm
     400018: mixamorig:LeftFoot
@@ -130,29 +130,25 @@ ModelImporter:
     400104: polySurface3
     400106: polySurface4
     400108: polySurface5
-    400110: polySurface6
-    400112: transform1
-    400114: transform10
-    400116: transform11
-    400118: transform12
-    400120: transform13
-    400122: transform2
-    400124: transform3
-    400126: transform4
-    400128: transform5
-    400130: transform6
-    400132: transform7
-    400134: transform8
-    400136: transform9
-    400138: polySurface7
-    2300000: polySurface6
-    2300002: polySurface7
-    3300000: polySurface6
-    3300002: polySurface7
-    4300000: polySurface6
-    4300002: polySurface7
+    400110: polySurface7
+    400112: //RootNode
+    400114: transform1
+    400116: transform10
+    400118: transform11
+    400120: transform12
+    400122: transform13
+    400124: transform2
+    400126: transform3
+    400128: transform4
+    400130: transform5
+    400132: transform6
+    400134: transform7
+    400136: transform8
+    400138: transform9
+    4300000: polySurface7
     7400000: Take 001
     9500000: //RootNode
+    13700000: polySurface7
   materials:
     importMaterials: 1
     materialName: 0

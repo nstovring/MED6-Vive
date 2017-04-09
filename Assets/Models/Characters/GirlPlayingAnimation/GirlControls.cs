@@ -26,10 +26,16 @@ public class GirlControls : MonoBehaviour {
 	void Update () {
 		
 
-		if (Input.GetKey(KeyCode.B)) {
+		if (Input.GetKey(KeyCode.X)) {
 
 
-			anim.SetTrigger("isButtonpressing");
+			anim.SetTrigger("isButtonPressingR");
+		}
+
+		if (Input.GetKey(KeyCode.C)) {
+
+
+			anim.SetTrigger("isButtonPressingM");
 		}
 	}
 }
