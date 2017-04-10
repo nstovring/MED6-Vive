@@ -90,13 +90,23 @@ public class TestAnimationScene3 : MonoBehaviour
 			myFade.FadeOut(1, false);
 			StartCoroutine(waitAndLoad (1, "Scene1"));
 		}
+		if (Input.GetKeyUp (KeyCode.Alpha1)) {
+			Debug.Log ("Fading and changing to scene 1");
+			myFade.FadeOut(1, false);
+			StartCoroutine(waitAndLoad (1, "Scene2"));
+		}
+		if (Input.GetKeyUp (KeyCode.Alpha2)) {
+			Debug.Log ("Fading and changing to scene 2");
+			myFade.FadeOut(1, false);
+			StartCoroutine(waitAndLoad (1, "Scene2"));
+		}
 		//For teacher
-		else if (Input.GetKeyUp (KeyCode.Alpha1)) {
+		else if (Input.GetKeyUp (KeyCode.Y)) {
 			Debug.Log ("Yes response");
 			soundScript.playAudio(soundScript.narrationResponse[0]); //Play sound
 			StartCoroutine (faceAnimations (10)); //Animate face
 		}
-		else if (Input.GetKeyUp (KeyCode.Alpha2)) {
+		else if (Input.GetKeyUp (KeyCode.N)) {
 			Debug.Log ("No response");
 			soundScript.playAudio(soundScript.narrationResponse[1]); //Play sound
 			StartCoroutine (faceAnimations (10)); //Animate face

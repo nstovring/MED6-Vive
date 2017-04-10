@@ -173,6 +173,24 @@ public class TestAnimationScene2 : MonoBehaviour
 			StartCoroutine(waitAndLoad (2, "Menu"));
 			//SceneManager.LoadScene("Menu");
 		}
+		//Restart/reload scene
+		if (Input.GetKeyUp (KeyCode.R)) {
+			Debug.Log ("Fading and restarting scene");
+			myFade.FadeOut(1, false);
+			StartCoroutine(waitAndLoad (1, "Scene2"));
+		}
+		if (Input.GetKeyUp (KeyCode.Alpha1)) {
+			Debug.Log ("Fading and changing to scene 1");
+			myFade.FadeOut(1, false);
+			StartCoroutine(waitAndLoad (1, "Scene1"));
+		}
+		if (Input.GetKeyUp (KeyCode.Alpha3)) {
+			Debug.Log ("Fading and changing to scene 3");
+			myFade.FadeOut(1, false);
+			StartCoroutine(waitAndLoad (1, "Scene3"));
+		}
+
+
 
 		if (Input.GetKeyUp(KeyCode.T))
 		{

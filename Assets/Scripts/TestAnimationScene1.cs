@@ -70,13 +70,14 @@ public class TestAnimationScene1 : MonoBehaviour
     Vector3 tabRot = new Vector3(80, -115, -287);
 
 	public IEnumerator faceAnimations(int numberOfAnimations) {
-		Transform child = this.gameObject.transform.GetChild (1);
-		Debug.Log ("Child found: " + child.name);
+		//Transform child = this.gameObject.transform.GetChild (1);
+		//Debug.Log ("Child found: " + child.name);
 
 		while (numberOfAnimations > 0) {
 			//Change between the two facial maps
 			Debug.Log ("Iteration no. " + (11 - numberOfAnimations) + ". Applying material " + (numberOfAnimations % 2));
-			child.GetComponent<Renderer> ().material = diffuseMaps [numberOfAnimations % 2];
+			//child.GetComponent<Renderer> ().material = diffuseMaps [numberOfAnimations % 2];
+			characterMesh.GetComponent<Renderer> ().material = diffuseMaps [(numberOfAnimations + 1) % 2];
 			yield return new WaitForSeconds (0.2f);
 			numberOfAnimations--;
 		}
@@ -125,7 +126,7 @@ public class TestAnimationScene1 : MonoBehaviour
 		yield return new WaitForSeconds(0);
 		//Girl looks up and says "stop it"
 		soundScript.playAudio(soundScript.narrationResponse[0]); //Play sound
-		StartCoroutine (faceAnimations (10)); //Animate face
+		StartCoroutine (faceAnimations (5)); //Animate face
 
         //foreach (Transform tablet in tablets) {
         //    tablet.parent = handRoot;
@@ -215,6 +216,20 @@ public class TestAnimationScene1 : MonoBehaviour
 			myFade.FadeOut(1, false);
 			StartCoroutine(waitAndLoad (1, "Scene1"));
 		}
+		if (Input.GetKeyUp (KeyCode.Alpha2)) {
+			Debug.Log ("Fading and changing to scene 2");
+			myFade.FadeOut(1, false);
+			StartCoroutine(waitAndLoad (1, "Scene2"));
+		}
+		if (Input.GetKeyUp (KeyCode.Alpha3)) {
+			Debug.Log ("Fading and changing to scene 3");
+			myFade.FadeOut(1, false);
+			StartCoroutine(waitAndLoad (1, "Scene3"));
+		}
+
+
+
+
 		if (Input.GetKeyUp (KeyCode.T)) {
 			//DynamicGI.SetEmissive (iPad.GetComponent<Renderer> (), new Color(255,255,255));
 				//iPad.GetComponent<Renderer>().material.color + new Color(0.5f, 0.5f, 0.5f));
