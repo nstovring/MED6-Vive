@@ -75,7 +75,7 @@ public class Sound : MonoBehaviour {
 		cameraAudio.loop = true;
 		cameraAudio.clip = ambientSounds [0]; 
 		cameraAudio.Play ();
-		cameraAudio.volume = 0.1f; 
+		cameraAudio.volume = 0.25f; 
 		yield return new WaitForSeconds(0);
 		//return;
 	}

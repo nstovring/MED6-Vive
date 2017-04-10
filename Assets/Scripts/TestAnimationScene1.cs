@@ -115,9 +115,9 @@ public class TestAnimationScene1 : MonoBehaviour
 			//Quaternion newRot = Quaternion.Euler(root.rotation);
 			tablets[0].transform.localRotation = root.rotation;
         }
-		yield return new WaitForSeconds(1);
+		yield return new WaitForSeconds(0);
 		//Girl looks up and says "stop it"
-		soundScript.playAudio(soundScript.narrationResponse[2]); //Play sound
+		soundScript.playAudio(soundScript.narrationResponse[0]); //Play sound
 		StartCoroutine (faceAnimations (10)); //Animate face
 
         //foreach (Transform tablet in tablets) {
