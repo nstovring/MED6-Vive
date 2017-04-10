@@ -33,6 +33,9 @@ public class TestAnimationScene1 : MonoBehaviour
 	public Vector3 offset = new Vector3(-0.2f, 0.05f, 0f);
 
 	public List<Material> diffuseMaps;
+	public List<Texture2D> textures;
+
+	public GameObject characterMesh;
 
 
 	void Awake()
@@ -164,7 +167,7 @@ public class TestAnimationScene1 : MonoBehaviour
 			Debug.Log ("Child found: " + child.name + ". Applying diffuse map: " + diffuseMaps [1].name);
 
 			//Change between the two facial maps
-			child.GetComponent<Renderer> ().material = diffuseMaps [1];
+			characterMesh.GetComponent<Renderer> ().material = diffuseMaps [1];
 		}
 
 
