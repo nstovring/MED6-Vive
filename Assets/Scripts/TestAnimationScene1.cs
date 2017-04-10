@@ -67,9 +67,13 @@ public class TestAnimationScene1 : MonoBehaviour
     Vector3 tabRot = new Vector3(80, -115, -287);
 
 	public IEnumerator faceAnimations(int numberOfAnimations) {
+		Transform child = this.gameObject.transform.GetChild (1);
+		Debug.Log ("Child found: " + child.name);
+
 		while (numberOfAnimations > 0) {
 			//Change between the two facial maps
-			this.GetComponent<Renderer> ().material = diffuseMaps [0 % 2];
+			Debug.Log ("Iteration no. " + (11 - numberOfAnimations) + ". Applying material " + (numberOfAnimations % 2));
+			child.GetComponent<Renderer> ().material = diffuseMaps [numberOfAnimations % 2];
 			yield return new WaitForSeconds (0.2f);
 			numberOfAnimations--;
 		}
@@ -147,6 +151,22 @@ public class TestAnimationScene1 : MonoBehaviour
     // Update is called once per frame
     void Update ()
 	{
+		if(Input.GetKey(KeyCode.I)) {
+			Transform child = this.gameObject.transform.GetChild (1);
+			Debug.Log ("Child found: " + child.name);
+
+			//Change between the two facial maps
+			child.GetComponent<Renderer> ().material = diffuseMaps [0];
+		}
+
+		if(Input.GetKey(KeyCode.O)) {
+			Transform child = this.gameObject.transform.GetChild (1);
+			Debug.Log ("Child found: " + child.name + ". Applying diffuse map: " + diffuseMaps [1].name);
+
+			//Change between the two facial maps
+			child.GetComponent<Renderer> ().material = diffuseMaps [1];
+		}
+
 
         myAnimator.SetBool("GrabTablet", false);
 		/**
