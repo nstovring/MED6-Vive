@@ -34,6 +34,9 @@ public class ViveControllerInput_Scene1 : MonoBehaviour {
 	public List<Material> blendMaterials;
 	public List<Material> objectMaterials;
 
+	private bool holdingClick = false;
+	private bool holdClickMode = true;
+
 
     void Awake()
     {
@@ -66,10 +69,14 @@ public class ViveControllerInput_Scene1 : MonoBehaviour {
 
         if (Controller.GetHairTriggerUp())
         {
+			holdingClick = false;
+			Debug.Log ("Released hold click");
+
+
             //release object
             if (objectInHand)
             {
-                ReleaseObject();
+                //ReleaseObject();
             }
 
             //Debug.Log(gameObject.name + " Trigger Release");
@@ -103,16 +110,20 @@ public class ViveControllerInput_Scene1 : MonoBehaviour {
 		}
 		if (Controller.GetTouchDown (SteamVR_Controller.ButtonMask.Trigger)) {
 			//Debug.Log ("Collider detected: " + collidingObject.name);
+			holdingClick = true;
 			
 			if (collidingObject == iPad) {
-				Debug.Log ("iPad grabbed");
-				//Animation first, then attach tablet
-				animatedCharacter.GetComponent<TestAnimationScene1>().StartGrabTablet(this.transform);
-				GrabObject ();
+				grabIPad ();
 			}
-
 		}
     }//End Update
+
+	private void grabIPad() {
+		Debug.Log ("iPad grabbed");
+		//Animation first, then attach tablet
+		animatedCharacter.GetComponent<TestAnimationScene1>().StartGrabTablet(this.transform);
+		GrabObject ();
+	}
 
 	public void vibrate(ushort time)
 	{
@@ -139,6 +150,10 @@ public class ViveControllerInput_Scene1 : MonoBehaviour {
 			if (other.gameObject.name == "Tablet Palm") {
 				other.GetComponent<Renderer> ().material = blendMaterials[0];
 				Debug.Log ("Changing mat on tablet palm object: " + other.GetComponent<Renderer> ().material);
+
+				if (holdClickMode && holdingClick) {
+					grabIPad ();
+				}
 			}
 		} 
 		//Debug.Log ("Object material: " + other.GetComponent<Renderer> ().material);
@@ -154,13 +169,11 @@ public class ViveControllerInput_Scene1 : MonoBehaviour {
 
 		if (other.gameObject.tag == "outline") {
 			//Debug.Log ("Giving back old mat");
-			//other.GetComponent<Renderer> ().material = savedMaterial;
-			if (other.gameObject.tag == "outline") {
+
 				if (other.gameObject.name == "Tablet Palm") {
 					other.GetComponent<Renderer> ().material = objectMaterials[0];
 					Debug.Log ("Changing mat on tablet palm object: " + other.GetComponent<Renderer> ().material);
 				}
-			} 
 			Debug.Log ("Object material: " + other.GetComponent<Renderer> ().material);
 		}
 

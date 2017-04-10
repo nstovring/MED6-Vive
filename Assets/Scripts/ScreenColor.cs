@@ -9,11 +9,14 @@ public class ScreenColor : MonoBehaviour {
 	public bool playing; //pause or no pause
 	public bool stopPlaying = true;
 
+	public Material screenMat;
+
 	void Update() {
 		deltaTime = Time.unscaledTime - currentTime; 
 		//print (deltaTime);
 
-		if (!stopPlaying) {
+		if (stopPlaying) {
+			Debug.Log ("Playing");
 			if (playing == true && deltaTime >= 1) {
 				//Debug.Log ("Printing " + deltaTime);
 				Color = Random.Range (0, 3);
@@ -40,6 +43,10 @@ public class ScreenColor : MonoBehaviour {
 
 		case 2:
 		gameObject.GetComponent<Renderer> ().material.color = new Color(1, 1, 0, 1); //Yellow
+		break;
+
+		case 3:
+		gameObject.GetComponent<Renderer> ().material.color = new Color(0.8f, 0.8f, 0.8f, 1); //Grey
 		break;
 
 		default:

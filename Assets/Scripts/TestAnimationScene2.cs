@@ -21,6 +21,9 @@ public class TestAnimationScene2 : MonoBehaviour
 
 	private VRCameraFade myFade;
 
+	public List<Material> diffuseMaps;
+	public GameObject characterMesh;
+
 	/**
 
 	private SteamVR_TrackedObject trackedObj;
@@ -112,6 +115,15 @@ public class TestAnimationScene2 : MonoBehaviour
         //}
     }
 
+	public IEnumerator faceAnimations(int numberOfAnimations) {
+		while (numberOfAnimations > 0) {
+			//Change between the two facial maps
+			Debug.Log ("Iteration no. " + (11 - numberOfAnimations) + ". Applying material " + (numberOfAnimations % 2));
+			characterMesh.GetComponent<Renderer> ().material = diffuseMaps [(numberOfAnimations + 1) % 2];
+			yield return new WaitForSeconds (0.2f);
+			numberOfAnimations--;
+		}
+	}
 
     public IEnumerator WalkToTarget()
     {
@@ -173,16 +185,34 @@ public class TestAnimationScene2 : MonoBehaviour
 			StartCoroutine(waitAndLoad (2, "Menu"));
 			//SceneManager.LoadScene("Menu");
 		}
+		if (Input.GetKeyUp (KeyCode.Space)) {
+			Debug.Log ("Fading and changing scene");
+			myFade.FadeOut(2, false);
+			StartCoroutine(waitAndLoad (2, "Menu"));
+			//SceneManager.LoadScene("Menu");
+		}
+
 		//Restart/reload scene
 		if (Input.GetKeyUp (KeyCode.R)) {
 			Debug.Log ("Fading and restarting scene");
 			myFade.FadeOut(1, false);
 			StartCoroutine(waitAndLoad (1, "Scene2"));
 		}
+		if (Input.GetKeyUp (KeyCode.Return)) {
+			Debug.Log ("Fading and restarting scene");
+			myFade.FadeOut(1, false);
+			StartCoroutine(waitAndLoad (1, "Scene2"));
+		}
+
 		if (Input.GetKeyUp (KeyCode.Alpha1)) {
 			Debug.Log ("Fading and changing to scene 1");
 			myFade.FadeOut(1, false);
 			StartCoroutine(waitAndLoad (1, "Scene1"));
+		}
+		if (Input.GetKeyUp (KeyCode.Alpha2)) {
+			Debug.Log ("Fading and changing to scene 2");
+			myFade.FadeOut(1, false);
+			StartCoroutine(waitAndLoad (1, "Scene2"));
 		}
 		if (Input.GetKeyUp (KeyCode.Alpha3)) {
 			Debug.Log ("Fading and changing to scene 3");
@@ -191,27 +221,12 @@ public class TestAnimationScene2 : MonoBehaviour
 		}
 
 
-
-		if (Input.GetKeyUp(KeyCode.T))
-		{
-			Debug.Log ("Changing material on tablet");
-
-
-			if (currentMat == 0) {
-				Debug.Log ("First material");
-				ipadScreen.GetComponent<Renderer> ().sharedMaterial = materials [1];
-				//ipadScreen.GetComponent<Renderer> ().sharedMaterial.color = Color.blue;
-				currentMat = 1;
-			} else {
-				Debug.Log ("Second material");
-				ipadScreen.GetComponent<Renderer> ().sharedMaterial = materials [0];
-				//ipadScreen.GetComponent<Renderer> ().sharedMaterial.color = Color.white;
-				currentMat = 0;
-			}
-		}
 		if (Input.GetKeyUp (KeyCode.S)) {
 			Debug.Log ("Starting/stopping iPad game");
 			ipadScreen.GetComponent<ScreenColor> ().stopPlaying = !ipadScreen.GetComponent<ScreenColor> ().stopPlaying;
+			if (ipadScreen.GetComponent<ScreenColor> ().stopPlaying == false) {
+				ipadScreen.GetComponent<ScreenColor> ().SwitchColor (3);
+			}
 		}
 
 

@@ -24,12 +24,10 @@ public class TestAnimationScene3 : MonoBehaviour
 	private int currentMat = 0;
 	private Transform ipadScreen;
 
-	public Material iPadMat;
-	public Material blendMat;
-
 	private Sound soundScript;
 
 	public List<Material> diffuseMaps;
+	public GameObject characterMesh;
 
 
 	void Awake()
@@ -59,7 +57,8 @@ public class TestAnimationScene3 : MonoBehaviour
 	public IEnumerator faceAnimations(int numberOfAnimations) {
 		while (numberOfAnimations > 0) {
 			//Change between the two facial maps
-			this.GetComponent<Renderer> ().material = diffuseMaps [0 % 2];
+			Debug.Log ("Iteration no. " + (11 - numberOfAnimations) + ". Applying material " + (numberOfAnimations % 2));
+			characterMesh.GetComponent<Renderer> ().material = diffuseMaps [(numberOfAnimations + 1) % 2];
 			yield return new WaitForSeconds (0.2f);
 			numberOfAnimations--;
 		}
@@ -84,24 +83,42 @@ public class TestAnimationScene3 : MonoBehaviour
 			myFade.FadeOut(2, false);
 			StartCoroutine(waitAndLoad (2, "Menu"));
 		}
+		if (Input.GetKeyUp (KeyCode.Space)) {
+			Debug.Log ("Fading and changing scene");
+			myFade.FadeOut(2, false);
+			StartCoroutine(waitAndLoad (2, "Menu"));
+		}
+
 		//Restart/reload scene
 		else if (Input.GetKeyUp (KeyCode.R)) {
 			Debug.Log ("Fading and restarting scene");
 			myFade.FadeOut(1, false);
-			StartCoroutine(waitAndLoad (1, "Scene1"));
+			StartCoroutine(waitAndLoad (1, "Scene3"));
 		}
+		else if (Input.GetKeyUp (KeyCode.Return)) {
+			Debug.Log ("Fading and restarting scene");
+			myFade.FadeOut(1, false);
+			StartCoroutine(waitAndLoad (1, "Scene3"));
+		}
+
 		if (Input.GetKeyUp (KeyCode.Alpha1)) {
 			Debug.Log ("Fading and changing to scene 1");
 			myFade.FadeOut(1, false);
-			StartCoroutine(waitAndLoad (1, "Scene2"));
+			StartCoroutine(waitAndLoad (1, "Scene1"));
 		}
 		if (Input.GetKeyUp (KeyCode.Alpha2)) {
 			Debug.Log ("Fading and changing to scene 2");
 			myFade.FadeOut(1, false);
 			StartCoroutine(waitAndLoad (1, "Scene2"));
 		}
+		if (Input.GetKeyUp (KeyCode.Alpha3)) {
+			Debug.Log ("Fading and changing to scene 3");
+			myFade.FadeOut(1, false);
+			StartCoroutine(waitAndLoad (1, "Scene3"));
+		}
+
 		//For teacher
-		else if (Input.GetKeyUp (KeyCode.Y)) {
+		else if (Input.GetKeyUp (KeyCode.J)) {
 			Debug.Log ("Yes response");
 			soundScript.playAudio(soundScript.narrationResponse[0]); //Play sound
 			StartCoroutine (faceAnimations (10)); //Animate face

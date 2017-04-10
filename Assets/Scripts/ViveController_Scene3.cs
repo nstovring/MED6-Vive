@@ -15,12 +15,16 @@ public class ViveController_Scene3 : MonoBehaviour {
     private GameObject collidingObject;
     private GameObject objectInHand;
 	public GameObject classmate;
-	public GameObject animatedCharacter;
+	public GameObject classmateMesh;
+	//public GameObject animatedCharacter;
 
 	public GameObject verticalSpeed; 
 
 	public List<Material> blendMaterials;
 	public List<Material> objectMaterials;
+
+	private bool holdingClick = false;
+	private bool holdClickMode = true;
 
 	public int mainFreq = 500;
 	public int timeFreq = 10;
@@ -50,6 +54,9 @@ public class ViveController_Scene3 : MonoBehaviour {
 
         if (Controller.GetHairTriggerUp())
         {
+			holdingClick = false;
+			Debug.Log ("Released hold click");
+
             //release object
             if (objectInHand)
             {
@@ -73,17 +80,21 @@ public class ViveController_Scene3 : MonoBehaviour {
 			Debug.Log ("Touch pressed");
 		}
 		if (Controller.GetTouchDown (SteamVR_Controller.ButtonMask.Trigger)) {
+			holdingClick = true;
 			Debug.Log ("pressing trigger");
 
 			if (collidingObject == classmate) {
-				Debug.Log ("Classmate clicked");
-				//TODO: animation + ask for permission
-				Sound soundScript = animatedCharacter.GetComponent<Sound>();
-				soundScript.playAudio (soundScript.narrationQuestion [0]);
-				//animatedCharacter.GetComponent<Sound>().playCharacterResponse();
+				classmateResponse ();
 			}
 		}
     }//End Update
+
+	private void classmateResponse() {
+		Debug.Log ("Classmate clicked");
+		//TODO: animation + ask for permission
+		Sound soundScript = classmate.GetComponent<Sound>();
+		soundScript.playAudio (soundScript.narrationQuestion [0]);
+	}
 
 	public void vibrate(ushort time)
 	{
@@ -108,7 +119,13 @@ public class ViveController_Scene3 : MonoBehaviour {
 
 		//TODO: set tags + check names + insert new and old materials
 		if (other.gameObject.tag == "outline") {
-			other.GetComponent<Renderer> ().material = blendMaterials[0];
+			if (other.gameObject.name == "GirlClassmate") {
+				classmateMesh.GetComponent<Renderer> ().material = blendMaterials [0];
+
+				if (holdClickMode && holdingClick) {
+					classmateResponse ();
+				}
+			}
 		} 
     }
     public void OnTriggerStay(Collider other)
@@ -123,10 +140,10 @@ public class ViveController_Scene3 : MonoBehaviour {
 		if (other.gameObject.tag == "outline") {
 			//Debug.Log ("Giving back old mat");
 			//other.GetComponent<Renderer> ().material = savedMaterial;
-			if (other.gameObject.tag == "outline") {
-				other.GetComponent<Renderer> ().material = objectMaterials[0];
-			} 
-			Debug.Log ("Object material: " + other.GetComponent<Renderer> ().material);
+			if (other.gameObject.name == "GirlClassmate") {
+				classmateMesh.GetComponent<Renderer> ().material = objectMaterials [0];
+			}
+			//Debug.Log ("Object material: " + other.GetComponent<Renderer> ().material);
 		}
 
         if (!collidingObject)

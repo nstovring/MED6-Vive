@@ -28,6 +28,9 @@ public class ViveController_Scene2 : MonoBehaviour {
 	public List<Material> blendMaterials;
 	public List<Material> objectMaterials;
 
+	private bool holdingClick = false;
+	private bool holdClickMode = true;
+
 	public int mainFreq = 500;
 	public int timeFreq = 10;
 
@@ -66,6 +69,9 @@ public class ViveController_Scene2 : MonoBehaviour {
 
         if (Controller.GetHairTriggerUp())
         {
+			holdingClick = false;
+			Debug.Log ("Released hold click");
+
             //release object
             if (objectInHand)
             {
@@ -79,16 +85,11 @@ public class ViveController_Scene2 : MonoBehaviour {
 			verticalSpeed.GetComponent <TestAnimationScene2> ().VSpeed = Input.GetAxis("Vertical");
 		
         {
-
-
             //grab object
             if (collidingObject)
             {
                 //GrabObject();
             }
-
-
-
             //Debug.Log(gameObject.name + " Grip Press");
         }
 
@@ -100,62 +101,67 @@ public class ViveController_Scene2 : MonoBehaviour {
 			Debug.Log ("Touch pressed");
 		}
 		if (Controller.GetTouchDown (SteamVR_Controller.ButtonMask.Trigger)) {
+			holdingClick = true;
+
 			Debug.Log ("pressing button");
 			if (collidingObject == yellowButton) {
-				Debug.Log ("Yellow button pressed");
-
-				//If color is correct
-				if (screen.GetComponent<Renderer> ().material.color == new Color (1, 1, 0)) {
-					Debug.Log ("Correct color chosen");
-					screen.GetComponent <Renderer> ().material.color = new Color (0, 1, 0);
-					//AudioClip audio = GetComponent<Sound> ().ipadSounds[0];
-					soundScript.playAudio(soundScript.ipadSounds[0]);
-				} else {
-					Debug.Log ("Wrong color chosen");
-					screen.GetComponent <Renderer> ().material.color = new Color (1, 0, 0); 
-					//AudioClip audio = GetComponent<Sound> ().ipadSounds[1];
-					soundScript.playAudio(soundScript.ipadSounds[1]);
-					vibrate (500);
-				}
-				screen.GetComponent<ScreenColor>().playing = false;
+				yellowButtonPressed ();
 			} 
 			else if (collidingObject == purpleButton) {
-				Debug.Log("Purple button pressed");
-
-				if (screen.GetComponent<Renderer> ().material.color == new Color (1, 0, 1)) {
-					Debug.Log ("Correct color chosen");
-					screen.GetComponent <Renderer> ().material.color = new Color (0,1,0);
-					//AudioClip audio = GetComponent<Sound> ().ipadSounds[0];
-					soundScript.playAudio(soundScript.ipadSounds[0]);
-				} else {
-					Debug.Log ("Wrong color chosen");
-					screen.GetComponent <Renderer> ().material.color = new Color (1,0,0); 
-					//AudioClip audio = GetComponent<Sound> ().ipadSounds[1];
-					soundScript.playAudio(soundScript.ipadSounds[1]);
-					vibrate (500);
-				}
-				screen.GetComponent<ScreenColor>().playing = false;
+				purpleButtonPressed ();
 			}
 			else if (collidingObject == blueButton) {
-				Debug.Log("Blue button pressed");
-
-				if (screen.GetComponent<Renderer> ().material.color == new Color (0, 0, 1)) {
-					Debug.Log ("Correct color chosen");
-					screen.GetComponent <Renderer> ().material.color = new Color (0,1,0); 					
-					//AudioClip audio = GetComponent<Sound> ().ipadSounds[0];
-					soundScript.playAudio(soundScript.ipadSounds[0]);
-				} else {
-					Debug.Log ("Wrong color chosen");
-					screen.GetComponent <Renderer> ().material.color = new Color (1,0,0);
-					//AudioClip audio = GetComponent<Sound> ().ipadSounds[1];
-					soundScript.playAudio(soundScript.ipadSounds[1]);
-					vibrate (500);
-				}
-				screen.GetComponent<ScreenColor>().playing = false;
+				blueButtonPressed ();
 			}
 
 		}
     }//End Update
+
+	private void yellowButtonPressed() {
+		Debug.Log ("Yellow button pressed");
+		//If color is correct
+		if (screen.GetComponent<Renderer> ().material.color == new Color (1, 1, 0)) {
+			Debug.Log ("Correct color chosen");
+			screen.GetComponent <Renderer> ().material.color = new Color (0, 1, 0);
+			soundScript.playAudio(soundScript.ipadSounds[0]);
+		} else {
+			Debug.Log ("Wrong color chosen");
+			screen.GetComponent <Renderer> ().material.color = new Color (1, 0, 0); 
+			soundScript.playAudio(soundScript.ipadSounds[1]);
+			vibrate (500);
+		}
+		screen.GetComponent<ScreenColor>().playing = false;
+	}
+
+	private void purpleButtonPressed() {
+		Debug.Log("Purple button pressed");
+		if (screen.GetComponent<Renderer> ().material.color == new Color (1, 0, 1)) {
+			Debug.Log ("Correct color chosen");
+			screen.GetComponent <Renderer> ().material.color = new Color (0,1,0);
+			soundScript.playAudio(soundScript.ipadSounds[0]);
+		} else {
+			Debug.Log ("Wrong color chosen");
+			screen.GetComponent <Renderer> ().material.color = new Color (1,0,0); 
+			soundScript.playAudio(soundScript.ipadSounds[1]);
+			vibrate (500);
+		}
+		screen.GetComponent<ScreenColor>().playing = false;
+	}
+
+	private void blueButtonPressed() {
+		Debug.Log("Blue button pressed");
+		if (screen.GetComponent<Renderer> ().material.color == new Color (0, 0, 1)) {
+			Debug.Log ("Correct color chosen");
+			screen.GetComponent <Renderer> ().material.color = new Color (0,1,0); 	
+			soundScript.playAudio(soundScript.ipadSounds[0]);
+		} else {
+			Debug.Log ("Wrong color chosen");
+			screen.GetComponent <Renderer> ().material.color = new Color (1,0,0);
+			soundScript.playAudio(soundScript.ipadSounds[1]);
+			vibrate (500);
+		}
+		screen.GetComponent<ScreenColor>().playing = false;
+	}
 
 	public void vibrate(ushort time)
 	{
@@ -181,12 +187,25 @@ public class ViveController_Scene2 : MonoBehaviour {
 		if (other.gameObject.tag == "outline") {
 			if (other.gameObject.name == "BlueButton") {
 				other.GetComponent<Renderer> ().material = blendMaterials[0];
+
+				if (holdClickMode && holdingClick) {
+					blueButtonPressed ();
+				}
 			} else if (other.gameObject.name == "YellowButton") {
 				other.GetComponent<Renderer> ().material = blendMaterials[1];
+
+				Debug.Log ("HoldClickMode: " + holdClickMode);
+				if (holdClickMode && holdingClick) {
+					yellowButtonPressed ();
+				}
 			} else if (other.gameObject.name == "PurpleButton") {
 				other.GetComponent<Renderer> ().material = blendMaterials[2];
+
+				if (holdClickMode && holdingClick) {
+					purpleButtonPressed ();
+				}
 			}
-		} 
+		}
     }
     public void OnTriggerStay(Collider other)
     {
