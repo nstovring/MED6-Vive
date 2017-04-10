@@ -159,12 +159,13 @@ public class TestAnimationScene1 : MonoBehaviour
 			Debug.Log ("Child found: " + child.name);
 
 			//Change between the two facial maps
-			child.GetComponent<Renderer> ().material = diffuseMaps [0];
+			//child.GetComponent<Renderer> ().material = diffuseMaps [0];
+			characterMesh.GetComponent<Renderer> ().material = diffuseMaps [0];
 		}
 
 		if(Input.GetKey(KeyCode.O)) {
 			Transform child = this.gameObject.transform.GetChild (1);
-			Debug.Log ("Child found: " + child.name + ". Applying diffuse map: " + diffuseMaps [1].name);
+			//Debug.Log ("Child found: " + child.name + ". Applying diffuse map: " + diffuseMaps [1].name);
 
 			//Change between the two facial maps
 			characterMesh.GetComponent<Renderer> ().material = diffuseMaps [1];
