@@ -21,10 +21,10 @@ public class ViveControllerInput_Scene1 : MonoBehaviour {
 	public GameObject purpleButton;
 	public GameObject blueButton;
 	public GameObject screen;
-	public GameObject character; 
+	//public GameObject character; 
 
 	public GameObject iPad;
-	public GameObject sound;
+	//public GameObject sound;
 
 	private bool moving = false;
 
@@ -46,7 +46,7 @@ public class ViveControllerInput_Scene1 : MonoBehaviour {
 		if (moving) {
 			//character.GetComponent <TestAnimationScene1> ().VSpeed = Input.GetAxis("Vertical");
 			//Debug.Log ("vertical speed: " + Input.GetAxis ("Vertical"));
-			character.GetComponent <TestAnimationScene1> ().VSpeed = 1;
+			//character.GetComponent <TestAnimationScene1> ().VSpeed = 1;
 		}
 
 
