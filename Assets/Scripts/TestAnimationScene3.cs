@@ -143,7 +143,7 @@ public class TestAnimationScene3 : MonoBehaviour
 		}
 
 		if (rotating) {
-			if (rotations < 50) {
+			if (rotations < 80) {
 				//Debug.Log ("Rotating");
 				iPadGroup.transform.Rotate (90 * Vector3.up * Time.deltaTime);
 				rotations++;
