@@ -142,8 +142,16 @@ public class TestAnimationScene3 : MonoBehaviour
 			rotating = true;
 		}
 
+		if (Input.GetKeyUp (KeyCode.S)) {
+			Debug.Log ("Starting/stopping iPad game");
+			ipadScreen.GetComponent<ScreenColor> ().stopPlaying = !ipadScreen.GetComponent<ScreenColor> ().stopPlaying;
+			if (ipadScreen.GetComponent<ScreenColor> ().stopPlaying == false) {
+				ipadScreen.GetComponent<ScreenColor> ().SwitchColor (3);
+			}
+		}
+
 		if (rotating) {
-			if (rotations < 80) {
+			if (rotations < 50) {
 				//Debug.Log ("Rotating");
 				iPadGroup.transform.Rotate (90 * Vector3.up * Time.deltaTime);
 				rotations++;
@@ -152,6 +160,18 @@ public class TestAnimationScene3 : MonoBehaviour
 			}
 
 		}
+
+		/**
+		if (other.gameObject.tag == "Button") {
+			//Debug.Log ("Giving back old mat");
+			//other.GetComponent<Renderer> ().material = savedMaterial;
+			if (other.gameObject.name == "YellowButton") {
+				//TODO: check for correct button color
+				soundScript.playAudio(soundScript.ipadSounds[0]);
+			}
+			//Debug.Log ("Object material: " + other.GetComponent<Renderer> ().material);
+		}*/
+
 
 
     }

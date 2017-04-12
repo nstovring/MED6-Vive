@@ -26,6 +26,8 @@ public class ViveController_Scene3 : MonoBehaviour {
 	private bool holdingClick = false;
 	private bool holdClickMode = true;
 
+	public Transform rightHand;
+
 	public int mainFreq = 500;
 	public int timeFreq = 10;
 
@@ -110,7 +112,7 @@ public class ViveController_Scene3 : MonoBehaviour {
             return;
         }*/
         collidingObject = col.gameObject;
-		Debug.Log ("Collided object is now set: " + collidingObject.name);
+		//Debug.Log ("Collided object is now set: " + collidingObject.name);
     }
     public void OnTriggerEnter(Collider other)
     {
