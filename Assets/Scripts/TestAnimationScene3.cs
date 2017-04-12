@@ -31,6 +31,9 @@ public class TestAnimationScene3 : MonoBehaviour
 
 	public GameObject iPadGroup;
 
+	private bool rotating = false;
+	private int rotations = 0;
+
 
 	void Awake()
 	{
@@ -70,14 +73,14 @@ public class TestAnimationScene3 : MonoBehaviour
     void Update ()
 	{
 
-        myAnimator.SetBool("GrabTablet", false);
+        //myAnimator.SetBool("GrabTablet", false);
        
-        myAnimator.SetFloat("VSpeed",VSpeed);
-        myAnimator.SetFloat("HSpeed", HSpeed);
+        //myAnimator.SetFloat("VSpeed",VSpeed);
+        //myAnimator.SetFloat("HSpeed", HSpeed);
 
 
-        VSpeed = Mathf.Lerp(VSpeed, 0,0.1f);
-        HSpeed = Mathf.Lerp(HSpeed, 0, 0.1f);
+        //VSpeed = Mathf.Lerp(VSpeed, 0,0.1f);
+        //HSpeed = Mathf.Lerp(HSpeed, 0, 0.1f);
 
 		//Load menu
 		if (Input.GetKeyUp (KeyCode.M)) {
@@ -135,8 +138,21 @@ public class TestAnimationScene3 : MonoBehaviour
 			Debug.Log ("Rotating and pushing tablet");
 			//TODO: group tablet and buttons, and have reference to the parent. Rotate parent
 			//Initiate pushing animation
-			iPadGroup.transform.Rotate(0,90,0);
+			myAnimator.SetTrigger("PushingTrigger");
+			rotating = true;
 		}
+
+		if (rotating) {
+			if (rotations < 50) {
+				Debug.Log ("Rotating");
+				iPadGroup.transform.Rotate (90 * Vector3.up * Time.deltaTime);
+				rotations++;
+			} else {
+				rotating = false;
+			}
+
+		}
+
 
     }
 
