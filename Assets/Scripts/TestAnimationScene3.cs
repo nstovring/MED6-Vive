@@ -29,6 +29,8 @@ public class TestAnimationScene3 : MonoBehaviour
 	public List<Material> diffuseMaps;
 	public GameObject characterMesh;
 
+	public GameObject iPadGroup;
+
 
 	void Awake()
 	{
@@ -127,6 +129,13 @@ public class TestAnimationScene3 : MonoBehaviour
 			Debug.Log ("No response");
 			soundScript.playAudio(soundScript.narrationResponse[1]); //Play sound
 			StartCoroutine (faceAnimations (10)); //Animate face
+		}
+
+		else if (Input.GetKeyUp (KeyCode.T)) {
+			Debug.Log ("Rotating and pushing tablet");
+			//TODO: group tablet and buttons, and have reference to the parent. Rotate parent
+			//Initiate pushing animation
+			iPadGroup.transform.Rotate(0,90,0);
 		}
 
     }
