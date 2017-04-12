@@ -242,6 +242,13 @@ public class TestAnimationScene1 : MonoBehaviour
 			iPad.GetComponent<Renderer> ().material = blendMat;
 			Debug.Log ("Object color: " + iPad.GetComponent<Renderer> ().material);
 		}
+		if (Input.GetKeyUp (KeyCode.S)) {
+			Debug.Log ("Starting/stopping iPad game");
+			ipadScreen.GetComponent<ScreenColor> ().stopPlaying = !ipadScreen.GetComponent<ScreenColor> ().stopPlaying;
+			if (ipadScreen.GetComponent<ScreenColor> ().stopPlaying == false) {
+				ipadScreen.GetComponent<ScreenColor> ().SwitchColor (3);
+			}
+		}
 
 		/**
 		if (Input.GetKeyUp(KeyCode.T))

@@ -7,7 +7,7 @@ public class handCollission : MonoBehaviour {
 	private Sound soundScript;
 	public GameObject parentClassmate;
 	public GameObject screen;
-
+	public bool volume; 
 	// Use this for initialization
 	void Start () {
 		soundScript = parentClassmate.GetComponent<Sound> ();
@@ -41,10 +41,16 @@ public class handCollission : MonoBehaviour {
 			Debug.Log ("Correct color chosen");
 			screen.GetComponent <Renderer> ().material.color = new Color (0, 1, 0);
 			soundScript.playAudio(soundScript.ipadSounds[0]);
+			AudioSource ipadSound = soundScript.playAudio (soundScript.ipadSounds [1]);
+			ipadSound.volume = 0.35f; 
+
 		} else {
 			Debug.Log ("Wrong color chosen");
 			screen.GetComponent <Renderer> ().material.color = new Color (1, 0, 0); 
-			soundScript.playAudio(soundScript.ipadSounds[1]);
+			soundScript.playAudio (soundScript.ipadSounds [1]);
+			AudioSource ipadSound = soundScript.playAudio (soundScript.ipadSounds [1]);
+			ipadSound.volume = 0.35f; 
+
 		}
 		screen.GetComponent<ScreenColor>().playing = false;
 	}
@@ -55,10 +61,14 @@ public class handCollission : MonoBehaviour {
 			Debug.Log ("Correct color chosen");
 			screen.GetComponent <Renderer> ().material.color = new Color (0,1,0);
 			soundScript.playAudio(soundScript.ipadSounds[0]);
+			AudioSource ipadSound = soundScript.playAudio (soundScript.ipadSounds [1]);
+			ipadSound.volume = 0.35f; 
 		} else {
 			Debug.Log ("Wrong color chosen");
 			screen.GetComponent <Renderer> ().material.color = new Color (1,0,0); 
 			soundScript.playAudio(soundScript.ipadSounds[1]);
+			AudioSource ipadSound = soundScript.playAudio (soundScript.ipadSounds [1]);
+			ipadSound.volume = 0.35f; 
 		}
 		screen.GetComponent<ScreenColor>().playing = false;
 	}
@@ -69,10 +79,14 @@ public class handCollission : MonoBehaviour {
 			Debug.Log ("Correct color chosen");
 			screen.GetComponent <Renderer> ().material.color = new Color (0,1,0); 	
 			soundScript.playAudio(soundScript.ipadSounds[0]);
+			AudioSource ipadSound = soundScript.playAudio (soundScript.ipadSounds [1]);
+			ipadSound.volume = 0.35f; 
 		} else {
 			Debug.Log ("Wrong color chosen");
 			screen.GetComponent <Renderer> ().material.color = new Color (1,0,0);
 			soundScript.playAudio(soundScript.ipadSounds[1]);
+			AudioSource ipadSound = soundScript.playAudio (soundScript.ipadSounds [1]);
+			ipadSound.volume = 0.35f; 
 		}
 		screen.GetComponent<ScreenColor>().playing = false;
 	}
