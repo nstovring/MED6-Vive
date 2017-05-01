@@ -8,17 +8,20 @@ public class SurfaceAudioPlayer : MonoBehaviour {
 
     public List<AudioMixerSnapshot> snapshots;
 
-    float changeThreshold = 0.5f;
+    public float changeThreshold = 0.5f;
 
     int currentSound = 0;
+
+    Rigidbody rb;
 	// Use this for initialization
 	void Start () {
-        changeThreshold = Random.Range(-1, 1);
+        rb = GetComponent<Rigidbody>();
+        changeThreshold = Random.Range(-1.0f, 1.0f);
 	}
 
     public string GetAccuracy()
     {
-        return "Threshold :" + changeThreshold + " User Selected Pos" + transform.position.z;
+        return  changeThreshold + ", " + transform.localPosition.z;
     }
 	
 	// Update is called once per frame
@@ -33,23 +36,41 @@ public class SurfaceAudioPlayer : MonoBehaviour {
         {
             snapshots[0].TransitionTo(0.1f);
         }
+
+        if (transform.localPosition.z < -1)
+        {
+            transform.localPosition  = new Vector3(transform.localPosition.x, transform.localPosition.y, -1);
+        }
+        if (transform.localPosition.z > 1)
+        {
+            transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 1);
+        }
     }
     Rigidbody fingerRb;
     void OnCollisionStay(Collision other)
     {
-        Debug.Log("Collision");
-        if(fingerRb == null)
+        if (other.transform.tag == "IndexTop")
         {
-            fingerRb = other.transform.GetComponent<Rigidbody>();
-        }
+            if (fingerRb == null)
+            {
+                fingerRb = other.transform.GetComponent<Rigidbody>();
+            }
 
-        if(fingerRb != null)
-        {
-            transform.position = new Vector3(transform.position.x, transform.position.y, fingerRb.position.z); 
-            aSource[0].volume = Mathf.Lerp(aSource[0].volume,1,fingerRb.velocity.sqrMagnitude / 10);
-            aSource[1].volume = Mathf.Lerp(aSource[1].volume, 1, fingerRb.velocity.sqrMagnitude / 10);
+            if (fingerRb != null)
+            {
+                transform.position = new Vector3(transform.position.x, transform.position.y, fingerRb.position.z);
+                aSource[0].volume = Mathf.Lerp(aSource[0].volume, 1, fingerRb.velocity.sqrMagnitude / 10);
+                aSource[1].volume = Mathf.Lerp(aSource[1].volume, 1, fingerRb.velocity.sqrMagnitude / 10);
+            }
         }
     }
+
+    public void PlaySound()
+    {
+        aSource[0].volume = Mathf.Lerp(aSource[0].volume, 1, rb.velocity.sqrMagnitude / 10);
+        aSource[1].volume = Mathf.Lerp(aSource[1].volume, 1, rb.velocity.sqrMagnitude / 10);
+    }
+
     void OnCollisionExit(Collision other)
     {
         aSource[0].volume = 0;

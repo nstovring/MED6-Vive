@@ -32,7 +32,7 @@ public class DataLogger : MonoBehaviour {
             return;
         }
         var sr = File.CreateText(fileName);
-        sr.WriteLine("This is my file.");
+        sr.WriteLine("Threshold & User Selected Pos: ");
 
         foreach (var item in cubes)
         {
