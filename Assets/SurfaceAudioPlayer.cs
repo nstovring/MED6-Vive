@@ -14,9 +14,25 @@ public class SurfaceAudioPlayer : MonoBehaviour {
 	void Update () {
 		
 	}
-
-    void OnCollisionStay(Collider other)
+    Rigidbody fingerRb;
+    void OnCollisionStay(Collision other)
     {
+        Debug.Log("Collision");
+        if(fingerRb == null)
+        {
+            fingerRb = other.transform.GetComponent<Rigidbody>();
+        }
 
+        if(fingerRb != null)
+        {
+            aSource.volume = Mathf.Lerp(aSource.volume,1,fingerRb.velocity.sqrMagnitude/10);
+        }
     }
+    void OnCollisionExit(Collision other)
+    {
+        aSource.volume = 0;
+        fingerRb = null;
+    }
+
+
 }
