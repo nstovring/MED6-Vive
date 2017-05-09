@@ -363,11 +363,11 @@ public class BezierSpline : MonoBehaviour {
                 dir1 = GetDirection(i);
                 dir1 = (perpDir * dir1).normalized;
                 Vector3 dir2 = (perpDir* GetDirection(i + stepLength)).normalized;
-                point1 += dir1 * 0.5f;
-                point2 += dir2 * 0.5f;
+                point1 += dir1 * pathWidth;
+                point2 += dir2 * pathWidth;
                 Gizmos.DrawLine(point1, point2);
-                point1 -= dir1;
-                point2 -= dir2;
+                point1 -= dir1 * pathWidth *2;
+                point2 -= dir2 * pathWidth * 2;
                 Gizmos.DrawLine(point1, point2);
             }
         }
