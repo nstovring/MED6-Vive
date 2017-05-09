@@ -359,11 +359,15 @@ public class BezierSpline : MonoBehaviour {
                 Gizmos.color = Color.white;
                 Gizmos.DrawLine(point1, point2);
                 Gizmos.color = Color.red;
-                point1 +=  new Vector3(0, 0.5f* pathWidth,  0);
-                point2 +=  new Vector3(0, 0.5f* pathWidth,  0);
+                Quaternion perpDir = Quaternion.Euler(new Vector3(90, 0, 0));
+                dir1 = GetDirection(i);
+                dir1 = (perpDir * dir1).normalized;
+                Vector3 dir2 = (perpDir* GetDirection(i + stepLength)).normalized;
+                point1 += dir1 * 0.5f;
+                point2 += dir2 * 0.5f;
                 Gizmos.DrawLine(point1, point2);
-                point1 -= new Vector3(0, 1f * pathWidth, 0);
-                point2 -= new Vector3(0, 1f * pathWidth, 0);
+                point1 -= dir1;
+                point2 -= dir2;
                 Gizmos.DrawLine(point1, point2);
             }
         }
