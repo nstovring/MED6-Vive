@@ -13,7 +13,9 @@ public class DataLogger : MonoBehaviour, ICustomMessageTarget
     public List<SurfaceAudioPlayer> cubes;
 
     static string fileName = "MyFile.txt";
-    public static string[] fileNames = { "Visual", "VibroTactile", "Both" };
+    public static string[] fileNames = { "Visual", "VibroTactile", "Vibro-Visual" };
+    public static string[] pathNames = { "Straight", "Curved", "Very Curved" };
+
     static int testCount = 0;
 
     public PathIterator pathIterator;

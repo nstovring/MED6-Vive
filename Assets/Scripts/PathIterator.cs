@@ -105,7 +105,7 @@ public class PathIterator : MonoBehaviour {
     {
         float pathLength = currentPath.CalculateSplineLength() * multiplier;
         currentPath.pathLengthModifier = multiplier;
-        surfAudioPlayer.testProperties.pathLength = pathLength;
+        surfAudioPlayer.testProperties.pathLength = multiplier;
     }
 
     void SetVisuals(bool state)

@@ -166,9 +166,12 @@ public class SurfaceAudioPlayer : MonoBehaviour {
             //RotateTowardsDirection();
             testProperties.LogAccuracy();
         }
-        testProperties.distToEnd = Vector3.Distance(transform.position, myPath.transform.TransformPoint(myPath.GetControlPoint(myPath.ControlPointCount - 1)));
+        //testProperties.distToEnd = Vector3.Distance(transform.position, myPath.transform.TransformPoint(myPath.GetControlPoint(myPath.ControlPointCount - 1)));
 
+        testProperties.distToEnd =Vector3.Distance(transform.position, myPath.GetPoint(1 * testProperties.pathLength));
 
+        //Debug.DrawLine(transform.position, myPath.GetPoint(1*testProperties.pathLength));
+        //Debug.Log(Vector3.Distance(transform.position, myPath.GetPoint(1 * testProperties.pathLength)));
         if (testProperties.distToEnd < testProperties.endThreshold)
         {
             Debug.Log("Task Complete");

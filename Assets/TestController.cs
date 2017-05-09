@@ -40,6 +40,6 @@ public class TestController : MonoBehaviour {
 
     void UpdateUI()
     {
-        testTypeText.text = " Test Num:"+ dataLogger.testProgression +", Test Type:"+ DataLogger.fileNames[(int)pathIterator.myTestType];
+        testTypeText.text = " Test Progression: " + dataLogger.testProgression% (dataLogger.testAmount/3) + "/" + dataLogger.testAmount/3+ " of Test Type: "+ DataLogger.fileNames[(int)pathIterator.myTestType] + ", Path Type: " + DataLogger.pathNames[dataLogger.taskVariables[dataLogger.testProgression].pathType];
     }
 }
