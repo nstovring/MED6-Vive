@@ -27,14 +27,16 @@ public class BezierSplineInspector : Editor {
 		bool loop = EditorGUILayout.Toggle("Loop", spline.Loop);
         bool drawGizmos = EditorGUILayout.Toggle("Draw Gizmos", spline.DrawGizmos);
         float pathWidth = EditorGUILayout.FloatField("Path Width", spline.pathWidth);
-        if (EditorGUI.EndChangeCheck()) {
-			Undo.RecordObject(spline, "Toggle Loop");
+        Color pathColour = EditorGUILayout.ColorField("Path Colour", spline.pathColour);
+        if (EditorGUI.EndChangeCheck())
+        {
+            Undo.RecordObject(spline, "Toggle Loop");
             Undo.RecordObject(spline, "Toggle Draw Gizmos");
             EditorUtility.SetDirty(spline);
-			spline.Loop = loop;
+            spline.Loop = loop;
             spline.DrawGizmos = drawGizmos;
             spline.pathWidth = pathWidth;
-
+            spline.pathColour = pathColour;
         }
         if (selectedIndex >= 0 && selectedIndex < spline.ControlPointCount) {
 			DrawSelectedPointInspector();
