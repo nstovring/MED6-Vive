@@ -20,7 +20,13 @@ public class DataLogger : MonoBehaviour, ICustomMessageTarget
 
     public int[] testsTypesArr = { 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2 };
     public int[] testsPathsArr = { 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3 };
+    public float[] testsPathsWidthsArr = { 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3 };
+    public float[] testsPathsLengthsArr = { 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3 };
+
     public static DataLogger Instance;
+
+    float[] pathWidthTypes = { 0.25f, 0.50f, 1f };
+    float[] pathLengthTypes = { 0.25f, 0.50f, 1f };
     // Use this for initialization
     void Start () {
        
@@ -30,7 +36,7 @@ public class DataLogger : MonoBehaviour, ICustomMessageTarget
     {
         Instance = this;
         testsTypesArr =  new int[]{ 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2 };
-        testsPathsArr = new int[] { 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3 };
+        testsPathsArr = new int[]{ 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3 };
         RandomizeTest();
         AddOrderedTests();
         foreach (var item in fileNames)
