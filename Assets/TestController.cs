@@ -20,6 +20,7 @@ public class TestController : MonoBehaviour {
 	void Start () {
         dataLogger.Initialize();
         pathIterator.Initialize();
+        cube.Initialize();
 	}
 	
 	// Update is called once per frame

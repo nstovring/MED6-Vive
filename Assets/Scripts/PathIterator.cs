@@ -20,14 +20,16 @@ public class PathIterator : MonoBehaviour {
 
     public void Initialize()
     {
-        SwitchTestType(myTestType);
         foreach (var item in paths)
         {
             item.transform.gameObject.SetActive(false);
         }
-        currentPath = paths[DataLogger.Instance.testsPathsArr[0]];
-        currentPath.transform.gameObject.SetActive(true);
-        surfAudioPlayer.myPath = currentPath;
+        IteratePath(DataLogger.Instance.taskVariables[0]);
+        //(myTestType);
+      
+        //currentPath = paths[DataLogger.Instance.taskVariables[0].p];
+        //currentPath.transform.gameObject.SetActive(true);
+        //surfAudioPlayer.myPath = currentPath;
     }
 
     public void IteratePath()
@@ -58,6 +60,19 @@ public class PathIterator : MonoBehaviour {
         surfAudioPlayer.myPath = currentPath;
     }
 
+    public void IteratePath(DataLogger.TaskVariables testVariables)
+    {
+        SwitchTestType((TestType)testVariables.testCondition);
+        if(currentPath != null)
+        currentPath.transform.gameObject.SetActive(false);
+        currentPath = paths[testVariables.pathType];
+        currentPath.transform.gameObject.SetActive(true);
+
+        //surfAudioPlayer.ResetCube();
+        surfAudioPlayer.myPath = currentPath;
+        SetPathWidth(testVariables.pathWidth);
+        SetPathLength(testVariables.pathLength);
+    }
     public void SwitchTestType(TestType _myTestType)
     {
         myTestType = _myTestType;
@@ -78,6 +93,19 @@ public class PathIterator : MonoBehaviour {
         }
 
         surfAudioPlayer.curTestType = _myTestType;
+    }
+
+    void SetPathWidth(float pathWidth)
+    {
+        currentPath.pathWidth = pathWidth/5;
+        surfAudioPlayer.testProperties.pathWidth = pathWidth;
+    }
+
+    void SetPathLength(float multiplier)
+    {
+        float pathLength = currentPath.CalculateSplineLength() * multiplier;
+        //currentPath.len
+        surfAudioPlayer.testProperties.pathLength = pathLength;
     }
 
     void SetVisuals(bool state)

@@ -35,6 +35,7 @@ public class SurfaceAudioPlayer : MonoBehaviour {
         public float distToEnd = 0;
         public float distToPath;
         public float pathWidth = 1;
+        public float pathLength;
 
         float error;
         float errorintervalElapsedTime;
@@ -98,7 +99,7 @@ public class SurfaceAudioPlayer : MonoBehaviour {
     public TestProperties testProperties;
 
 	// Use this for initialization
-	void Start () {
+	public void Initialize () {
         rb = GetComponent<Rigidbody>();
         rend = GetComponent<Renderer>();
         startPos = transform.localPosition;
@@ -122,6 +123,7 @@ public class SurfaceAudioPlayer : MonoBehaviour {
         transform.localPosition = startPos;
         Unlock();
         Mute();
+        Initialize();
     }
 
 
@@ -172,8 +174,8 @@ public class SurfaceAudioPlayer : MonoBehaviour {
             Debug.Log("Task Complete");
             Lock();
             ExecuteEvents.Execute<ICustomMessageTarget>(DataLogger.Instance.gameObject, null, (x, y) => x.LogData(this, (int)curTestType));
-
-            //Lock Box
+            ResetCube();
+           //Lock Box
         }
 
     }
