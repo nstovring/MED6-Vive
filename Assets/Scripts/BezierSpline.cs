@@ -347,19 +347,21 @@ public class BezierSpline : MonoBehaviour {
             int steps = 100 * ControlPointCount;
             //float stepLength = stepLength;
             Vector3 currentClosestVector = Vector3.zero;
-            Gizmos.color = pathColour;
             float stepLength = 0.001f;
 
             for (float i = 0; i < 1; i += stepLength)
             {
+                Gizmos.color = pathColour;
                 Vector3 point1 = GetPoint(i);
-                /*Vector3 point2 = GetPoint(i + stepLength);
+                Gizmos.DrawWireSphere(point1, pathWidth);
+                Vector3 point2 = GetPoint(i + stepLength);
                 Vector3 dir1 = point1 - GetPoint(i + stepLength);
                 dir1.Normalize();
                 dir1 = new Vector3(dir1.x, dir1.y, dir1.z);
                 Gizmos.color = Color.white;
-                Gizmos.DrawLine(point1, point2);*/
-                Gizmos.DrawWireSphere(point1, pathWidth);
+                Gizmos.DrawLine(point1, point2);
+                
+
 
             }
         }
