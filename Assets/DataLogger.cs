@@ -27,6 +27,19 @@ public class DataLogger : MonoBehaviour, ICustomMessageTarget
 
     float[] pathWidthTypes = { 0.25f, 0.50f, 1f };
     float[] pathLengthTypes = { 0.25f, 0.50f, 1f };
+    int[] pathShapeTypes = { 0, 1 };
+    int[] testTypes = { 0, 1, 2};
+    int testAmount = 0;
+
+    List<float> pathWidthTypesArr = new List<float>();
+    List<float> pathLengthTypesArr = new List<float>();
+    List<int> pathShapeTypesArr = new List<int>();
+    List<int> testTypesArr = new List<int>();
+
+
+    List<TaskVariables> taskVariablesVisual;
+    List<TaskVariables> taskVariablesTactile;
+    List<TaskVariables> taskVariablesBoth;
     // Use this for initialization
     void Start () {
        
@@ -34,9 +47,48 @@ public class DataLogger : MonoBehaviour, ICustomMessageTarget
 
     public void Initialize()
     {
+
         Instance = this;
-        testsTypesArr =  new int[]{ 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2 };
-        testsPathsArr = new int[]{ 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3 };
+
+        testAmount = testTypes.Length * pathShapeTypes.Length * pathLengthTypes.Length * pathWidthTypes.Length;
+
+        pathWidthTypesArr = new List<float>();
+        pathLengthTypesArr = new List<float>();
+        pathShapeTypesArr = new List<int>();
+        testTypesArr = new List<int>();
+
+        taskVariablesVisual = new List<TaskVariables>();
+        taskVariablesTactile = new List<TaskVariables>();
+        taskVariablesBoth = new List<TaskVariables>();
+
+        for (int i = 0; i < testAmount; i++)
+        {
+            pathWidthTypesArr.Add(pathWidthTypes[i % pathWidthTypes.Length]);
+            pathLengthTypesArr.Add(pathLengthTypes[i % pathLengthTypes.Length]);
+            pathShapeTypesArr.Add(pathShapeTypes[i % pathShapeTypes.Length]);
+            testTypesArr.Add(testTypes[i % testTypes.Length]);
+
+            TaskVariables tmp;
+            tmp.pathLength = (pathLengthTypes[i % pathLengthTypes.Length]);
+            tmp.pathWidth = (pathWidthTypes[i % pathWidthTypes.Length]);
+            tmp.pathType = (pathShapeTypes[i % pathShapeTypes.Length]);
+            tmp.testCondition = (testTypes[i % testTypes.Length]);
+
+            switch (tmp.testCondition)
+            {
+                case 0:
+                    taskVariablesVisual.Add(tmp);
+                    break;
+                case 1:
+                    taskVariablesTactile.Add(tmp);
+                    break;
+                case 2:
+                    taskVariablesBoth.Add(tmp);
+                    break;
+            }
+
+        }
+
         RandomizeTest();
         AddOrderedTests();
         foreach (var item in fileNames)
@@ -53,20 +105,54 @@ public class DataLogger : MonoBehaviour, ICustomMessageTarget
             }
         }
     }
+    List<TaskVariables> taskVariables;
+    struct TaskVariables
+    {
+        public int testCondition;
+        public int pathType;
+        public float pathWidth;
+        public float pathLength;
+    }
 
     public void RandomizeTest()
     {
-        for (int i = 0; i < testsPathsArr.Length; i++)
+        List<List<TaskVariables>> listOfLists = new List<List<TaskVariables>>();
+        taskVariablesVisual = RandomizeList(taskVariablesVisual);
+        taskVariablesTactile = RandomizeList(taskVariablesTactile);
+        taskVariablesBoth = RandomizeList(taskVariablesBoth);
+        listOfLists.Add(taskVariablesVisual);
+        listOfLists.Add(taskVariablesTactile);
+        listOfLists.Add(taskVariablesBoth);
+
+        for (int i = 0; i < listOfLists.Count; i++)
+        {
+            int rng = UnityEngine.Random.Range(0, listOfLists.Count - 1);
+
+            List<TaskVariables> testTypetemp = listOfLists[rng];
+
+            listOfLists[rng] = listOfLists[i];
+            listOfLists[i] = testTypetemp;
+        }
+
+        for (int i = 0; i < listOfLists.Count; i++)
+        {
+            taskVariables.AddRange(listOfLists[i]);
+        }
+    }
+
+    List<TaskVariables> RandomizeList(List<TaskVariables> input)
+    {
+        for (int i = 0; i < input.Count; i++)
         {
             int rng = UnityEngine.Random.Range(0, testsPathsArr.Length - 1);
-            int temp = testsTypesArr[rng];
-            testsTypesArr[rng] = testsTypesArr[i];
-            testsTypesArr[i] = temp;
 
-            temp = testsPathsArr[rng];
-            testsPathsArr[rng] = testsPathsArr[i];
-            testsPathsArr[i] = temp;
+            TaskVariables testTypetemp = input[rng];
+
+            input[rng] = input[i];
+            input[i] = testTypetemp;
         }
+
+        return input;
     }
 
     public void AddOrderedTests()
@@ -178,8 +264,8 @@ public class DataLogger : MonoBehaviour, ICustomMessageTarget
             Debug.Log("Test Complete");
             ResetTest();
         }
-        pathIterator.SwitchTestType((PathIterator.TestType)testsTypesArr[testProgression]);
-        pathIterator.IteratePath(testsPathsArr[testProgression]);
+        pathIterator.SwitchTestType((PathIterator.TestType)taskVariables[testProgression].testCondition);
+        pathIterator.IteratePath(taskVariables[testProgression].pathType);
        
     }
 
