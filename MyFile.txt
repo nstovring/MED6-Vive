@@ -1,5 +1,0 @@
-This is my file.
-Threshold :-1 User Selected Pos2.838201
-Threshold :0 User Selected Pos3.612209
-Threshold :-1 User Selected Pos3.430664
-Threshold :0 User Selected Pos3.521411
