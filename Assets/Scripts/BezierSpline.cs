@@ -338,7 +338,7 @@ public class BezierSpline : MonoBehaviour {
     }
 
     public float pathWidth;
-
+    public float pathLengthModifier;
     public Color pathColour = new Color(1, 0, 0, 1);
     void OnDrawGizmos()
     {
@@ -349,7 +349,7 @@ public class BezierSpline : MonoBehaviour {
             Vector3 currentClosestVector = Vector3.zero;
             float stepLength = 0.001f;
 
-            for (float i = 0; i < 1; i += stepLength)
+            for (float i = 0; i < 1* pathLengthModifier; i += stepLength)
             {
                 Gizmos.color = pathColour;
                 Vector3 point1 = GetPoint(i);

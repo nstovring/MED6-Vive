@@ -22,8 +22,8 @@ public class DataLogger : MonoBehaviour, ICustomMessageTarget
 
     public static DataLogger Instance;
 
-    float[] pathWidthTypes = { 0.25f, 0.50f, 1f };
-    float[] pathLengthTypes = { 0.25f, 0.50f, 1f };
+    float[] pathWidthTypes = { 0.25f, 0.66f, 1f };
+    float[] pathLengthTypes = { 0.30f, 0.60f, 1f };
     int[] pathShapeTypes = { 0, 1, 2};
     int[] testTypes = { 0, 1, 2};
     public int testAmount = 0;
@@ -47,7 +47,10 @@ public class DataLogger : MonoBehaviour, ICustomMessageTarget
         taskVariablesVisual = new List<TaskVariables>();
         taskVariablesTactile = new List<TaskVariables>();
         taskVariablesBoth = new List<TaskVariables>();
-
+        loggedData = new List<SurfaceAudioPlayer.DataLogged>();
+        loggedDataVisual = new List<SurfaceAudioPlayer.DataLogged>();
+        loggedDataVibrate = new List<SurfaceAudioPlayer.DataLogged>();
+        loggedDataVibro_Tactile = new List<SurfaceAudioPlayer.DataLogged>();
 
         for (int i = 0; i < testTypes.Length; i++)
         {
@@ -80,33 +83,6 @@ public class DataLogger : MonoBehaviour, ICustomMessageTarget
             }
         }
 
-
-        //for (int i = 0; i < testAmount; i++)
-        //{
-        //    TaskVariables tmp;
-        //    tmp.pathLength = (pathLengthTypes[i % pathLengthTypes.Length]);
-        //    tmp.pathWidth = (pathWidthTypes[i % pathWidthTypes.Length]);
-        //    tmp.pathType = (pathShapeTypes[i % pathShapeTypes.Length]);
-        //    tmp.testCondition = (testTypes[i % testTypes.Length]);
-
-        //    switch (tmp.testCondition)
-        //    {
-        //        case 0:
-        //            taskVariablesVisual.Add(tmp);
-        //            break;
-        //        case 1:
-        //            taskVariablesTactile.Add(tmp);
-        //            break;
-        //        case 2:
-        //            taskVariablesBoth.Add(tmp);
-        //            break;
-        //    }
-
-        //}
-
-        Debug.Log(taskVariablesVisual.Count);
-        Debug.Log(taskVariablesTactile.Count);
-        Debug.Log(taskVariablesBoth.Count);
 
         RandomizeTest();
         //AddOrderedTests();
@@ -206,7 +182,6 @@ public class DataLogger : MonoBehaviour, ICustomMessageTarget
     }
    
 
-    string loggedData;
 	// Update is called once per frame
 	void Update () {
         if (Input.GetKeyUp(KeyCode.Space))
@@ -251,11 +226,123 @@ public class DataLogger : MonoBehaviour, ICustomMessageTarget
         sr.Close();
     }
 
-    void ICustomMessageTarget.LogData(SurfaceAudioPlayer cube, int testType)
+    void LogDataPath(string data)
     {
-        LogDataPath(cube, testType);
+
+        var sr = File.AppendText(fileNames[taskVariables[testProgression].testCondition] + "_Results.txt");
+        sr.WriteLine(data);
+
+        sr.Close();
+    }
+
+    List<SurfaceAudioPlayer.DataLogged> loggedData;
+    List<SurfaceAudioPlayer.DataLogged> loggedDataVisual;
+    List<SurfaceAudioPlayer.DataLogged> loggedDataVibrate;
+    List<SurfaceAudioPlayer.DataLogged> loggedDataVibro_Tactile;
+
+    void LogDataPath(SurfaceAudioPlayer.DataLogged data)
+    {
+        loggedData.Add(data);
+    }
+
+    void SortData()
+    {
+        for (int i = 0; i < loggedData.Count; i++)
+        {
+            switch (loggedData[i].testCondiction)
+            {
+                case 0:
+                    loggedDataVisual.Add(loggedData[i]);
+                    break;
+                case 1:
+                    loggedDataVibrate.Add(loggedData[i]);
+                    break;
+                case 2:
+                    loggedDataVibro_Tactile.Add(loggedData[i]);
+                    break;
+            }
+        }
+
+        loggedDataVisual = loggedDataVisual.OrderBy(x => x.pathType).ToList();
+        loggedDataVibrate = loggedDataVibrate.OrderBy(x => x.pathType).ToList();
+        loggedDataVibro_Tactile = loggedDataVibro_Tactile.OrderBy(x => x.pathType).ToList();
+
+        List<List<SurfaceAudioPlayer.DataLogged>> ListInList = new List<List<SurfaceAudioPlayer.DataLogged>>();
+
+        ListInList.Add(loggedDataVisual);
+        ListInList.Add(loggedDataVibrate);
+        ListInList.Add(loggedDataVibro_Tactile);
+
+        for (int i = 0; i < ListInList.Count; i++)
+        {
+            List<SurfaceAudioPlayer.DataLogged> loggedDataVisual1 = ListInList[i].GetRange(0, 9);
+            List<SurfaceAudioPlayer.DataLogged> loggedDataVisual2 = ListInList[i].GetRange(9, 9);
+            List<SurfaceAudioPlayer.DataLogged> loggedDataVisual3 = ListInList[i].GetRange(18, 9);
+
+            loggedDataVisual1 = loggedDataVisual1.OrderBy(x => x.ID).ToList();
+            loggedDataVisual2 = loggedDataVisual2.OrderBy(x => x.ID).ToList();
+            loggedDataVisual3 = loggedDataVisual3.OrderBy(x => x.ID).ToList();
+
+
+            ListInList[i] = new List<SurfaceAudioPlayer.DataLogged>();
+            ListInList[i].AddRange(loggedDataVisual1);
+            ListInList[i].AddRange(loggedDataVisual2);
+            ListInList[i].AddRange(loggedDataVisual3);
+        }
+        loggedData = new List<SurfaceAudioPlayer.DataLogged>();
+
+        for (int i = 0; i < ListInList.Count; i++)
+        {
+            loggedData.AddRange(ListInList[i]);
+        }
+    }
+
+    void WriteDataToFile()
+    {
+        for (int i = 0; i < loggedData.Count; i++)
+        {
+            switch (loggedData[i].testCondiction)
+            {
+                case 0:
+                    var sr = File.AppendText(fileNames[loggedData[i].testCondiction] + "_Results.txt");
+                    sr.WriteLine(loggedData[i].GetData());
+                    sr.Close();
+                    break;
+                case 1:
+                    var se = File.AppendText(fileNames[loggedData[i].testCondiction] + "_Results.txt");
+                    se.WriteLine(loggedData[i].GetData());
+                    se.Close();
+                    break;
+                case 2:
+                    var sw = File.AppendText(fileNames[loggedData[i].testCondiction] + "_Results.txt");
+                    sw.WriteLine(loggedData[i].GetData());
+                    sw.Close();
+                    break;
+            }
+        }
+    }
+
+    void ICustomMessageTarget.LogData(string data)
+    {
+        LogDataPath(data);
+        
+    }
+
+    void ICustomMessageTarget.LogError(string data)
+    {
+        StreamWriter sr;
+        if (!File.Exists("Error_Results.txt"))
+        {
+            sr = File.CreateText("Error_Results.txt");
+            sr.Close(); 
+        }
+        sr = File.AppendText("Error_Results.txt");
+        sr.WriteLine(data);
+
+        sr.Close();
         GetRandomNewPath();
     }
+
     [HideInInspector]
     public int testProgression = 0;
     public void GetRandomNewPath()
@@ -273,5 +360,22 @@ public class DataLogger : MonoBehaviour, ICustomMessageTarget
     public void ResetTest()
     {
         testProgression = 0;
+    }
+
+    public void LogData(SurfaceAudioPlayer cube, int testType)
+    {
+        throw new NotImplementedException();
+    }
+
+    void ICustomMessageTarget.LogData(SurfaceAudioPlayer.DataLogged cube)
+    {
+        LogDataPath(cube);
+        GetRandomNewPath();
+    }
+
+    void OnDestroy()
+    {
+        SortData();
+        WriteDataToFile();
     }
 }

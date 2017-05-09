@@ -71,7 +71,7 @@ public class PathIterator : MonoBehaviour {
         //surfAudioPlayer.ResetCube();
         surfAudioPlayer.myPath = currentPath;
         SetPathWidth(testVariables.pathWidth);
-        SetPathLength(testVariables.pathLength);
+        SetPathLength(testVariables.pathLength, testVariables.pathType);
     }
     public void SwitchTestType(TestType _myTestType)
     {
@@ -92,7 +92,7 @@ public class PathIterator : MonoBehaviour {
                 break;
         }
 
-        surfAudioPlayer.curTestType = _myTestType;
+        surfAudioPlayer.testProperties.curTestType = _myTestType;
     }
 
     void SetPathWidth(float pathWidth)
@@ -101,11 +101,13 @@ public class PathIterator : MonoBehaviour {
         surfAudioPlayer.testProperties.pathWidth = pathWidth;
     }
 
-    void SetPathLength(float multiplier)
+    void SetPathLength(float multiplier, int pathType)
     {
         float pathLength = currentPath.CalculateSplineLength() * multiplier;
         currentPath.pathLengthModifier = multiplier;
-        surfAudioPlayer.testProperties.pathLength = multiplier;
+        surfAudioPlayer.testProperties.pathLength = pathLength;
+        surfAudioPlayer.testProperties.pathModifier = multiplier;
+        surfAudioPlayer.testProperties.pathType = pathType;
     }
 
     void SetVisuals(bool state)

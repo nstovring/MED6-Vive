@@ -36,6 +36,7 @@ public class TestController : MonoBehaviour {
         DataLogger dl = DataLogger.Instance;
         dl.Initialize();
         dl.pathIterator.Initialize();
+        dl.pathIterator.surfAudioPlayer.Initialize();
     }
 
     void UpdateUI()

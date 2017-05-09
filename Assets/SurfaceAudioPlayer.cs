@@ -13,9 +13,24 @@ public class SurfaceAudioPlayer : MonoBehaviour {
 
     int currentSound = 0;
 
+
+    public float crossfadeRange = 0.1f;
+
+    public BezierSpline myPath;
+    [HideInInspector]
+    public bool selected = false;
+    private Vector3 startPos;
+
+
     [HideInInspector]
     public Rigidbody rb;
     Renderer rend;
+
+
+    Rigidbody fingerRb;
+    private Vector3 vel = new Vector3(0, 0, 0);
+    Vector3 preVel = new Vector3(0, 0, 0);
+
     [System.Serializable]
     public class TestProperties
     {
@@ -36,12 +51,17 @@ public class SurfaceAudioPlayer : MonoBehaviour {
         public float distToPath;
         public float pathWidth = 1;
         public float pathLength;
+        public float pathModifier;
 
         float error;
         float errorintervalElapsedTime;
         float errorElapsedTime;
         public float normalizedError;
         private float errorIntervalAmounts;
+
+        public int pathType;
+        public DataLogged data;
+        public PathIterator.TestType curTestType;
 
         public void LogAccuracy()
         {
@@ -51,18 +71,17 @@ public class SurfaceAudioPlayer : MonoBehaviour {
             {
                 accuracy += distToPath;
                 intervalAmounts++;
-                //elapsedTime = 0;
             }
             
             normalizedAccuracy = accuracy / intervalAmounts;
-
-            if(distToPath > pathWidth)
-            {
-                LogError();
-            }
+            data.accuracy = normalizedAccuracy;
+            data.elapsedTime = elapsedTime;
+            data.ID = Mathf.Log(((2*pathLength) / pathWidth)+1,2);
+            data.pathType = pathType;
+            data.testCondiction = (int)curTestType;
         }
 
-      
+
         public void LogError()
         {
             errorintervalElapsedTime += Time.deltaTime;
@@ -108,8 +127,6 @@ public class SurfaceAudioPlayer : MonoBehaviour {
         RandomizePositionAndThreshold();
 	}
 
-    public float crossfadeRange = 0.1f;
-
     public void RandomizePositionAndThreshold()
     {
         changeThreshold = Random.Range(-0.80f, 0.80f);
@@ -127,10 +144,6 @@ public class SurfaceAudioPlayer : MonoBehaviour {
     }
 
 
-    public BezierSpline myPath;
-    [HideInInspector]
-    public bool selected = false;
-
     public void CrossFadeAudio()
     {
         if (!locked)
@@ -145,17 +158,16 @@ public class SurfaceAudioPlayer : MonoBehaviour {
             }
         }
     }
-
-    private Vector3 startPos;
+    
     void PathCrossFade()
     {
-        Vector3 nearestPointOnSpline = myPath.GetNearestPoint(transform.position, 0.01f);
+        Vector3 nearestPointOnSpline = myPath.GetNearestPoint(transform.position, 0.001f);
 
 
-        ChangeColor(new Color(1,1,1) * ((1- Vector3.Distance(transform.position, nearestPointOnSpline)*5 * testProperties.pathWidth)));
+        ChangeColor(new Color(1,1,1) * ((1- Vector3.Distance(transform.position, nearestPointOnSpline)*10 /testProperties.pathWidth)));
 
 
-        testProperties.distToPath = Vector3.Distance(transform.localPosition, transform.parent.InverseTransformPoint(nearestPointOnSpline))*5* testProperties.pathWidth;
+        testProperties.distToPath = Vector3.Distance(transform.localPosition, transform.parent.InverseTransformPoint(nearestPointOnSpline))*10/ testProperties.pathWidth;
 
         aSource[1].volume = 1 * testProperties.distToPath; 
         aSource[0].volume = 1 * (1- testProperties.distToPath);
@@ -166,21 +178,47 @@ public class SurfaceAudioPlayer : MonoBehaviour {
             //RotateTowardsDirection();
             testProperties.LogAccuracy();
         }
-        //testProperties.distToEnd = Vector3.Distance(transform.position, myPath.transform.TransformPoint(myPath.GetControlPoint(myPath.ControlPointCount - 1)));
+        Vector3 endPoint = myPath.GetPoint(1 * testProperties.pathModifier);
+        testProperties.distToEnd =Vector3.Distance(transform.position, endPoint);
 
-        testProperties.distToEnd =Vector3.Distance(transform.position, myPath.GetPoint(1 * testProperties.pathLength));
-
-        //Debug.DrawLine(transform.position, myPath.GetPoint(1*testProperties.pathLength));
-        //Debug.Log(Vector3.Distance(transform.position, myPath.GetPoint(1 * testProperties.pathLength)));
-        if (testProperties.distToEnd < testProperties.endThreshold)
+        if (testProperties.distToEnd < testProperties.endThreshold || transform.localPosition.x > endPoint.x)
         {
             Debug.Log("Task Complete");
             Lock();
-            ExecuteEvents.Execute<ICustomMessageTarget>(DataLogger.Instance.gameObject, null, (x, y) => x.LogData(this, (int)curTestType));
+            ExecuteEvents.Execute<ICustomMessageTarget>(DataLogger.Instance.gameObject, null, (x, y) => x.LogData(testProperties.data));
             ResetCube();
-           //Lock Box
         }
 
+        if(testProperties.distToPath > 1)
+        {
+            Debug.Log("Error Logged");
+            Lock();
+            testProperties.data.accuracy = -1;
+            testProperties.data.elapsedTime = -1;
+            ExecuteEvents.Execute<ICustomMessageTarget>(DataLogger.Instance.gameObject, null, (x, y) => x.LogData(testProperties.data));
+            ResetCube();
+        }
+
+    }
+
+    public struct DataLogged
+    {
+        public int pathType;
+        public float pathWidth;
+        public float ID;
+        public float elapsedTime;
+        public float accuracy;
+        public int testCondiction;
+        
+        public string GetData()
+        {
+            return pathType.ToString() + "\t" + ID.ToString() + "\t" + accuracy.ToString() + "\t" + elapsedTime.ToString();
+        }
+
+        public string GetError()
+        {
+            return pathType.ToString() + "\t" + ID.ToString() + "\t" + testCondiction.ToString();
+        }
     }
    
     void RotateTowardsDirection()
@@ -233,11 +271,6 @@ public class SurfaceAudioPlayer : MonoBehaviour {
         }
     }
 
-    Rigidbody fingerRb;
-    private Vector3 vel = new Vector3(0,0,0);
-    Vector3 preVel = new Vector3(0, 0, 0);
-
-    public PathIterator.TestType curTestType;
 
     void OnCollisionStay(Collision other)
     {
@@ -286,7 +319,7 @@ public class SurfaceAudioPlayer : MonoBehaviour {
 
     public void UnMute()
     {
-        if (curTestType != PathIterator.TestType.Visual)
+        if (testProperties.curTestType != PathIterator.TestType.Visual)
         {
             aSource[0].mute = false;
             aSource[1].mute = false;
