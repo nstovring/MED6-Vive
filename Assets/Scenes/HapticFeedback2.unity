@@ -243,6 +243,7 @@ MonoBehaviour:
     distToEnd: 0
     distToPath: 0
     pathWidth: 1
+    pathLength: 0
     normalizedError: 0
   crossfadeRange: 0.1
   myPath: {fileID: 1072673903}
@@ -716,7 +717,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &244396387
 Transform:
   m_ObjectHideFlags: 0
@@ -759,6 +760,8 @@ MonoBehaviour:
   loop: 0
   drawGizmos: 1
   pathWidth: 0.2
+  pathLengthModifier: 1
+  pathColour: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &248457252
 GameObject:
   m_ObjectHideFlags: 0
@@ -876,6 +879,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 35560904}
   pathIterator: {fileID: 417912104}
+  testAmount: 0
   testProgression: 0
 --- !u!1 &297355160
 GameObject:
@@ -1258,6 +1262,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   paths:
   - {fileID: 1969117883}
+  - {fileID: 244396388}
   - {fileID: 2051082464}
   surfAudioPlayer: {fileID: 959780554}
   myTestType: 0
@@ -3966,6 +3971,7 @@ MonoBehaviour:
     distToEnd: 0
     distToPath: 0
     pathWidth: 1
+    pathLength: 0
     normalizedError: 0
   crossfadeRange: 0.1
   myPath: {fileID: 1969117883}
@@ -4195,6 +4201,8 @@ MonoBehaviour:
   loop: 0
   drawGizmos: 1
   pathWidth: 0.5
+  pathLengthModifier: 1
+  pathColour: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &1081658342
 GameObject:
   m_ObjectHideFlags: 0
@@ -4334,6 +4342,8 @@ MonoBehaviour:
   loop: 0
   drawGizmos: 1
   pathWidth: 0.5
+  pathLengthModifier: 1
+  pathColour: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &1234270528
 GameObject:
   m_ObjectHideFlags: 0
@@ -5087,6 +5097,8 @@ MonoBehaviour:
   loop: 0
   drawGizmos: 1
   pathWidth: -0.45
+  pathLengthModifier: 1
+  pathColour: {r: 1, g: 0, b: 0, a: 1}
 --- !u!4 &1969117884
 Transform:
   m_ObjectHideFlags: 0
@@ -6747,3 +6759,5 @@ MonoBehaviour:
   loop: 0
   drawGizmos: 1
   pathWidth: 0.11
+  pathLengthModifier: 1
+  pathColour: {r: 1, g: 0, b: 0, a: 1}

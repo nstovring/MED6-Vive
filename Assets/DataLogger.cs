@@ -46,28 +46,61 @@ public class DataLogger : MonoBehaviour, ICustomMessageTarget
         taskVariablesTactile = new List<TaskVariables>();
         taskVariablesBoth = new List<TaskVariables>();
 
-        for (int i = 0; i < testAmount; i++)
+
+        for (int i = 0; i < testTypes.Length; i++)
         {
-            TaskVariables tmp;
-            tmp.pathLength = (pathLengthTypes[i % pathLengthTypes.Length]);
-            tmp.pathWidth = (pathWidthTypes[i % pathWidthTypes.Length]);
-            tmp.pathType = (pathShapeTypes[i % pathShapeTypes.Length]);
-            tmp.testCondition = (testTypes[i % testTypes.Length]);
-
-            switch (tmp.testCondition)
+            for (int j = 0; j < pathShapeTypes.Length; j++)
             {
-                case 0:
-                    taskVariablesVisual.Add(tmp);
-                    break;
-                case 1:
-                    taskVariablesTactile.Add(tmp);
-                    break;
-                case 2:
-                    taskVariablesBoth.Add(tmp);
-                    break;
-            }
+                for (int k = 0; k < pathLengthTypes.Length; k++)
+                {
+                    for (int l  = 0; l < pathWidthTypes.Length; l++)
+                    {
+                        TaskVariables tmp;
+                        tmp.pathLength = (pathLengthTypes[k]);
+                        tmp.pathWidth = (pathWidthTypes[l ]);
+                        tmp.pathType = (pathShapeTypes[j]);
+                        tmp.testCondition = (testTypes[i]);
 
+                        switch (tmp.testCondition)
+                        {
+                            case 0:
+                                taskVariablesVisual.Add(tmp);
+                                break;
+                            case 1:
+                                taskVariablesTactile.Add(tmp);
+                                break;
+                            case 2:
+                                taskVariablesBoth.Add(tmp);
+                                break;
+                        }
+                    }
+                }
+            }
         }
+
+
+        //for (int i = 0; i < testAmount; i++)
+        //{
+        //    TaskVariables tmp;
+        //    tmp.pathLength = (pathLengthTypes[i % pathLengthTypes.Length]);
+        //    tmp.pathWidth = (pathWidthTypes[i % pathWidthTypes.Length]);
+        //    tmp.pathType = (pathShapeTypes[i % pathShapeTypes.Length]);
+        //    tmp.testCondition = (testTypes[i % testTypes.Length]);
+
+        //    switch (tmp.testCondition)
+        //    {
+        //        case 0:
+        //            taskVariablesVisual.Add(tmp);
+        //            break;
+        //        case 1:
+        //            taskVariablesTactile.Add(tmp);
+        //            break;
+        //        case 2:
+        //            taskVariablesBoth.Add(tmp);
+        //            break;
+        //    }
+
+        //}
 
         Debug.Log(taskVariablesVisual.Count);
         Debug.Log(taskVariablesTactile.Count);
