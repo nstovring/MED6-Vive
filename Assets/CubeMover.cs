@@ -15,9 +15,10 @@ public class CubeMover : MonoBehaviour {
 	void Update () {
       
 	}
-
+    Vector3 mouseOffset;
     public void SelectCube()
     {
+
         if (enabled)
         {
             RaycastHit hit;
@@ -29,6 +30,7 @@ public class CubeMover : MonoBehaviour {
                     if (Input.GetMouseButtonDown(0))
                     {
                         selectedCube = hit.transform.GetComponent<SurfaceAudioPlayer>();
+                        mouseOffset = selectedCube.transform.localPosition - selectedCube.transform.parent.transform.InverseTransformPoint(new Vector3(0,hit.point.y, hit.point.z)) ;
                     }
                 }
                 else if (selectedCube != null)
@@ -46,7 +48,7 @@ public class CubeMover : MonoBehaviour {
                 selectedCube.UnMute();
                 selectedCube.selected = true;
 
-                selectedCube.transform.localPosition = new Vector3(selectedCube.transform.localPosition.x, mouseposition.y, mouseposition.z);
+                selectedCube.transform.localPosition = new Vector3(selectedCube.transform.localPosition.x, mouseposition.y + mouseOffset.y, mouseposition.z+ mouseOffset.z);
                 if (Input.GetMouseButtonUp(0))
                 {
                     selectedCube.Mute();

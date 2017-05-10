@@ -275,19 +275,46 @@ public class DataLogger : MonoBehaviour, ICustomMessageTarget
 
         for (int i = 0; i < ListInList.Count; i++)
         {
-            List<SurfaceAudioPlayer.DataLogged> loggedDataVisual1 = ListInList[i].GetRange(0, 9);
-            List<SurfaceAudioPlayer.DataLogged> loggedDataVisual2 = ListInList[i].GetRange(9, 9);
-            List<SurfaceAudioPlayer.DataLogged> loggedDataVisual3 = ListInList[i].GetRange(18, 9);
+            List<List<SurfaceAudioPlayer.DataLogged>> ListInListtemp = new List<List<SurfaceAudioPlayer.DataLogged>>();
+            List<SurfaceAudioPlayer.DataLogged> loggedDataTemp1 = new List<SurfaceAudioPlayer.DataLogged>();
+            List<SurfaceAudioPlayer.DataLogged> loggedDataTemp2 = new List<SurfaceAudioPlayer.DataLogged>();
+            List<SurfaceAudioPlayer.DataLogged> loggedDataTemp3 = new List<SurfaceAudioPlayer.DataLogged>();
 
-            loggedDataVisual1 = loggedDataVisual1.OrderBy(x => x.ID).ToList();
-            loggedDataVisual2 = loggedDataVisual2.OrderBy(x => x.ID).ToList();
-            loggedDataVisual3 = loggedDataVisual3.OrderBy(x => x.ID).ToList();
+            ListInListtemp.Add(loggedDataTemp1);
+            ListInListtemp.Add(loggedDataTemp2);
+            ListInListtemp.Add(loggedDataTemp3);
+
+            //Foreach list in list split into three seperate lists and order by ID
+            List<SurfaceAudioPlayer.DataLogged> tempData = ListInList[i];
+            int arrayIncrement = 0;
+                
+            for (int k = 0; k < ListInListtemp.Count; k++)
+            {
+                for (int j = 0; j < tempData.Count/3; j++)
+                {
+                    ListInListtemp[k].Add(tempData[arrayIncrement]);
+                    arrayIncrement++;
+                }
+            }
+
+            ListInListtemp[0].CopyTo(loggedDataTemp1.ToArray());
+            ListInListtemp[1].CopyTo(loggedDataTemp1.ToArray());
+            ListInListtemp[2].CopyTo(loggedDataTemp1.ToArray());
+
+            for (int j  = 0; j < loggedDataTemp1.Count; j++)
+            {
+                Debug.Log(loggedDataTemp1[j].pathType);
+            }
+
+            loggedDataTemp1 = loggedDataTemp1.OrderBy(x => x.ID).ToList();
+            loggedDataTemp2 = loggedDataTemp2.OrderBy(x => x.ID).ToList();
+            loggedDataTemp3 = loggedDataTemp3.OrderBy(x => x.ID).ToList();
 
 
             ListInList[i] = new List<SurfaceAudioPlayer.DataLogged>();
-            ListInList[i].AddRange(loggedDataVisual1);
-            ListInList[i].AddRange(loggedDataVisual2);
-            ListInList[i].AddRange(loggedDataVisual3);
+            ListInList[i].AddRange(loggedDataTemp1);
+            ListInList[i].AddRange(loggedDataTemp2);
+            ListInList[i].AddRange(loggedDataTemp3);
         }
         loggedData = new List<SurfaceAudioPlayer.DataLogged>();
 
@@ -297,6 +324,21 @@ public class DataLogger : MonoBehaviour, ICustomMessageTarget
         }
     }
 
+    [MenuItem("Test Menu/Add Dummy Data")]
+    static void DummyData()
+    {
+        for (int i = 0; i < 81; i++)
+        {
+            TaskVariables task = DataLogger.Instance.taskVariables[i];
+            SurfaceAudioPlayer.DataLogged dum = new SurfaceAudioPlayer.DataLogged();
+            dum.accuracy = -1;
+            dum.pathType = task.pathType;
+            dum.ID = UnityEngine.Random.Range(1f, 6f);
+            dum.elapsedTime = UnityEngine.Random.Range(0f, 11f);
+            dum.testCondiction = task.testCondition;
+            DataLogger.Instance.loggedDataVisual.Add(dum);
+        }
+    }
     void WriteDataToFile()
     {
         for (int i = 0; i < loggedData.Count; i++)
