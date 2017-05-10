@@ -67,7 +67,7 @@ public class PathIterator : MonoBehaviour {
         currentPath.transform.gameObject.SetActive(false);
         currentPath = paths[testVariables.pathType];
         currentPath.transform.gameObject.SetActive(true);
-
+        surfAudioPlayer.testProperties.data.logThisData = testVariables.logThisData;
         //surfAudioPlayer.ResetCube();
         surfAudioPlayer.myPath = currentPath;
         SetPathWidth(testVariables.pathWidth);

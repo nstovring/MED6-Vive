@@ -163,14 +163,14 @@ public class SurfaceAudioPlayer : MonoBehaviour {
     {
         Vector3 nearestPointOnSpline = myPath.GetNearestPoint(transform.position, 0.001f);
 
-
+        if(testProperties.curTestType != PathIterator.TestType.VibroTactile)
         ChangeColor(new Color(1,1,1) * ((1- Vector3.Distance(transform.position, nearestPointOnSpline)*10 /testProperties.pathWidth)));
 
 
         testProperties.distToPath = Vector3.Distance(transform.localPosition, transform.parent.InverseTransformPoint(nearestPointOnSpline))*10/ testProperties.pathWidth;
 
-        aSource[1].volume = 1 * testProperties.distToPath; 
-        aSource[0].volume = 1 * (1- testProperties.distToPath);
+        aSource[0].volume = 1 * testProperties.distToPath; 
+        aSource[1].volume = 1 * (1- testProperties.distToPath);
 
         
         if((fingerRb != null || selected))
@@ -181,26 +181,43 @@ public class SurfaceAudioPlayer : MonoBehaviour {
         Vector3 endPoint = myPath.GetPoint(1 * testProperties.pathModifier);
         testProperties.distToEnd =Vector3.Distance(transform.position, endPoint);
 
-        if (testProperties.distToEnd < testProperties.endThreshold || transform.localPosition.x > endPoint.x)
+        if ((testProperties.distToEnd < testProperties.endThreshold ))
         {
             Debug.Log("Task Complete");
             Lock();
-            ExecuteEvents.Execute<ICustomMessageTarget>(DataLogger.Instance.gameObject, null, (x, y) => x.LogData(testProperties.data));
+            if (testProperties.data.logThisData)
+            {
+                Debug.Log("Logging Get New path");
+                ExecuteEvents.Execute<ICustomMessageTarget>(DataLogger.Instance.gameObject, null, (x, y) => x.LogData(testProperties.data));
+            }
+            else
+            {
+                Debug.Log("Not Logging Get New path");
+                ExecuteEvents.Execute<ICustomMessageTarget>(DataLogger.Instance.gameObject, null, (x, y) => x.GetRandomNewPath());
+            }
             ResetCube();
         }
 
         if(testProperties.distToPath > 1)
         {
-            Debug.Log("Error Logged");
             Lock();
             testProperties.data.accuracy = -1;
             testProperties.data.elapsedTime = -1;
-            ExecuteEvents.Execute<ICustomMessageTarget>(DataLogger.Instance.gameObject, null, (x, y) => x.LogData(testProperties.data));
+            if (testProperties.data.logThisData)
+            {
+                Debug.Log("Error Logged");
+                ExecuteEvents.Execute<ICustomMessageTarget>(DataLogger.Instance.gameObject, null, (x, y) => x.LogData(testProperties.data));
+            }
+            else
+            {
+                Debug.Log("Not Logging Get New path");
+                ExecuteEvents.Execute<ICustomMessageTarget>(DataLogger.Instance.gameObject, null, (x, y) => x.GetRandomNewPath());
+            }
             ResetCube();
         }
 
     }
-
+    [System.Serializable]
     public struct DataLogged
     {
         public int pathType;
@@ -209,7 +226,7 @@ public class SurfaceAudioPlayer : MonoBehaviour {
         public float elapsedTime;
         public float accuracy;
         public int testCondiction;
-        
+        public bool logThisData;
         public string GetData()
         {
             return pathType.ToString() + "\t" + ID.ToString() + "\t" + accuracy.ToString() + "\t" + elapsedTime.ToString();

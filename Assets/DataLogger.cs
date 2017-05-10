@@ -39,7 +39,6 @@ public class DataLogger : MonoBehaviour, ICustomMessageTarget
 
     public void Initialize()
     {
-
         Instance = this;
 
         testAmount = testTypes.Length * pathShapeTypes.Length * pathLengthTypes.Length * pathWidthTypes.Length;
@@ -65,6 +64,7 @@ public class DataLogger : MonoBehaviour, ICustomMessageTarget
                         tmp.pathWidth = (pathWidthTypes[l ]);
                         tmp.pathType = (pathShapeTypes[j]);
                         tmp.testCondition = (testTypes[i]);
+                        tmp.logThisData = true;
 
                         switch (tmp.testCondition)
                         {
@@ -82,8 +82,8 @@ public class DataLogger : MonoBehaviour, ICustomMessageTarget
                 }
             }
         }
-
-
+        taskVariables = new List<TaskVariables>();
+        AddOrderedTests();
         RandomizeTest();
         //AddOrderedTests();
         foreach (var item in fileNames)
@@ -107,11 +107,12 @@ public class DataLogger : MonoBehaviour, ICustomMessageTarget
         public int pathType;
         public float pathWidth;
         public float pathLength;
+        public bool logThisData;
     }
 
     public void RandomizeTest()
     {
-        taskVariables = new List<TaskVariables>();
+      
         List<List<TaskVariables>> listOfLists = new List<List<TaskVariables>>();
         taskVariablesVisual = RandomizeList(taskVariablesVisual);
         taskVariablesTactile = RandomizeList(taskVariablesTactile);
@@ -125,7 +126,6 @@ public class DataLogger : MonoBehaviour, ICustomMessageTarget
             int rng = UnityEngine.Random.Range(0, listOfLists.Count - 1);
 
             List<TaskVariables> testTypetemp = listOfLists[rng];
-
             listOfLists[rng] = listOfLists[i];
             listOfLists[i] = testTypetemp;
         }
@@ -133,6 +133,35 @@ public class DataLogger : MonoBehaviour, ICustomMessageTarget
         for (int i = 0; i < listOfLists.Count; i++)
         {
             taskVariables.AddRange(listOfLists[i]);
+        }
+    }
+
+    void AddOrderedTests()
+    {
+        float[] pathWidthTypesPre = { 0.25f, 0.66f, 1f};
+        float[] pathLengthTypesPre = {1f};
+        int[] pathShapeTypesPre = {0, 1, 2};
+        int[] testTypesPre = { 0, 1, 2 };
+
+
+        for (int i = 0; i < testTypesPre.Length; i++)
+        {
+            for (int j = 0; j < pathShapeTypesPre.Length; j++)
+            {
+                for (int k = 0; k < pathLengthTypesPre.Length; k++)
+                {
+                    for (int l = 0; l < pathWidthTypesPre.Length; l++)
+                    {
+                        TaskVariables tmp;
+                        tmp.pathLength = (pathLengthTypesPre[k]);
+                        tmp.pathWidth = (pathWidthTypesPre[l]);
+                        tmp.pathType = (pathShapeTypesPre[j]);
+                        tmp.testCondition = (testTypesPre[i]);
+                        tmp.logThisData = false;
+                        taskVariables.Add(tmp);
+                    }
+                }
+            }
         }
     }
 
@@ -390,7 +419,7 @@ public class DataLogger : MonoBehaviour, ICustomMessageTarget
     public void GetRandomNewPath()
     {
         testProgression++;
-        if (testProgression > testAmount-1)
+        if (testProgression > taskVariables.Count-1)
         {
             Debug.Log("Test Complete");
             ResetTest();
@@ -402,6 +431,8 @@ public class DataLogger : MonoBehaviour, ICustomMessageTarget
     public void ResetTest()
     {
         testProgression = 0;
+        EditorApplication.isPlaying = false;
+        Application.Quit();
     }
 
     public void LogData(SurfaceAudioPlayer cube, int testType)
