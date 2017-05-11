@@ -272,13 +272,10 @@ public class BezierSpline : MonoBehaviour {
     public Vector3 GetNearestPoint(Vector3 pos, float stepLength)
     {
         int steps = 1;
-        //float stepLength = stepLength;
-        float splineLengthInternal = 0;
         Vector3 currentClosestVector = Vector3.zero;
         float currentSmallestDist = 5;
         for (float i = 0; i < steps; i += stepLength)
         {
-            //splineLengthInternal += Vector3.Distance(GetPoint(i), GetPoint((i + stepLength)));
             Vector3 point = GetPoint(i);
             if ((point - pos).y < 5 && (point - pos).y > -5)
             {
@@ -293,15 +290,6 @@ public class BezierSpline : MonoBehaviour {
                         break;
                     }
                 }
-                //if (Vector3.Distance(pos, point) < currentSmallestDist)
-                //{
-                //    currentSmallestDist = Vector3.Distance(pos, point);
-                //    currentClosestVector = point;
-                //    if (Vector3.Distance(pos, point) > currentSmallestDist)
-                //    {
-                //        break;
-                //    }
-                //}
             }
         }
         return currentClosestVector;
@@ -309,14 +297,11 @@ public class BezierSpline : MonoBehaviour {
     public Vector3 GetNearestDirection(Vector3 pos, float stepLength)
     {
         int steps = 1;
-        //float stepLength = stepLength;
-        float splineLengthInternal = 0;
         Vector3 currentClosestVector = Vector3.zero;
         Vector3 closestDirection = Vector3.zero;
         float currentSmallestDist = 5;
         for (float i = 0; i < steps; i += stepLength)
         {
-            //splineLengthInternal += Vector3.Distance(GetPoint(i), GetPoint((i + stepLength)));
             Vector3 point = GetPoint(i);
             if ((point - pos).y < 5 && (point - pos).y > -5)
             {
@@ -342,15 +327,12 @@ public class BezierSpline : MonoBehaviour {
     public Color pathColour = new Color(1, 0, 0, 1);
     void OnDrawGizmos()
     {
-        if (drawGizmos)
-        {
-            int steps = 100 * ControlPointCount;
-            //float stepLength = stepLength;
             Vector3 currentClosestVector = Vector3.zero;
             float stepLength = 0.001f;
-
+            float fillAmount = 0.5f;
             for (float i = 0; i < 1* pathLengthModifier; i += stepLength)
             {
+            
                 Gizmos.color = pathColour;
                 Vector3 point1 = GetPoint(i);
                 //Gizmos.DrawWireSphere(point1, pathWidth);
@@ -366,13 +348,13 @@ public class BezierSpline : MonoBehaviour {
                 Quaternion perpDir = Quaternion.Euler(new Vector3(90, 0, 0));
                 dir1 = (perpDir * dir1).normalized;
                 dir2 = (perpDir * dir2).normalized;
-                point1 += dir1 * pathWidth*0.5f;
-                point2 += dir2 * pathWidth*0.5f;
+                point1 += dir1 * pathWidth * fillAmount;
+                point2 += dir2 * pathWidth * fillAmount;
                 Gizmos.DrawLine(point1, point2);
                 point1 -= dir1 * pathWidth;
                 point2 -= dir2 * pathWidth;
                 Gizmos.DrawLine(point1, point2);
+               
             }
-        }
     }
 }

@@ -8,7 +8,7 @@ public class PathIterator : MonoBehaviour {
     public SurfaceAudioPlayer surfAudioPlayer;
     int pathIteration = 0;
 
-    public enum TestType { Visual, VibroTactile, Both};
+    public enum TestType { Visual, VibroTactile_left, VibroTactile_right};
 
     public TestType myTestType = TestType.Visual;
 
@@ -69,9 +69,14 @@ public class PathIterator : MonoBehaviour {
         currentPath.transform.gameObject.SetActive(true);
         surfAudioPlayer.testProperties.data.logThisData = testVariables.logThisData;
         //surfAudioPlayer.ResetCube();
+
+
         surfAudioPlayer.myPath = currentPath;
         SetPathWidth(testVariables.pathWidth);
         SetPathLength(testVariables.pathLength, testVariables.pathType);
+
+        currentPath.GetComponent<BezierFiller>().UpdatePath();
+
     }
     public void SwitchTestType(TestType _myTestType)
     {
@@ -82,11 +87,11 @@ public class PathIterator : MonoBehaviour {
                 SetVisuals(true);
                 SetVibroTactileRespone(false);
                 break;
-            case TestType.VibroTactile:
-                SetVisuals(false);
+            case TestType.VibroTactile_left:
+                SetVisuals(true);
                 SetVibroTactileRespone(true);
                 break;
-            case TestType.Both:
+            case TestType.VibroTactile_right:
                 SetVisuals(true);
                 SetVibroTactileRespone(true);
                 break;

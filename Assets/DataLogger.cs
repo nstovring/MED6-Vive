@@ -10,10 +10,10 @@ using System.Linq;
 public class DataLogger : MonoBehaviour, ICustomMessageTarget
 {
 
+    public SurfaceAudioPlayer cube;
     public List<SurfaceAudioPlayer> cubes;
-
     static string fileName = "MyFile.txt";
-    public static string[] fileNames = { "Visual", "VibroTactile", "Vibro-Visual" };
+    public static string[] fileNames = { "Visual", "Vibro-Visual_Right", "Vibro-Visual_Left" };
     public static string[] pathNames = { "Straight", "Curved", "Very Curved" };
 
     static int testCount = 0;
@@ -30,8 +30,8 @@ public class DataLogger : MonoBehaviour, ICustomMessageTarget
 
 
     List<TaskVariables> taskVariablesVisual;
-    List<TaskVariables> taskVariablesTactile;
-    List<TaskVariables> taskVariablesBoth;
+    List<TaskVariables> taskVariablesBoth_Right;
+    List<TaskVariables> taskVariablesBoth_Left;
     // Use this for initialization
     void Start () {
        
@@ -44,12 +44,12 @@ public class DataLogger : MonoBehaviour, ICustomMessageTarget
         testAmount = testTypes.Length * pathShapeTypes.Length * pathLengthTypes.Length * pathWidthTypes.Length;
 
         taskVariablesVisual = new List<TaskVariables>();
-        taskVariablesTactile = new List<TaskVariables>();
-        taskVariablesBoth = new List<TaskVariables>();
+        taskVariablesBoth_Right = new List<TaskVariables>();
+        taskVariablesBoth_Left = new List<TaskVariables>();
         loggedData = new List<SurfaceAudioPlayer.DataLogged>();
         loggedDataVisual = new List<SurfaceAudioPlayer.DataLogged>();
-        loggedDataVibrate = new List<SurfaceAudioPlayer.DataLogged>();
-        loggedDataVibro_Tactile = new List<SurfaceAudioPlayer.DataLogged>();
+        loggedDataVibro_Tactile_Right = new List<SurfaceAudioPlayer.DataLogged>();
+        loggedDataVibro_Tactile_Left = new List<SurfaceAudioPlayer.DataLogged>();
 
         for (int i = 0; i < testTypes.Length; i++)
         {
@@ -61,7 +61,7 @@ public class DataLogger : MonoBehaviour, ICustomMessageTarget
                     {
                         TaskVariables tmp;
                         tmp.pathLength = (pathLengthTypes[k]);
-                        tmp.pathWidth = (pathWidthTypes[l ]);
+                        tmp.pathWidth = (pathWidthTypes[l]);
                         tmp.pathType = (pathShapeTypes[j]);
                         tmp.testCondition = (testTypes[i]);
                         tmp.logThisData = true;
@@ -72,10 +72,10 @@ public class DataLogger : MonoBehaviour, ICustomMessageTarget
                                 taskVariablesVisual.Add(tmp);
                                 break;
                             case 1:
-                                taskVariablesTactile.Add(tmp);
+                                taskVariablesBoth_Right.Add(tmp);
                                 break;
                             case 2:
-                                taskVariablesBoth.Add(tmp);
+                                taskVariablesBoth_Left.Add(tmp);
                                 break;
                         }
                     }
@@ -85,7 +85,6 @@ public class DataLogger : MonoBehaviour, ICustomMessageTarget
         taskVariables = new List<TaskVariables>();
         AddOrderedTests();
         RandomizeTest();
-        //AddOrderedTests();
         foreach (var item in fileNames)
         {
             if (File.Exists(item+"_Results.txt"))
@@ -115,11 +114,11 @@ public class DataLogger : MonoBehaviour, ICustomMessageTarget
       
         List<List<TaskVariables>> listOfLists = new List<List<TaskVariables>>();
         taskVariablesVisual = RandomizeList(taskVariablesVisual);
-        taskVariablesTactile = RandomizeList(taskVariablesTactile);
-        taskVariablesBoth = RandomizeList(taskVariablesBoth);
+        taskVariablesBoth_Right = RandomizeList(taskVariablesBoth_Right);
+        taskVariablesBoth_Left = RandomizeList(taskVariablesBoth_Left);
         listOfLists.Add(taskVariablesVisual);
-        listOfLists.Add(taskVariablesTactile);
-        listOfLists.Add(taskVariablesBoth);
+        listOfLists.Add(taskVariablesBoth_Right);
+        listOfLists.Add(taskVariablesBoth_Left);
 
         for (int i = 0; i < listOfLists.Count; i++)
         {
@@ -266,8 +265,8 @@ public class DataLogger : MonoBehaviour, ICustomMessageTarget
 
     List<SurfaceAudioPlayer.DataLogged> loggedData;
     List<SurfaceAudioPlayer.DataLogged> loggedDataVisual;
-    List<SurfaceAudioPlayer.DataLogged> loggedDataVibrate;
-    List<SurfaceAudioPlayer.DataLogged> loggedDataVibro_Tactile;
+    List<SurfaceAudioPlayer.DataLogged> loggedDataVibro_Tactile_Right;
+    List<SurfaceAudioPlayer.DataLogged> loggedDataVibro_Tactile_Left;
 
     void LogDataPath(SurfaceAudioPlayer.DataLogged data)
     {
@@ -284,23 +283,23 @@ public class DataLogger : MonoBehaviour, ICustomMessageTarget
                     loggedDataVisual.Add(loggedData[i]);
                     break;
                 case 1:
-                    loggedDataVibrate.Add(loggedData[i]);
+                    loggedDataVibro_Tactile_Right.Add(loggedData[i]);
                     break;
                 case 2:
-                    loggedDataVibro_Tactile.Add(loggedData[i]);
+                    loggedDataVibro_Tactile_Left.Add(loggedData[i]);
                     break;
             }
         }
 
         loggedDataVisual = loggedDataVisual.OrderBy(x => x.pathType).ToList();
-        loggedDataVibrate = loggedDataVibrate.OrderBy(x => x.pathType).ToList();
-        loggedDataVibro_Tactile = loggedDataVibro_Tactile.OrderBy(x => x.pathType).ToList();
+        loggedDataVibro_Tactile_Right = loggedDataVibro_Tactile_Right.OrderBy(x => x.pathType).ToList();
+        loggedDataVibro_Tactile_Left = loggedDataVibro_Tactile_Left.OrderBy(x => x.pathType).ToList();
 
         List<List<SurfaceAudioPlayer.DataLogged>> ListInList = new List<List<SurfaceAudioPlayer.DataLogged>>();
 
         ListInList.Add(loggedDataVisual);
-        ListInList.Add(loggedDataVibrate);
-        ListInList.Add(loggedDataVibro_Tactile);
+        ListInList.Add(loggedDataVibro_Tactile_Right);
+        ListInList.Add(loggedDataVibro_Tactile_Left);
 
         for (int i = 0; i < ListInList.Count; i++)
         {
@@ -327,12 +326,11 @@ public class DataLogger : MonoBehaviour, ICustomMessageTarget
             }
 
             ListInListtemp[0].CopyTo(loggedDataTemp1.ToArray());
-            ListInListtemp[1].CopyTo(loggedDataTemp1.ToArray());
-            ListInListtemp[2].CopyTo(loggedDataTemp1.ToArray());
+            ListInListtemp[1].CopyTo(loggedDataTemp2.ToArray());
+            ListInListtemp[2].CopyTo(loggedDataTemp3.ToArray());
 
             for (int j  = 0; j < loggedDataTemp1.Count; j++)
             {
-                Debug.Log(loggedDataTemp1[j].pathType);
             }
 
             loggedDataTemp1 = loggedDataTemp1.OrderBy(x => x.ID).ToList();
@@ -356,9 +354,10 @@ public class DataLogger : MonoBehaviour, ICustomMessageTarget
     [MenuItem("Test Menu/Add Dummy Data")]
     static void DummyData()
     {
-        for (int i = 0; i < 81; i++)
+        List<TaskVariables> tempList =  DataLogger.Instance.taskVariables;
+        for (int i = tempList.Count/4; i < tempList.Count; i++)
         {
-            TaskVariables task = DataLogger.Instance.taskVariables[i];
+            TaskVariables task = tempList[i];
             SurfaceAudioPlayer.DataLogged dum = new SurfaceAudioPlayer.DataLogged();
             dum.accuracy = -1;
             dum.pathType = task.pathType;
@@ -440,7 +439,7 @@ public class DataLogger : MonoBehaviour, ICustomMessageTarget
         throw new NotImplementedException();
     }
 
-    void ICustomMessageTarget.LogData(SurfaceAudioPlayer.DataLogged cube)
+    public void LogData(SurfaceAudioPlayer.DataLogged cube)
     {
         LogDataPath(cube);
         GetRandomNewPath();

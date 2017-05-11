@@ -9,5 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/ClassRoom.unity
   - enabled: 0
     path: Assets/Scenes/Menu.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/HapticFeedback3.unity
+  - enabled: 1
+    path: Assets/Scenes/HapticFeedback2.unity
