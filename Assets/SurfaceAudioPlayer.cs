@@ -163,8 +163,8 @@ public class SurfaceAudioPlayer : MonoBehaviour {
     {
         Vector3 nearestPointOnSpline = myPath.GetNearestPoint(transform.position, 0.001f);
 
-        if(testProperties.curTestType != PathIterator.TestType.VibroTactile)
-        ChangeColor(new Color(1,1,1) * ((1- Vector3.Distance(transform.position, nearestPointOnSpline)*10 /testProperties.pathWidth)));
+        // if(testProperties.curTestType != PathIterator.TestType.VibroTactile)
+        //ChangeColor(new Color(1,1,1) * ((1- Vector3.Distance(transform.position, nearestPointOnSpline)*10 /testProperties.pathWidth)));
 
 
         testProperties.distToPath = Vector3.Distance(transform.localPosition, transform.parent.InverseTransformPoint(nearestPointOnSpline))*10/ testProperties.pathWidth;
@@ -175,7 +175,7 @@ public class SurfaceAudioPlayer : MonoBehaviour {
         
         if((fingerRb != null || selected))
         {
-            //RotateTowardsDirection();
+            RotateTowardsDirection();
             testProperties.LogAccuracy();
         }
         Vector3 endPoint = myPath.GetPoint(1 * testProperties.pathModifier);
@@ -183,17 +183,16 @@ public class SurfaceAudioPlayer : MonoBehaviour {
 
         if ((testProperties.distToEnd < testProperties.endThreshold ))
         {
-            Debug.Log("Task Complete");
             Lock();
             if (testProperties.data.logThisData)
             {
                 Debug.Log("Logging Get New path");
-                ExecuteEvents.Execute<ICustomMessageTarget>(DataLogger.Instance.gameObject, null, (x, y) => x.LogData(testProperties.data));
+                ExecuteEvents.Execute<ICustomMessageTarget>(TestController.Instance.gameObject, null, (x, y) => x.LogData(testProperties.data));
             }
             else
             {
                 Debug.Log("Not Logging Get New path");
-                ExecuteEvents.Execute<ICustomMessageTarget>(DataLogger.Instance.gameObject, null, (x, y) => x.GetRandomNewPath());
+                ExecuteEvents.Execute<ICustomMessageTarget>(TestController.Instance.gameObject, null, (x, y) => x.GetRandomNewPath());
             }
             ResetCube();
         }
@@ -206,12 +205,12 @@ public class SurfaceAudioPlayer : MonoBehaviour {
             if (testProperties.data.logThisData)
             {
                 Debug.Log("Error Logged");
-                ExecuteEvents.Execute<ICustomMessageTarget>(DataLogger.Instance.gameObject, null, (x, y) => x.LogData(testProperties.data));
+                ExecuteEvents.Execute<ICustomMessageTarget>(TestController.Instance.gameObject, null, (x, y) => x.LogData(testProperties.data));
             }
             else
             {
                 Debug.Log("Not Logging Get New path");
-                ExecuteEvents.Execute<ICustomMessageTarget>(DataLogger.Instance.gameObject, null, (x, y) => x.GetRandomNewPath());
+                ExecuteEvents.Execute<ICustomMessageTarget>(TestController.Instance.gameObject, null, (x, y) => x.GetRandomNewPath());
             }
             ResetCube();
         }
@@ -240,7 +239,7 @@ public class SurfaceAudioPlayer : MonoBehaviour {
    
     void RotateTowardsDirection()
     {
-        Vector3 directionOnSpline = myPath.GetNearestDirection(transform.position, 0.05f);
+        Vector3 directionOnSpline = myPath.GetNearestDirection(transform.position, 0.01f);
 
         Quaternion direction = Quaternion.LookRotation(directionOnSpline);
         transform.rotation = direction;
